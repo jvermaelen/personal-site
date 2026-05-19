@@ -1,37 +1,51 @@
-# vermaelen.dev — personal site
+# Jason Vermaelen — Personal Website & Portfolio
 
-Personal website for Jason Vermaelen — Senior BI Analyst. Built with Next.js on Vercel.
+This repository contains the source code and content for my personal website, plus documentation, project case studies, and LinkedIn post drafts organized for repeatability.
 
-## Stack
+## Quick Links
+- 🌐 **Live site:** [jasonvermaelen.com](https://jasonvermaelen.com) _(update once live)_
+- 📄 **How to contribute content:** [`docs/INSTRUCTIONS.md`](docs/INSTRUCTIONS.md)
+- ✍️ **Voice & style guide:** [`docs/VOICE.md`](docs/VOICE.md)
 
-- Next.js 15 (App Router)
-- TypeScript
-- Tailwind CSS v4
-- MDX for content
-- Vercel Analytics
-- Deployed on Vercel
+---
 
-## Structure
+## Repo Structure
 
 ```
-app/                    Next.js App Router routes
-components/             Reusable UI components
-content/
-  case-studies/         Case study MDX files
-  writing/              Blog post MDX files
-docs/
-  prd.md                Product requirements doc
-lib/                    Helpers (MDX loading, search index)
-public/                 Static assets
+/
+├── README.md                   ← You are here
+├── docs/
+│   ├── INSTRUCTIONS.md         ← Master guide for adding content, projects, copy
+│   ├── VOICE.md                ← Writing voice & tone guide
+│   └── HANDOFF.md              ← Tech stack/CMS handoff (coming from Claude Design)
+├── projects/
+│   ├── template/
+│   │   └── README.md           ← Template for every new project
+│   └── [project-slug]/         ← One folder per project (e.g., homemates-biz-plan)
+│       ├── README.md           ← Case study write-up
+│       ├── assets/             ← Charts, screenshots, exports
+│       └── linkedin-post.md    ← LinkedIn post draft for this project
+├── linkedin/
+│   └── post-archive.md         ← Running archive of all published LinkedIn posts
+└── [site source files]         ← CMS/framework files (structure TBD from handoff doc)
 ```
 
-## Local dev
+---
 
-```bash
-npm install
-npm run dev
-```
+## Workflow: Adding a New Project
 
-## Deployment
+1. Copy `projects/template/` → rename to `projects/[project-slug]/`
+2. Fill out the `README.md` inside using the case study template in `docs/INSTRUCTIONS.md`
+3. Drop any supporting assets into `assets/`
+4. Draft the LinkedIn post in `linkedin-post.md`
+5. Add the case study to the live site
+6. Publish the LinkedIn post and link to the site
+7. Commit and push everything together
 
-Auto-deploys to Vercel on push to `main`.
+---
+
+## About
+
+I'm a BI Analyst / BizOps / Product Manager based in Austin, TX. This site showcases my work and thinking, with a focus on landing roles at FAANG companies and high-growth startups (Series Seed–Series D).
+
+Built with 🤖 + ☕ in Austin.
