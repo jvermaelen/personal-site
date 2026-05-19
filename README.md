@@ -3,7 +3,7 @@
 This repository contains the source code and content for my personal website, plus documentation, project case studies, and LinkedIn post drafts organized for repeatability.
 
 ## Quick Links
-- 🌐 **Live site:** [jasonvermaelen.com](https://jasonvermaelen.com) _(update once live)_
+- 🌐 **Live site:** _TBD — domain not yet registered_
 - 📄 **How to contribute content:** [`docs/INSTRUCTIONS.md`](docs/INSTRUCTIONS.md)
 - ✍️ **Voice & style guide:** [`docs/VOICE.md`](docs/VOICE.md)
 
