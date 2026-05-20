@@ -19,9 +19,17 @@
       "countryCode": "US"
     },
     "profiles": [
-      { "network": "LinkedIn", "username": "vermaelen", "url": "https://linkedin.com/in/vermaelen" },
-      { "network": "GitHub",   "username": "jvermaelen", "url": "https://github.com/jvermaelen" },
-      { "network": "Cal.com",  "username": "jason-vermaelen", "url": "https://app.cal.com/jason-vermaelen" }
+      {
+        "network": "LinkedIn",
+        "username": "vermaelen",
+        "url": "https://linkedin.com/in/vermaelen"
+      },
+      { "network": "GitHub", "username": "jvermaelen", "url": "https://github.com/jvermaelen" },
+      {
+        "network": "Cal.com",
+        "username": "jason-vermaelen",
+        "url": "https://app.cal.com/jason-vermaelen"
+      }
     ]
   },
   "targetRoles": {
@@ -131,11 +139,26 @@
   "skills": [
     {
       "name": "Data & Analytics",
-      "keywords": ["SQL", "Snowflake", "Python", "Jupyter", "Metabase", "Salesforce CRM Analytics", "Tableau", "Excel"]
+      "keywords": [
+        "SQL",
+        "Snowflake",
+        "Python",
+        "Jupyter",
+        "Metabase",
+        "Salesforce CRM Analytics",
+        "Tableau",
+        "Excel"
+      ]
     },
     {
       "name": "Product & Strategy",
-      "keywords": ["GTM strategy", "Feature prioritization", "Cross-functional leadership", "Sales/CS enablement", "Performance analysis"]
+      "keywords": [
+        "GTM strategy",
+        "Feature prioritization",
+        "Cross-functional leadership",
+        "Sales/CS enablement",
+        "Performance analysis"
+      ]
     },
     {
       "name": "Business Frameworks",
@@ -153,9 +176,33 @@
     }
   ],
   "headlineMetrics": [
-    { "label": "employer↔jobseeker connections driven", "value": "2M+", "context": "GTM optimization on new product launch", "company": "Indeed", "year": 2023 },
-    { "label": "new clients in a 3-month promo", "value": "10K+", "context": "Sales/CS-led marketing promotion", "company": "Indeed", "year": 2023 },
-    { "label": "daily global users of a dashboard I led", "value": "100s", "context": "Salesforce CRM Analytics, Scaled Business Solutions", "company": "Indeed", "year": 2024 },
-    { "label": "hrs/yr returned via Salesforce automation", "value": "2K", "context": "Case assignment & resolution flows", "company": "Indeed", "year": 2024 }
+    {
+      "label": "employer↔jobseeker connections driven",
+      "value": "2M+",
+      "context": "GTM optimization on new product launch",
+      "company": "Indeed",
+      "year": 2023
+    },
+    {
+      "label": "new clients in a 3-month promo",
+      "value": "10K+",
+      "context": "Sales/CS-led marketing promotion",
+      "company": "Indeed",
+      "year": 2023
+    },
+    {
+      "label": "daily global users of a dashboard I led",
+      "value": "100s",
+      "context": "Salesforce CRM Analytics, Scaled Business Solutions",
+      "company": "Indeed",
+      "year": 2024
+    },
+    {
+      "label": "hrs/yr returned via Salesforce automation",
+      "value": "2K",
+      "context": "Case assignment & resolution flows",
+      "company": "Indeed",
+      "year": 2024
+    }
   ]
 }
