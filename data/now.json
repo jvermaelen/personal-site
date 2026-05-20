@@ -1,0 +1,67 @@
+{
+  "updated": "May 19, 2026",
+  "updatedISO": "2026-05-19",
+  "sections": [
+    {
+      "label": "/ work",
+      "body": "Senior BI Analyst at **Indeed**, on Salesforce CRM Analytics for Scaled Business Solutions. The big project this quarter is shipping a **v2 of the global dashboard** — same audience, faster queries, opinionated defaults. The \"right defaults\" debate has been more interesting than the rebuild."
+    },
+    {
+      "label": "/ direction",
+      "body": "Thinking about where to be most useful next — **Senior Analytics, BizOps, or Product-leaning roles** at Seed → Series D startups, AI-native companies, and FAANG. Teams where the data layer gets a seat in the launch meeting, not just the post-mortem. See [/about](/about) for the longer version."
+    },
+    {
+      "label": "/ learning",
+      "body": "Halfway through an **MS in Data Analytics** at WGU. Closing the two or three CS-shaped gaps in my analyst toolkit — algorithms, distributed systems, and a refresher on the linear-algebra bits I've been Googling for a decade. Slow, deliberate, not optimized for the credential."
+    },
+    {
+      "label": "/ training",
+      "body": "BJJ at **Paragon BJJ** in Austin, 3–4× a week. Black belt since 2020. Currently working on a half-guard sweep I keep messing up and a passing sequence my coach swore would \"just click.\" It mostly hasn't."
+    },
+    {
+      "label": "/ reading",
+      "body": "*The Hard Thing About Hard Things* (Horowitz) on the work side. *Children of Time* (Tchaikovsky) on the not-work side."
+    },
+    {
+      "label": "/ shipping",
+      "body": "This site is the active side project. Built with **Next.js + MDX + Vercel**, source on [GitHub](https://github.com/jvermaelen/personal-site). Most of the case studies are still in the writing pile — they'll land here as they're cleared for public sharing."
+    }
+  ],
+  "tracks": [
+    {
+      "title": "A Light at the End",
+      "artist": "The Beths · Expert in a Dying Field",
+      "when": "4m"
+    },
+    {
+      "title": "Funeral Singers",
+      "artist": "Califone · All My Friends Are Funeral Singers",
+      "when": "8m"
+    },
+    { "title": "Atomos VII", "artist": "A Winged Victory for the Sullen · Atomos", "when": "22m" },
+    { "title": "Black Eye", "artist": "Allie X · Girl With No Face", "when": "35m" },
+    { "title": "Why Won't They Talk to Me?", "artist": "Tame Impala · Lonerism", "when": "1h" }
+  ],
+  "currentlyReading": {
+    "title": "The Hard Thing About Hard Things",
+    "author": "Ben Horowitz · ~60% through"
+  },
+  "changelog": [
+    {
+      "when": "May 2026",
+      "what": "Site launch. New /now page. MS Data Analytics at WGU started in March. Half-guard sweep still not working."
+    },
+    {
+      "when": "Apr 2026",
+      "what": "Wrapping a Salesforce automation project at Indeed (~2K hrs/yr returned). Open to good conversations; long-term thinking about the next chapter."
+    },
+    {
+      "when": "Mar 2026",
+      "what": "Drafting case studies. Restarting jiu-jitsu after a minor shoulder issue. Reading Children of Time."
+    },
+    {
+      "when": "Feb 2026",
+      "what": "Inherited the global CRM Analytics dashboard as primary owner. Adoption clearing 80% by end of month."
+    }
+  ]
+}

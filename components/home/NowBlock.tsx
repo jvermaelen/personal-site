@@ -40,7 +40,7 @@ export function NowBlock() {
               read the full Now page <span>→</span>
             </Link>
           </div>
-          <div className="now-side">
+          <div className="now-block-side">
             <div className="stack">
               {SIDE_ITEMS.map((item) => (
                 <div key={item.k} className="item">
