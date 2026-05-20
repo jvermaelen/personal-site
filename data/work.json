@@ -1,0 +1,102 @@
+[
+  {
+    "slug": "salesforce-case-automation",
+    "title": "Salesforce case automation — returned ~2,000 hours/year to the team.",
+    "outcome": "Routing layer + auto-resolution for the common path. Replaced morning manual triage with **auditable, reversible automation** the team trusted by month two.",
+    "tags": ["bi", "automation"],
+    "pills": ["Indeed", "2024", "6 mo"],
+    "status": "coming-soon",
+    "cover": {
+      "kind": "line",
+      "label": "Fig 1 · Weekly hrs ↓ over rollout",
+      "kpi": { "value": "~2K", "small": "hrs/yr" },
+      "points": [[0, 8], [14, 10], [28, 9], [42, 18], [56, 28], [70, 36], [84, 42], [100, 44]]
+    }
+  },
+  {
+    "slug": "global-crm-analytics-dashboard",
+    "title": "Global Salesforce CRM Analytics dashboard for Scaled Business Solutions.",
+    "outcome": "Designed, built, launched, and ran the adoption rollout. **Daily-active by hundreds of users globally**. End-to-end ownership from spec to retro.",
+    "tags": ["bi", "product"],
+    "pills": ["Indeed", "2024", "8 mo"],
+    "status": "coming-soon",
+    "cover": {
+      "kind": "line",
+      "label": "Fig 2 · Daily active users",
+      "kpi": { "value": "100s", "small": "DAU" },
+      "points": [[0, 42], [14, 38], [28, 30], [42, 22], [56, 14], [70, 10], [84, 8], [100, 6]]
+    }
+  },
+  {
+    "slug": "gtm-launch-2m-connections",
+    "title": "GTM strategy that drove 2M+ employer↔jobseeker connections on a new launch.",
+    "outcome": "Performance analysis & go-to-market optimization for a cross-functional product launch. **Influenced R&D resourcing** for the next planning cycle.",
+    "tags": ["product"],
+    "pills": ["Indeed", "2023", "Product Strategy"],
+    "status": "coming-soon",
+    "cover": {
+      "kind": "line",
+      "label": "Fig 3 · Cumulative connections",
+      "kpi": { "value": "2M+", "small": "connections" },
+      "points": [[0, 46], [20, 42], [36, 34], [52, 22], [68, 12], [82, 7], [100, 4]]
+    }
+  },
+  {
+    "slug": "sales-automation-pilot",
+    "title": "700-client sales automation pilot — doubled product adoption vs. control.",
+    "outcome": "Designed the experiment, ran the cohort, defended the result. **2× adoption uplift** at the same CAC.",
+    "tags": ["automation", "bizops"],
+    "pills": ["Indeed", "2023", "BizOps"],
+    "status": "coming-soon",
+    "cover": {
+      "kind": "bar",
+      "label": "Fig 4 · Adoption — control vs. pilot",
+      "kpi": { "value": "2×", "small": "adoption" },
+      "bars": [
+        { "h": 30, "muted": true },
+        { "h": 35, "muted": true },
+        { "h": 32, "muted": true },
+        { "h": 38, "muted": true },
+        { "h": 70 },
+        { "h": 75 },
+        { "h": 78 },
+        { "h": 82 }
+      ]
+    }
+  },
+  {
+    "slug": "title-expansion-rollout",
+    "title": "Title expansion rollout: clicks +50K, applicants +3K Q/Q, record-low CPA.",
+    "outcome": "Led product training and technical rollout across the Talroo client book. **Record-low CPA** and **record-high conversion** in the quarter.",
+    "tags": ["product"],
+    "pills": ["Talroo", "2020", "Product"],
+    "status": "coming-soon",
+    "cover": {
+      "kind": "bar",
+      "label": "Fig 5 · Clicks + applicants Q/Q",
+      "kpi": { "value": "+50K", "small": "clicks" },
+      "bars": [
+        { "h": 25, "muted": true },
+        { "h": 32, "muted": true },
+        { "h": 28, "muted": true },
+        { "h": 40, "muted": true },
+        { "h": 58 },
+        { "h": 72 },
+        { "h": 88 },
+        { "h": 96 }
+      ]
+    }
+  },
+  {
+    "slug": "live-sql-playground",
+    "title": "A live SQL playground built on a public dataset.",
+    "outcome": "A queryable, embedded demo (BLS or similar). **The portfolio piece I'm building for the portfolio itself.**",
+    "tags": ["bi"],
+    "pills": ["Side", "2026", "Coming"],
+    "status": "tba",
+    "cover": {
+      "kind": "pattern",
+      "badge": "/ next"
+    }
+  }
+]
