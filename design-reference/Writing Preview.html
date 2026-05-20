@@ -1,0 +1,633 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Writing — Jason Vermaelen</title>
+<meta name="description" content="Essays, build logs, and notes — what I'm learning while shipping it." />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  /* ============ TOKENS ============ */
+  :root {
+    --bg: #0a0a0a; --bg-elev: #111111; --bg-elev-2: #161616;
+    --line: #1f1f1f; --line-strong: #2a2a2a;
+    --ink: #ededed; --ink-soft: #cfcfcf; --muted: #9a9a9a; --muted-soft: #6e6e6e;
+    --accent: oklch(78% 0.18 250); --accent-ink: #0a0a0a;
+    --reverse-bg: #ededed; --reverse-ink: #0a0a0a;
+    --sans: ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    --content: 1120px; --gutter: 32px;
+  }
+  [data-theme="light"] {
+    --bg: #fafaf7; --bg-elev: #ffffff; --bg-elev-2: #f4f3ee;
+    --line: #e6e4dd; --line-strong: #d5d2c9;
+    --ink: #111111; --ink-soft: #2e2e2e; --muted: #595959; --muted-soft: #7c7c7c;
+    --accent: oklch(44% 0.18 250); --accent-ink: #ffffff;
+    --reverse-bg: #0a0a0a; --reverse-ink: #ededed;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: var(--ink); font-family: var(--sans);
+    font-size: 16px; line-height: 1.55;
+    -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+    transition: background 200ms ease, color 200ms ease;
+  }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: var(--accent); }
+  ::selection { background: var(--accent); color: var(--accent-ink); }
+  .container { max-width: var(--content); margin: 0 auto; padding: 0 var(--gutter); }
+
+  /* ============ NAV ============ */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: color-mix(in oklab, var(--bg) 85%, transparent);
+    backdrop-filter: saturate(180%) blur(12px);
+    -webkit-backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-row {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 56px; font-family: var(--mono); font-size: 13px;
+  }
+  .brand { font-weight: 600; color: var(--ink); display: flex; align-items: baseline; gap: 8px; }
+  .brand .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); transform: translateY(-2px); }
+  .brand .brand-label {
+    font-family: var(--mono); font-size: 12px; color: var(--muted);
+    margin-left: 4px; letter-spacing: 0.02em;
+    transition: color 150ms ease;
+  }
+  .brand:hover .brand-label,
+  .brand:focus-visible .brand-label { color: var(--accent); }
+  .nav-links { display: flex; gap: 26px; color: var(--muted); }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-links a.active { color: var(--ink); }
+  .nav-tools { display: flex; align-items: center; gap: 10px; }
+  .theme-btn {
+    background: var(--bg-elev); border: 1px solid var(--line-strong);
+    width: 26px; height: 26px; border-radius: 4px; cursor: pointer;
+    color: var(--muted); display: inline-flex; align-items: center; justify-content: center; padding: 0;
+  }
+  .theme-btn:hover { color: var(--ink); border-color: var(--accent); }
+  .theme-btn svg { width: 13px; height: 13px; }
+
+  /* ============ PAGE HERO ============ */
+  .page-hero { padding: 88px 0 56px; }
+  .eyebrow {
+    font-family: var(--mono); font-size: 12px;
+    text-transform: uppercase; letter-spacing: 0.16em;
+    color: var(--muted); margin-bottom: 24px;
+  }
+  .eyebrow .accent-dot { color: var(--accent); }
+  h1.page-title {
+    font-family: var(--sans); font-weight: 600;
+    font-size: clamp(48px, 7vw, 88px); line-height: 0.96;
+    letter-spacing: -0.04em; margin: 0 0 24px; color: var(--ink);
+    max-width: 18ch; text-wrap: balance;
+  }
+  h1.page-title em { font-style: normal; color: var(--accent); }
+  .lead {
+    font-family: var(--sans);
+    font-size: clamp(18px, 1.6vw, 21px); line-height: 1.5;
+    color: var(--ink-soft); max-width: 62ch; margin: 0; text-wrap: pretty;
+  }
+
+  /* ============ FILTERS ============ */
+  .filter-bar {
+    padding: 32px 0 24px;
+    display: flex; flex-wrap: wrap;
+    align-items: center; gap: 14px;
+    border-bottom: 1px solid var(--line);
+  }
+  .filter-bar .label {
+    font-family: var(--mono); font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--muted);
+  }
+  .chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    font-family: var(--mono); font-size: 12px;
+    padding: 7px 14px;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    background: var(--bg-elev);
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: background 150ms ease, color 150ms ease, border-color 150ms ease;
+    display: inline-flex; align-items: center; gap: 6px;
+    letter-spacing: 0.02em;
+  }
+  .chip:hover { border-color: var(--accent); color: var(--ink); }
+  .chip[aria-pressed="true"] {
+    background: var(--accent); color: var(--accent-ink); border-color: var(--accent);
+  }
+  .chip .count { font-size: 10px; color: var(--muted-soft); padding-left: 4px; }
+  .chip[aria-pressed="true"] .count { color: color-mix(in oklab, var(--accent-ink) 70%, transparent); }
+  .filter-meta {
+    margin-left: auto;
+    font-family: var(--mono); font-size: 11px;
+    color: var(--muted);
+  }
+  @media (max-width: 800px) {
+    .filter-meta { margin-left: 0; width: 100%; }
+  }
+
+  /* ============ POSTS LIST ============ */
+  .posts { padding: 24px 0 16px; }
+  .post {
+    display: grid;
+    grid-template-columns: 140px 1fr 80px;
+    gap: 40px;
+    padding: 28px 0;
+    border-top: 1px solid var(--line);
+    align-items: baseline;
+    transition: background 200ms ease, padding-left 200ms ease, padding-right 200ms ease;
+    color: inherit;
+    text-decoration: none;
+  }
+  .post:last-child { border-bottom: 1px solid var(--line); }
+  .post:not(.coming-soon):hover {
+    background: color-mix(in oklab, var(--bg-elev) 70%, transparent);
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  .post:not(.coming-soon):hover .post-arrow { color: var(--accent); transform: translateX(4px); }
+  .post[hidden] { display: none !important; }
+
+  .post-date {
+    font-family: var(--mono); font-size: 13px;
+    color: var(--muted); letter-spacing: 0.02em;
+    line-height: 1.5;
+  }
+  .post-date .year { color: var(--muted-soft); display: block; font-size: 11px; margin-top: 2px; letter-spacing: 0.04em; }
+  .post-body { max-width: 60ch; }
+  .post-title {
+    font-family: var(--sans);
+    font-size: clamp(22px, 2.4vw, 30px);
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin: 0 0 10px;
+    text-wrap: balance;
+  }
+  .post-dek {
+    font-family: var(--sans); font-size: 16px;
+    line-height: 1.5; color: var(--ink-soft);
+    margin: 0 0 12px; text-wrap: pretty;
+  }
+  .post-meta {
+    display: flex; align-items: center; gap: 12px;
+    flex-wrap: wrap;
+    font-family: var(--mono); font-size: 11px;
+    color: var(--muted); letter-spacing: 0.04em;
+  }
+  .post-meta .tag {
+    padding: 2px 8px;
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 10px;
+  }
+  .post-meta .tag.essay    { color: var(--accent); border-color: color-mix(in oklab, var(--accent) 40%, var(--line-strong)); }
+  .post-meta .tag.build    { color: var(--ink-soft); }
+  .post-meta .tag.note     { color: var(--muted); }
+  .post-meta .status-pill {
+    padding: 2px 8px;
+    border: 1px solid var(--line-strong);
+    border-radius: 3px;
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .post-meta .status-pill.drafting { color: var(--muted-soft); }
+
+  .post-arrow {
+    font-family: var(--mono); font-size: 18px;
+    color: var(--muted-soft); text-align: right;
+    transition: color 200ms ease, transform 200ms ease;
+    align-self: center;
+  }
+  .post.coming-soon .post-title { color: var(--ink-soft); }
+  .post.coming-soon .post-arrow { color: var(--muted-soft); }
+
+  @media (max-width: 800px) {
+    .post { grid-template-columns: 1fr; gap: 8px; }
+    .post-date { display: flex; gap: 8px; align-items: baseline; }
+    .post-date .year { display: inline; margin-top: 0; }
+    .post-arrow { display: none; }
+  }
+
+  /* ============ EMPTY-STATE NOTE ============ */
+  .empty-note {
+    margin: 24px 0 64px;
+    padding: 28px 32px;
+    border: 1px dashed var(--line-strong);
+    border-radius: 12px;
+    background: color-mix(in oklab, var(--accent) 4%, var(--bg-elev));
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 28px;
+    align-items: center;
+  }
+  .empty-note .glyph {
+    font-family: var(--mono); font-size: 13px;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    width: 44px; height: 44px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: color-mix(in oklab, var(--accent) 10%, var(--bg-elev));
+  }
+  .empty-note .body {
+    font-family: var(--sans); font-size: 15px; line-height: 1.5;
+    color: var(--ink-soft); margin: 0; text-wrap: pretty;
+  }
+  .empty-note .body strong { color: var(--ink); font-weight: 500; }
+  .empty-note .cta {
+    font-family: var(--mono); font-size: 12px;
+    color: var(--accent);
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 14px;
+    border: 1px solid var(--accent);
+    border-radius: 6px;
+    transition: background 150ms ease, color 150ms ease;
+    white-space: nowrap;
+  }
+  .empty-note .cta:hover { background: var(--accent); color: var(--accent-ink); }
+  @media (max-width: 800px) {
+    .empty-note { grid-template-columns: 1fr; gap: 16px; }
+    .empty-note .glyph { display: none; }
+  }
+
+  /* ============ ON DECK (what's coming) ============ */
+  .on-deck-section { padding: 56px 0 96px; border-top: 1px solid var(--line); }
+  .on-deck-head {
+    display: flex; align-items: baseline; gap: 16px; margin-bottom: 32px;
+  }
+  .on-deck-head h2 {
+    font-family: var(--mono); font-size: 12px; text-transform: uppercase;
+    letter-spacing: 0.16em; color: var(--muted); margin: 0; font-weight: 500;
+  }
+  .on-deck-head .rule { flex: 1; height: 1px; background: var(--line); }
+  .on-deck-head .meta { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+
+  .on-deck {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--line);
+    border-left: 1px solid var(--line);
+  }
+  .on-deck-cell {
+    padding: 24px;
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .on-deck-cell .stamp {
+    font-family: var(--mono); font-size: 10px;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--accent);
+  }
+  .on-deck-cell .what {
+    font-family: var(--sans); font-size: 16px; font-weight: 500;
+    color: var(--ink); line-height: 1.35;
+    letter-spacing: -0.01em;
+  }
+  .on-deck-cell .why {
+    font-family: var(--sans); font-size: 13px;
+    color: var(--ink-soft); line-height: 1.5;
+  }
+  @media (max-width: 800px) { .on-deck { grid-template-columns: 1fr; } }
+
+  /* ============ CONTACT STRIP (same) ============ */
+  .contact-strip { background: var(--reverse-bg); color: var(--reverse-ink); padding: 80px 0; }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: end; }
+  .contact-strip h2 {
+    font-family: var(--sans); font-size: clamp(40px, 5vw, 64px);
+    line-height: 0.96; letter-spacing: -0.03em; font-weight: 600; margin: 0 0 12px;
+  }
+  .contact-strip .sub {
+    font-family: var(--mono); font-size: 13px;
+    color: color-mix(in oklab, var(--reverse-ink) 65%, var(--reverse-bg));
+  }
+  .contact-list { display: flex; flex-direction: column; gap: 0; }
+  .contact-item {
+    display: grid; grid-template-columns: 110px 1fr auto; gap: 24px;
+    padding: 18px 0;
+    border-top: 1px solid color-mix(in oklab, var(--reverse-ink) 18%, var(--reverse-bg));
+    align-items: baseline; font-family: var(--mono); font-size: 14px;
+    transition: padding-left 200ms ease;
+  }
+  .contact-item:last-child { border-bottom: 1px solid color-mix(in oklab, var(--reverse-ink) 18%, var(--reverse-bg)); }
+  .contact-item:hover { padding-left: 12px; }
+  .contact-item .k { color: color-mix(in oklab, var(--reverse-ink) 50%, var(--reverse-bg)); text-transform: uppercase; letter-spacing: 0.1em; font-size: 11px; }
+  .contact-item .v { color: var(--reverse-ink); }
+  .contact-item .a { font-family: var(--sans); font-size: 16px; }
+  @media (max-width: 800px) { .contact-grid { grid-template-columns: 1fr; gap: 32px; } }
+
+  /* ============ FOOTER (same) ============ */
+  .footer { padding: 24px 0; border-top: 1px solid var(--line); font-family: var(--mono); font-size: 11px; color: var(--muted); }
+  .footer-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; align-items: center; }
+  .footer-row .mid { text-align: center; }
+  .footer-row .end { text-align: right; }
+  .footer-row a:hover { color: var(--ink); }
+  .footer-meta { text-align: center; font-size: 10px; color: var(--muted-soft); padding-top: 12px; }
+  @media (max-width: 800px) {
+    .footer-row { grid-template-columns: 1fr; text-align: left; }
+    .footer-row .mid, .footer-row .end { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================== NAV -->
+<header class="nav">
+  <div class="container nav-row">
+    <a href="Homepage Preview.html" class="brand" aria-label="Home" title="Home"><span>jv</span><span class="dot"></span><span class="brand-label">/ home</span></a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="Work Index Preview.html">work</a>
+      <a href="Writing Preview.html" class="active">writing</a>
+      <a href="Now Preview.html">now</a>
+      <a href="About Preview.html">about</a>
+    </nav>
+    <div class="nav-tools">
+      <button class="theme-btn" id="theme-toggle" aria-label="Toggle theme">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ============================== PAGE HERO -->
+<section class="page-hero" data-screen-label="01 Writing — Hero">
+  <div class="container">
+    <div class="eyebrow"><span class="accent-dot">§</span> Writing · essays, build logs, notes</div>
+    <h1 class="page-title">Notes from the <em>build.</em></h1>
+    <p class="lead">Long-form essays on data work and product judgment. Build logs from things I'm shipping — the trade-offs that didn't make the case study. Short notes when something's worth a paragraph but not an essay.</p>
+  </div>
+</section>
+
+<!-- ============================== FILTERS -->
+<div class="container">
+  <div class="filter-bar">
+    <span class="label">/ filter</span>
+    <div class="chip-row" role="radiogroup" aria-label="Filter posts">
+      <button class="chip" data-filter="all" aria-pressed="true">All <span class="count">—</span></button>
+      <button class="chip" data-filter="essay" aria-pressed="false">Essays <span class="count">—</span></button>
+      <button class="chip" data-filter="build" aria-pressed="false">Build logs <span class="count">—</span></button>
+      <button class="chip" data-filter="note" aria-pressed="false">Notes <span class="count">—</span></button>
+    </div>
+    <span class="filter-meta" id="filter-meta">—</span>
+  </div>
+</div>
+
+<!-- ============================== POSTS -->
+<section class="posts" data-screen-label="02 Writing — Posts">
+  <div class="container" id="posts-list">
+
+    <!-- POST 01 — Live build log -->
+    <a class="post" href="#" data-tags="build">
+      <div class="post-date">May 19<span class="year">2026</span></div>
+      <div class="post-body">
+        <h2 class="post-title">Building the portfolio I'd actually want a recruiter to read.</h2>
+        <p class="post-dek">The brief, the rejected directions, the design decisions I made on the way to a v1 — and the one thing I'd tell another analyst to do before designing anything.</p>
+        <div class="post-meta">
+          <span class="tag build">Build log</span>
+          <span>8 min read</span>
+          <span class="status-pill">Live</span>
+        </div>
+      </div>
+      <span class="post-arrow">→</span>
+    </a>
+
+    <!-- POST 02 — Drafting essay -->
+    <a class="post coming-soon" data-tags="essay">
+      <div class="post-date">~ Jun 2026<span class="year">drafting</span></div>
+      <div class="post-body">
+        <h2 class="post-title">The analyst's seat at the launch meeting.</h2>
+        <p class="post-dek">Most BI work fails because it shows up too late. Some thoughts on what it actually costs an org when the data person is in the post-mortem but not the pre-mortem.</p>
+        <div class="post-meta">
+          <span class="tag essay">Essay</span>
+          <span>~6 min</span>
+          <span class="status-pill drafting">Drafting</span>
+        </div>
+      </div>
+      <span class="post-arrow">→</span>
+    </a>
+
+    <!-- POST 03 — Drafting build log (related to case study) -->
+    <a class="post coming-soon" data-tags="build">
+      <div class="post-date">~ Jun 2026<span class="year">drafting</span></div>
+      <div class="post-body">
+        <h2 class="post-title">A live SQL playground for a public dataset.</h2>
+        <p class="post-dek">A queryable, embeddable demo running on BLS data. The case-study-shaped side project I'm building for the portfolio itself.</p>
+        <div class="post-meta">
+          <span class="tag build">Build log</span>
+          <span>~12 min</span>
+          <span class="status-pill drafting">Drafting</span>
+        </div>
+      </div>
+      <span class="post-arrow">→</span>
+    </a>
+
+    <!-- POST 04 — Drafting note -->
+    <a class="post coming-soon" data-tags="note">
+      <div class="post-date">~ Jul 2026<span class="year">planned</span></div>
+      <div class="post-body">
+        <h2 class="post-title">Three patterns I keep seeing in Salesforce CRM Analytics.</h2>
+        <p class="post-dek">Quick notes from a year of shipping dashboards. The good defaults, the easy mistakes, and one thing I wish someone had told me on day one.</p>
+        <div class="post-meta">
+          <span class="tag note">Note</span>
+          <span>~4 min</span>
+          <span class="status-pill drafting">Planned</span>
+        </div>
+      </div>
+      <span class="post-arrow">→</span>
+    </a>
+
+    <!-- POST 05 — Drafting essay (BI-to-PM transition) -->
+    <a class="post coming-soon" data-tags="essay">
+      <div class="post-date">~ Jul 2026<span class="year">planned</span></div>
+      <div class="post-body">
+        <h2 class="post-title">BI to PM, without dropping the SQL.</h2>
+        <p class="post-dek">Notes from a two-year stretch on the product strategy side. What transferred, what didn't, and what I'd tell a senior analyst eyeing the same move.</p>
+        <div class="post-meta">
+          <span class="tag essay">Essay</span>
+          <span>~10 min</span>
+          <span class="status-pill drafting">Planned</span>
+        </div>
+      </div>
+      <span class="post-arrow">→</span>
+    </a>
+
+  </div>
+
+  <!-- Empty-state note -->
+  <div class="container">
+    <div class="empty-note" role="status">
+      <span class="glyph" aria-hidden="true">✎</span>
+      <p class="body">
+        <strong>Most posts are still being written.</strong> The first build log is live; the rest are scaffolded titles I'm working through. Subscribing isn't a thing here (yet) — bookmark the RSS once it's published, or just email me what you'd want to read first.
+      </p>
+      <a class="cta" href="mailto:jason.vermaelen@gmail.com?subject=Topic%20request">
+        <span>Suggest a topic</span>
+        <span>→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== ON DECK -->
+<section class="on-deck-section" data-screen-label="03 Writing — On deck">
+  <div class="container">
+    <div class="on-deck-head">
+      <h2>§ On deck</h2>
+      <span class="rule"></span>
+      <span class="meta">topics in the queue · not yet drafted</span>
+    </div>
+
+    <div class="on-deck">
+      <div class="on-deck-cell">
+        <span class="stamp">/ essay</span>
+        <span class="what">When "automate it" is the wrong answer.</span>
+        <span class="why">A pattern I keep seeing: orgs automate the work before they understand why the work is happening. Notes on the diagnosis step that doesn't get written about enough.</span>
+      </div>
+      <div class="on-deck-cell">
+        <span class="stamp">/ build log</span>
+        <span class="what">Wiring an LLM into a CRM Analytics workflow.</span>
+        <span class="why">What worked, what was theatre, and the one prompt that actually replaced a 4-hour manual triage step. Plus the cost math.</span>
+      </div>
+      <div class="on-deck-cell">
+        <span class="stamp">/ note</span>
+        <span class="what">A reading list for BI-curious PMs.</span>
+        <span class="why">The five books and three blog posts I keep recommending to product folks who want to get more rigorous with the funnel.</span>
+      </div>
+      <div class="on-deck-cell">
+        <span class="stamp">/ essay</span>
+        <span class="what">Dashboards as documents.</span>
+        <span class="why">The framing shift that changed how I design dashboards: a dashboard is a published document with a deadline, not a tool with users.</span>
+      </div>
+      <div class="on-deck-cell">
+        <span class="stamp">/ note</span>
+        <span class="what">Things jiu-jitsu taught me about debugging.</span>
+        <span class="why">A short one. The "what if it's the obvious thing" rule transfers cleanly from rolling to engineering. Mostly that.</span>
+      </div>
+      <div class="on-deck-cell">
+        <span class="stamp">/ build log</span>
+        <span class="what">Hooking Spotify recently-played into a /now page.</span>
+        <span class="why">Refresh-token plumbing, Vercel Edge caching, and why "fallback to album of the month" is the most important line of the system.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== CONTACT -->
+<section class="contact-strip" id="contact" data-screen-label="04 Contact">
+  <div class="container contact-grid">
+    <div>
+      <h2>Want to write back?</h2>
+      <div class="sub">Topic suggestions, push-back, or just a thread to pull — I read everything.</div>
+    </div>
+    <div class="contact-list">
+      <a href="mailto:jason.vermaelen@gmail.com" class="contact-item">
+        <span class="k">Email</span>
+        <span class="v">jason.vermaelen@gmail.com</span>
+        <span class="a">→</span>
+      </a>
+      <a href="https://linkedin.com/in/vermaelen" class="contact-item">
+        <span class="k">LinkedIn</span>
+        <span class="v">linkedin.com/in/vermaelen</span>
+        <span class="a">→</span>
+      </a>
+      <a href="https://github.com/jvermaelen" class="contact-item">
+        <span class="k">GitHub</span>
+        <span class="v">github.com/jvermaelen</span>
+        <span class="a">→</span>
+      </a>
+      <a href="https://app.cal.com/jason-vermaelen" class="contact-item">
+        <span class="k">Schedule</span>
+        <span class="v">app.cal.com/jason-vermaelen</span>
+        <span class="a">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-row">
+      <div>© Jason Vermaelen · Austin, TX · 2026</div>
+      <div class="mid"><a href="mailto:jason.vermaelen@gmail.com">jason.vermaelen@gmail.com</a></div>
+      <div class="end">Built with Next.js · <a href="https://github.com/jvermaelen/personal-site">view source ↗</a></div>
+    </div>
+    <div class="footer-meta">Last updated: May 19, 2026 · RSS coming soon</div>
+  </div>
+</footer>
+
+<script>
+  // ============ Theme toggle (shared) ============
+  const html = document.documentElement;
+  const toggle = document.getElementById('theme-toggle');
+  function setTheme(t) {
+    html.setAttribute('data-theme', t);
+    try { localStorage.setItem('theme-v2', t); } catch(e) {}
+    const isDark = t === 'dark';
+    toggle.innerHTML = isDark
+      ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>'
+      : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+  }
+  try { setTheme(localStorage.getItem('theme-v2') || 'light'); } catch(e) { setTheme('light'); }
+  toggle.addEventListener('click', () => { const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'; setTheme(next); });
+
+  // ============ Filter chips ============
+  const chips = document.querySelectorAll('.chip[data-filter]');
+  const posts = document.querySelectorAll('#posts-list .post');
+  const filterMeta = document.getElementById('filter-meta');
+
+  function computeCounts() {
+    chips.forEach(chip => {
+      const filter = chip.dataset.filter;
+      let n = 0;
+      posts.forEach(p => {
+        const tags = (p.dataset.tags || '').split(/\s+/);
+        if (filter === 'all' || tags.includes(filter)) n++;
+      });
+      const countEl = chip.querySelector('.count');
+      if (countEl) countEl.textContent = n;
+    });
+  }
+  function applyFilter(filter) {
+    let shown = 0;
+    posts.forEach(p => {
+      const tags = (p.dataset.tags || '').split(/\s+/);
+      const match = filter === 'all' || tags.includes(filter);
+      if (match) { p.removeAttribute('hidden'); shown++; }
+      else { p.setAttribute('hidden', ''); }
+    });
+    filterMeta.textContent = `showing ${shown} of ${posts.length}`;
+  }
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      const filter = chip.dataset.filter;
+      chips.forEach(c => c.setAttribute('aria-pressed', c === chip ? 'true' : 'false'));
+      applyFilter(filter);
+    });
+  });
+  computeCounts();
+  applyFilter('all');
+</script>
+<script src="command-palette.js"></script>
+<script src="ask-jason.js"></script>
+</body>
+</html>

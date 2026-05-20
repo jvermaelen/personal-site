@@ -1,0 +1,549 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>About — Jason Vermaelen</title>
+<meta name="description" content="Senior BI Analyst at Indeed. The career arc, how I work, what I'm looking for next." />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  /* ============ TOKENS ============ */
+  :root {
+    --bg: #0a0a0a; --bg-elev: #111111; --bg-elev-2: #161616;
+    --line: #1f1f1f; --line-strong: #2a2a2a;
+    --ink: #ededed; --ink-soft: #cfcfcf; --muted: #9a9a9a; --muted-soft: #6e6e6e;
+    --accent: oklch(78% 0.18 250); --accent-ink: #0a0a0a;
+    --reverse-bg: #ededed; --reverse-ink: #0a0a0a;
+    --sans: ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    --content: 1120px; --gutter: 32px;
+  }
+  [data-theme="light"] {
+    --bg: #fafaf7; --bg-elev: #ffffff; --bg-elev-2: #f4f3ee;
+    --line: #e6e4dd; --line-strong: #d5d2c9;
+    --ink: #111111; --ink-soft: #2e2e2e; --muted: #595959; --muted-soft: #7c7c7c;
+    --accent: oklch(44% 0.18 250); --accent-ink: #ffffff;
+    --reverse-bg: #0a0a0a; --reverse-ink: #ededed;
+  }
+
+  /* ============ BASE ============ */
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: var(--ink); font-family: var(--sans);
+    font-size: 16px; line-height: 1.55;
+    -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+    transition: background 200ms ease, color 200ms ease;
+  }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: var(--accent); }
+  ::selection { background: var(--accent); color: var(--accent-ink); }
+  .container { max-width: var(--content); margin: 0 auto; padding: 0 var(--gutter); }
+
+  /* ============ NAV (shared) ============ */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: color-mix(in oklab, var(--bg) 85%, transparent);
+    backdrop-filter: saturate(180%) blur(12px);
+    -webkit-backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-row {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 56px; font-family: var(--mono); font-size: 13px;
+  }
+  .brand { font-weight: 600; color: var(--ink); display: flex; align-items: baseline; gap: 8px; }
+  .brand .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); transform: translateY(-2px); }
+  .brand .brand-label {
+    font-family: var(--mono); font-size: 12px; color: var(--muted);
+    margin-left: 4px; letter-spacing: 0.02em;
+    transition: color 150ms ease;
+  }
+  .brand:hover .brand-label,
+  .brand:focus-visible .brand-label { color: var(--accent); }
+  .nav-links { display: flex; gap: 26px; color: var(--muted); }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-links a.active { color: var(--ink); }
+  .nav-tools { display: flex; align-items: center; gap: 10px; }
+  .theme-btn {
+    background: var(--bg-elev); border: 1px solid var(--line-strong);
+    width: 26px; height: 26px; border-radius: 4px; cursor: pointer;
+    color: var(--muted); display: inline-flex; align-items: center; justify-content: center; padding: 0;
+  }
+  .theme-btn:hover { color: var(--ink); border-color: var(--accent); }
+  .theme-btn svg { width: 13px; height: 13px; }
+
+  /* ============ ABOUT HERO ============ */
+  .about-hero { padding: 96px 0 56px; }
+  .eyebrow {
+    font-family: var(--mono); font-size: 12px;
+    text-transform: uppercase; letter-spacing: 0.16em;
+    color: var(--muted); margin-bottom: 24px;
+  }
+  .eyebrow .accent-dot { color: var(--accent); }
+  h1.page-title {
+    font-family: var(--sans); font-weight: 600;
+    font-size: clamp(48px, 7vw, 88px); line-height: 0.96;
+    letter-spacing: -0.04em; margin: 0 0 32px; color: var(--ink);
+    max-width: 18ch; text-wrap: balance;
+  }
+  h1.page-title em { font-style: normal; color: var(--accent); }
+  .lead {
+    font-family: var(--sans);
+    font-size: clamp(18px, 1.7vw, 21px); line-height: 1.5;
+    color: var(--ink-soft); max-width: 62ch; margin: 0; text-wrap: pretty;
+  }
+  .lead + .lead { margin-top: 20px; }
+
+  /* ============ SECTION HEAD ============ */
+  .section { padding: 72px 0; border-top: 1px solid var(--line); }
+  .section:first-of-type { border-top: none; padding-top: 0; }
+  .section-head {
+    display: flex; align-items: baseline; gap: 16px; margin-bottom: 40px;
+  }
+  .section-head h2 {
+    font-family: var(--mono); font-size: 12px; text-transform: uppercase;
+    letter-spacing: 0.16em; color: var(--muted); margin: 0; font-weight: 500; white-space: nowrap;
+  }
+  .section-head .rule { flex: 1; height: 1px; background: var(--line); }
+  .section-head .meta { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+
+  /* ============ ARC (career timeline) ============ */
+  .arc { display: flex; flex-direction: column; }
+  .arc-row {
+    display: grid;
+    grid-template-columns: 140px 1fr 220px;
+    gap: 32px;
+    padding: 28px 0;
+    border-top: 1px solid var(--line);
+    align-items: baseline;
+  }
+  .arc-row:last-child { border-bottom: 1px solid var(--line); }
+  .arc-year {
+    font-family: var(--mono); font-size: 13px; color: var(--accent);
+    letter-spacing: 0.02em; font-weight: 500;
+  }
+  .arc-row.current .arc-year::before {
+    content: ""; display: inline-block; width: 6px; height: 6px;
+    border-radius: 50%; background: var(--accent); margin-right: 8px;
+    vertical-align: 1px;
+  }
+  .arc-body {
+    font-family: var(--sans); font-size: 17px; line-height: 1.5;
+    color: var(--ink-soft); max-width: 60ch;
+  }
+  .arc-body strong { color: var(--ink); font-weight: 500; }
+  .arc-meta {
+    font-family: var(--mono); font-size: 12px; color: var(--muted);
+    text-align: right; line-height: 1.5;
+  }
+  .arc-meta .role { color: var(--ink-soft); display: block; margin-bottom: 4px; }
+  @media (max-width: 800px) {
+    .arc-row { grid-template-columns: 1fr; gap: 8px; }
+    .arc-meta { text-align: left; }
+  }
+
+  /* ============ PRINCIPLES ============ */
+  .principles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--line);
+    border-left: 1px solid var(--line);
+  }
+  .principle {
+    padding: 28px 28px 32px;
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .principle .num {
+    font-family: var(--mono); font-size: 12px; color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+  .principle h3 {
+    font-family: var(--sans); font-size: 20px; font-weight: 600;
+    color: var(--ink); margin: 0; line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+  .principle p {
+    font-family: var(--sans); font-size: 15px; line-height: 1.55;
+    color: var(--ink-soft); margin: 0;
+  }
+  @media (max-width: 800px) { .principles { grid-template-columns: 1fr; } }
+
+  /* ============ WHAT'S NEXT (role criteria) ============ */
+  .next-block {
+    display: grid; grid-template-columns: 200px 1fr; gap: 48px;
+    align-items: start;
+  }
+  .next-label {
+    font-family: var(--mono); font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.16em; color: var(--muted); padding-top: 6px;
+  }
+  .next-list { display: flex; flex-direction: column; gap: 14px; }
+  .next-item {
+    display: grid;
+    grid-template-columns: 24px 1fr;
+    gap: 12px;
+    align-items: baseline;
+    font-family: var(--sans); font-size: 17px; line-height: 1.5;
+    color: var(--ink-soft);
+  }
+  .next-item .check {
+    font-family: var(--mono); color: var(--accent); font-weight: 600;
+    font-size: 14px;
+  }
+  .next-item strong { color: var(--ink); font-weight: 500; }
+  @media (max-width: 800px) {
+    .next-block { grid-template-columns: 1fr; gap: 16px; }
+  }
+
+  /* ============ PERSONAL ============ */
+  .personal {
+    display: grid; grid-template-columns: minmax(0, 1fr) 300px;
+    gap: 64px; align-items: start;
+  }
+  .personal h3 {
+    font-family: var(--sans); font-size: 22px; font-weight: 600;
+    color: var(--ink); margin: 0 0 12px; letter-spacing: -0.01em;
+  }
+  .personal p {
+    font-family: var(--sans); font-size: 17px; line-height: 1.6;
+    color: var(--ink-soft); margin: 0 0 22px; max-width: 58ch;
+    text-wrap: pretty;
+  }
+  .personal p strong { color: var(--ink); font-weight: 500; }
+  .personal-side {
+    border: 1px solid var(--line); border-radius: 10px;
+    overflow: hidden; background: var(--bg-elev);
+  }
+  .personal-photo {
+    width: 100%; aspect-ratio: 1 / 1; overflow: hidden;
+    background: var(--bg-elev-2); position: relative;
+  }
+  .personal-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .personal-photo::after {
+    content: ""; position: absolute; right: 14px; bottom: 14px;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--accent); border: 3px solid var(--bg-elev);
+  }
+  .personal-side .caption {
+    padding: 14px 18px;
+    font-family: var(--mono); font-size: 11px;
+    color: var(--muted); letter-spacing: 0.02em;
+    border-top: 1px solid var(--line);
+    display: flex; justify-content: space-between;
+  }
+  .personal-side .caption .k { color: var(--muted-soft); }
+  @media (max-width: 900px) {
+    .personal { grid-template-columns: 1fr; gap: 40px; }
+    .personal-side { max-width: 360px; }
+  }
+
+  /* ============ RESUME CTA ============ */
+  .resume-cta {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 24px 28px;
+    border: 1px solid var(--line); background: var(--bg-elev);
+    border-radius: 10px;
+    transition: border-color 200ms ease, background 200ms ease;
+  }
+  .resume-cta:hover { border-color: var(--accent); }
+  .resume-cta .left {
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .resume-cta .label {
+    font-family: var(--mono); font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--muted);
+  }
+  .resume-cta .title {
+    font-family: var(--sans); font-size: 18px; font-weight: 500;
+    color: var(--ink);
+  }
+  .resume-cta .right {
+    font-family: var(--mono); font-size: 13px; color: var(--accent);
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .resume-cta .meta {
+    font-family: var(--mono); font-size: 11px; color: var(--muted);
+    margin-left: 16px;
+  }
+  @media (max-width: 700px) {
+    .resume-cta { flex-direction: column; align-items: flex-start; gap: 16px; }
+  }
+
+  /* ============ CONTACT STRIP (same as homepage) ============ */
+  .contact-strip { background: var(--reverse-bg); color: var(--reverse-ink); padding: 80px 0; }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: end; }
+  .contact-strip h2 {
+    font-family: var(--sans); font-size: clamp(40px, 5vw, 64px);
+    line-height: 0.96; letter-spacing: -0.03em; font-weight: 600; margin: 0 0 12px;
+  }
+  .contact-strip .sub {
+    font-family: var(--mono); font-size: 13px;
+    color: color-mix(in oklab, var(--reverse-ink) 65%, var(--reverse-bg));
+  }
+  .contact-list { display: flex; flex-direction: column; gap: 0; }
+  .contact-item {
+    display: grid; grid-template-columns: 110px 1fr auto; gap: 24px;
+    padding: 18px 0;
+    border-top: 1px solid color-mix(in oklab, var(--reverse-ink) 18%, var(--reverse-bg));
+    align-items: baseline; font-family: var(--mono); font-size: 14px;
+    transition: padding-left 200ms ease;
+  }
+  .contact-item:last-child { border-bottom: 1px solid color-mix(in oklab, var(--reverse-ink) 18%, var(--reverse-bg)); }
+  .contact-item:hover { padding-left: 12px; }
+  .contact-item .k { color: color-mix(in oklab, var(--reverse-ink) 50%, var(--reverse-bg)); text-transform: uppercase; letter-spacing: 0.1em; font-size: 11px; }
+  .contact-item .v { color: var(--reverse-ink); }
+  .contact-item .a { font-family: var(--sans); font-size: 16px; }
+  @media (max-width: 800px) { .contact-grid { grid-template-columns: 1fr; gap: 32px; } }
+
+  /* ============ FOOTER (same) ============ */
+  .footer { padding: 24px 0; border-top: 1px solid var(--line); font-family: var(--mono); font-size: 11px; color: var(--muted); }
+  .footer-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; align-items: center; }
+  .footer-row .mid { text-align: center; }
+  .footer-row .end { text-align: right; }
+  .footer-row a:hover { color: var(--ink); }
+  .footer-meta { text-align: center; font-size: 10px; color: var(--muted-soft); padding-top: 12px; }
+  @media (max-width: 800px) {
+    .footer-row { grid-template-columns: 1fr; text-align: left; }
+    .footer-row .mid, .footer-row .end { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================== NAV -->
+<header class="nav">
+  <div class="container nav-row">
+    <a href="Homepage Preview.html" class="brand" aria-label="Home" title="Home"><span>jv</span><span class="dot"></span><span class="brand-label">/ home</span></a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="Homepage Preview.html#work">work</a>
+      <a href="Writing Preview.html">writing</a>
+      <a href="Now Preview.html">now</a>
+      <a href="About Preview.html" class="active">about</a>
+    </nav>
+    <div class="nav-tools">
+      <button class="theme-btn" id="theme-toggle" aria-label="Toggle theme">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ============================== ABOUT HERO -->
+<section class="about-hero" data-screen-label="01 About — Hero">
+  <div class="container">
+    <div class="eyebrow"><span class="accent-dot">§</span> About · the long version</div>
+    <h1 class="page-title">Data partner who actually <em>ships product decisions.</em></h1>
+    <p class="lead">I'm a senior BI analyst at Indeed with a four-year stretch that's split between dashboarding and product strategy. I've sat on the data side of the table and on the GTM side of the table, which is where most of my best work has come from — when the person modeling the funnel is the same person deciding what to build next.</p>
+    <p class="lead">This page is the long version. There's a <a href="#resume" style="color: var(--accent);">PDF resume</a> if you'd rather skim.</p>
+  </div>
+</section>
+
+<!-- ============================== ARC -->
+<section class="section" id="arc" data-screen-label="02 About — Arc">
+  <div class="container">
+    <div class="section-head">
+      <h2>§ The arc</h2>
+      <span class="rule"></span>
+      <span class="meta">2017 → now</span>
+    </div>
+
+    <div class="arc">
+      <article class="arc-row current">
+        <div class="arc-year">2024 → now</div>
+        <div class="arc-body">Senior BI Analyst on Salesforce CRM Analytics for Scaled Business Solutions. Built and shipped a global dashboard now used <strong>daily by hundreds of users</strong>, and automated Salesforce case routing that returns <strong>~2,000 hours/year</strong> to the team. This is the seat where dashboarding and operational impact actually meet.</div>
+        <div class="arc-meta"><span class="role">Senior BI Analyst</span>Indeed · Austin, TX</div>
+      </article>
+
+      <article class="arc-row">
+        <div class="arc-year">2022 — 2024</div>
+        <div class="arc-body">Product Strategist on Global Product Commercialization. Owned GTM strategy and performance analysis across cross-functional launches — <strong>2M+ employer↔jobseeker connections driven</strong>, <strong>10K+ new clients</strong> from a 3-month promo, a <strong>700-client automation pilot</strong> that doubled adoption vs. control. This is where I stopped describing the data and started defending the decisions.</div>
+        <div class="arc-meta"><span class="role">Product Strategist</span>Indeed · Austin, TX</div>
+      </article>
+
+      <article class="arc-row">
+        <div class="arc-year">2018 — 2022</div>
+        <div class="arc-body">Senior Data Business Analyst at Talroo. Led the rollout and technical training of a title-expansion feature that drove <strong>+50K clicks</strong> and <strong>+3K applicants Q/Q</strong> at record-low CPA. Spent a lot of time learning the operator-analyst stack — SQL, Snowflake, Python, Metabase — that I still use every day.</div>
+        <div class="arc-meta"><span class="role">Sr. Data Business Analyst</span>Talroo · Austin, TX</div>
+      </article>
+
+      <article class="arc-row">
+        <div class="arc-year">2017 — 2018</div>
+        <div class="arc-body">Team lead for a 5-person Client Success Analyst pod managing <strong>70% of company revenue</strong>. Grew vertical revenue <strong>20% QoQ</strong> with <strong>95% retention</strong>. First time I learned that running a team well is mostly about removing things, not adding them.</div>
+        <div class="arc-meta"><span class="role">CSA Team Lead</span>Talroo · Austin, TX</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== PRINCIPLES -->
+<section class="section" id="how" data-screen-label="03 About — How I work">
+  <div class="container">
+    <div class="section-head">
+      <h2>§ How I work</h2>
+      <span class="rule"></span>
+      <span class="meta">three principles, picked the hard way</span>
+    </div>
+
+    <div class="principles">
+      <div class="principle">
+        <div class="num">/ 01</div>
+        <h3>Numbers before adjectives.</h3>
+        <p>"Returned ~2,000 hours per year" reads differently from "dramatically improved efficiency." If the metric isn't there, the decision wasn't real. I write — and ship — with that filter on.</p>
+      </div>
+      <div class="principle">
+        <div class="num">/ 02</div>
+        <h3>The right decision &gt; more features.</h3>
+        <p>The hardest work I've done in product strategy was saying no, and being able to show the math for why. I'd rather ship one thing whose impact I can defend in a quarterly review than three things I can't.</p>
+      </div>
+      <div class="principle">
+        <div class="num">/ 03</div>
+        <h3>Honest about tradeoffs.</h3>
+        <p>Every project I write up has a "what I'd do differently" section. Not as a performance of humility — as the part hiring managers actually grade. If you find an analyst who can't name the tradeoff they made, they didn't make one.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== WHAT'S NEXT -->
+<section class="section" id="next" data-screen-label="04 About — What's next">
+  <div class="container">
+    <div class="section-head">
+      <h2>§ The next chapter</h2>
+      <span class="rule"></span>
+      <span class="meta">where I do my best work</span>
+    </div>
+
+    <div class="next-block">
+      <div class="next-label">/ my ideal room</div>
+      <div class="next-list">
+        <div class="next-item"><span class="check">✓</span><span><strong>Senior Analytics, BizOps, or Product-leaning roles.</strong> IC or lead-IC. Most curious about PM tracks where the team is already data-fluent; less interested in being a PM in a vacuum.</span></div>
+        <div class="next-item"><span class="check">✓</span><span><strong>Seed → Series D, AI-native, FAANG.</strong> Companies where the data layer is taken seriously enough that "what does the funnel say" gets asked before "what does Marketing think."</span></div>
+        <div class="next-item"><span class="check">✓</span><span><strong>Remote (US) or Austin hybrid.</strong> Local to ATX; happy to fly for offsites.</span></div>
+        <div class="next-item"><span class="check">✓</span><span><strong>Stack that respects SQL.</strong> Snowflake / dbt / Metabase / Looker / etc. Not allergic to BigQuery or Tableau, but I'll push back on tooling that hides the query.</span></div>
+        <div class="next-item"><span class="check">✓</span><span><strong>A team that ships.</strong> The companies I've done my best work at gave me a seat in the launch meeting, not just the post-mortem.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== PERSONAL -->
+<section class="section" id="personal" data-screen-label="05 About — Personal">
+  <div class="container">
+    <div class="section-head">
+      <h2>§ Off the clock</h2>
+      <span class="rule"></span>
+      <span class="meta">the part that doesn't go on the resume</span>
+    </div>
+
+    <div class="personal">
+      <div>
+        <h3>Brazilian Jiu-Jitsu, 20 years in.</h3>
+        <p>I started training Brazilian Jiu-Jitsu in 2006 and earned my <strong>black belt in 2020</strong>. I train at <strong>Paragon BJJ</strong> in Austin. I love it because it keeps me in great physical shape, keeps me mentally sharp, is genuinely fun, and is easy to keep doing for decades. It's also been an amazing social outlet — I've met hundreds of people and made friends from all walks of life around the world through jiu-jitsu. It's shaped me into the person I am today.</p>
+
+        <h3>Music is the other hobby.</h3>
+        <p>I am a deeply nerdy listener — discovering and cataloguing new music is something I've done since I was a teenager. There's a live feed of what I've been playing on the <a href="Now Preview.html" style="color: var(--accent);">/now page</a> if you want to argue with my taste.</p>
+
+        <h3>And I keep showing up for the boring parts.</h3>
+        <p>I'm halfway through an <strong>MS in Data Analytics at WGU</strong>, mostly because there were two or three CS-shaped holes in my analyst toolkit I'd rather close than route around. It's not glamorous; it's how I keep the underlying machine sharp.</p>
+      </div>
+
+      <div class="personal-side" aria-hidden="true">
+        <div class="personal-photo">
+          <img src="headshot.png" alt="Jason Vermaelen" />
+        </div>
+        <div class="caption">
+          <span class="k">Austin, TX</span>
+          <span>May 2026</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== RESUME CTA -->
+<section class="section" id="resume" data-screen-label="06 About — Resume" style="padding-top: 0;">
+  <div class="container">
+    <a class="resume-cta" href="/resume.pdf" download>
+      <div class="left">
+        <span class="label">/ resume</span>
+        <span class="title">Jason_Vermaelen_Resume.pdf</span>
+      </div>
+      <span class="meta">82 KB · updated May 2026</span>
+      <span class="right">download ↓</span>
+    </a>
+  </div>
+</section>
+
+<!-- ============================== CONTACT -->
+<section class="contact-strip" id="contact" data-screen-label="07 Contact">
+  <div class="container contact-grid">
+    <div>
+      <h2>Want to talk?</h2>
+      <div class="sub">I respond within 24 hours on weekdays.</div>
+    </div>
+    <div class="contact-list">
+      <a href="https://app.cal.com/jason-vermaelen" class="contact-item">
+        <span class="k">Schedule</span>
+        <span class="v">app.cal.com/jason-vermaelen</span>
+        <span class="a">→</span>
+      </a>
+      <a href="mailto:jason.vermaelen@gmail.com" class="contact-item">
+        <span class="k">Email</span>
+        <span class="v">jason.vermaelen@gmail.com</span>
+        <span class="a">→</span>
+      </a>
+      <a href="https://linkedin.com/in/vermaelen" class="contact-item">
+        <span class="k">LinkedIn</span>
+        <span class="v">linkedin.com/in/vermaelen</span>
+        <span class="a">→</span>
+      </a>
+      <a href="https://github.com/jvermaelen" class="contact-item">
+        <span class="k">GitHub</span>
+        <span class="v">github.com/jvermaelen</span>
+        <span class="a">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-row">
+      <div>© Jason Vermaelen · Austin, TX · 2026</div>
+      <div class="mid"><a href="mailto:jason.vermaelen@gmail.com">jason.vermaelen@gmail.com</a></div>
+      <div class="end">Built with Next.js · <a href="https://github.com/jvermaelen/personal-site">view source ↗</a></div>
+    </div>
+    <div class="footer-meta">Last updated: May 19, 2026</div>
+  </div>
+</footer>
+
+<script>
+  // Theme toggle (shared)
+  const html = document.documentElement;
+  const toggle = document.getElementById('theme-toggle');
+  function setTheme(t) {
+    html.setAttribute('data-theme', t);
+    try { localStorage.setItem('theme-v2', t); } catch(e) {}
+    const isDark = t === 'dark';
+    toggle.innerHTML = isDark
+      ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>'
+      : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+  }
+  try { setTheme(localStorage.getItem('theme-v2') || 'light'); } catch(e) { setTheme('light'); }
+  toggle.addEventListener('click', () => { const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'; setTheme(next); });
+</script>
+
+<script src="command-palette.js"></script>
+<script src="ask-jason.js"></script>
+</body>
+</html>

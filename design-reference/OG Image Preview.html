@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=1200, initial-scale=1" />
+<title>OG image templates — Jason Vermaelen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<!--
+==============================================================================
+  Open Graph / Twitter Card image templates.
+
+  These are static design previews of the dynamic OG cards. Each one shows
+  what the social-share preview will look like for a different page type:
+  Homepage, Case Study, Writing post, Now. Render dimensions: 1200×630.
+
+  ── Production wiring (next/og + Vercel Edge) ────────────────────────────────
+  File: app/api/og/route.tsx
+  Runtime: 'edge'
+  Imports: ImageResponse from 'next/og'
+
+  URL contract:
+    /api/og                                    → homepage card
+    /api/og?slug=<slug>&type=case-study        → case study card
+    /api/og?slug=<slug>&type=writing           → writing post card
+    /api/og?type=now                           → now page card
+
+  The Edge handler:
+    1. Reads ?slug + ?type query params.
+    2. Loads structured metadata: for case studies, fetch frontmatter from the
+       compiled MDX (lib/mdx.ts exports a getCaseStudyMeta helper). For
+       writing posts, same shape. For the Now page, read content/now.mdx.
+    3. Returns new ImageResponse(<Template …/>, { width: 1200, height: 630 }).
+    4. Cache-Control: public, max-age=31536000, immutable. Slug change busts.
+
+  Fonts: load JetBrains Mono via fetch() in the Edge handler — next/og does
+  NOT inherit project Google Fonts. The sans face is system-ui which IS
+  built into next/og's default font stack.
+
+  Page-level metadata wiring:
+    Each page's generateMetadata() exports an openGraph.images entry pointing
+    at /api/og?... — e.g. app/work/[slug]/page.tsx:
+      openGraph: { images: [`/api/og?slug=${slug}&type=case-study`] }
+    Twitter card type: summary_large_image.
+
+  ── Brand rules ──────────────────────────────────────────────────────────────
+  - Background: light cream (#fafaf7), cobalt accent (#1a3aa6-ish).
+  - Always include: "jv •" wordmark, page title, page-type label.
+  - Headline-forward: the title or outcome metric is the focal element.
+  - No images or photos. Type-driven only — keeps the Edge render <30ms.
+==============================================================================
+-->
+
+<style>
+  /* ============ TOKENS — match site palette ============ */
+  :root {
+    --bg:           #fafaf7;
+    --bg-elev:      #ffffff;
+    --bg-elev-2:    #f4f3ee;
+    --line:         #e6e4dd;
+    --line-strong:  #d5d2c9;
+    --ink:          #111111;
+    --ink-soft:     #2e2e2e;
+    --muted:        #595959;
+    --muted-soft:   #7c7c7c;
+    --accent:       oklch(44% 0.18 250);  /* cobalt */
+    --accent-soft:  oklch(44% 0.18 250 / 0.08);
+    --sans: ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #2a2823;
+    font-family: var(--sans);
+    color: var(--ink);
+    padding: 48px 24px;
+    min-height: 100vh;
+  }
+
+  /* ============ PREVIEW SHELL ============ */
+  .preview-shell {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+  .preview-header {
+    color: #d8d4c8;
+    font-family: var(--mono);
+    font-size: 13px;
+    padding: 0 4px 16px;
+    border-bottom: 1px dashed #555;
+  }
+  .preview-header h1 {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 32px;
+    color: #f4f0e4;
+    margin: 0 0 8px;
+    letter-spacing: -0.02em;
+  }
+  .preview-header p {
+    margin: 0;
+    color: #a8a294;
+    line-height: 1.5;
+    max-width: 80ch;
+  }
+  .variant {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .variant-label {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: #d8d4c8;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    display: flex;
+    gap: 16px;
+    align-items: baseline;
+    flex-wrap: wrap;
+  }
+  .variant-label .v { color: #f4f0e4; font-weight: 500; }
+  .variant-label .meta {
+    color: #8c8678;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 11px;
+  }
+
+  /* ============ OG CARD (1200×630, exact) ============ */
+  .og {
+    width: 1200px;
+    height: 630px;
+    background: var(--bg);
+    color: var(--ink);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 24px 60px -24px rgba(0,0,0,0.45);
+    border-radius: 12px;  /* preview only — actual social card is rect */
+    transform-origin: top left;
+  }
+
+  /* Scale down on small screens so preview is still viewable */
+  @media (max-width: 1280px) {
+    .og {
+      transform: scale(calc((100vw - 96px) / 1200));
+    }
+    .variant {
+      height: calc((100vw - 96px) * 630 / 1200);
+    }
+  }
+
+  /* ============ CARD CHROME ============ */
+  .og .chrome-top {
+    position: absolute;
+    top: 56px; left: 64px; right: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 16px;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+  }
+  .og .wordmark {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 20px;
+    color: var(--ink);
+  }
+  .og .wordmark .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    transform: translateY(-3px);
+  }
+  .og .wordmark .url {
+    color: var(--muted);
+    font-weight: 400;
+    font-size: 15px;
+    margin-left: 4px;
+  }
+  .og .chrome-top .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--accent);
+    padding: 7px 14px;
+    border: 1px solid color-mix(in oklab, var(--accent) 40%, transparent);
+    border-radius: 999px;
+    background: var(--accent-soft);
+  }
+  .og .chrome-top .badge::before {
+    content: "";
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  /* ============ CARD BOTTOM META ============ */
+  .og .chrome-bot {
+    position: absolute;
+    bottom: 56px; left: 64px; right: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 15px;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+  }
+  .og .chrome-bot .left {
+    display: flex; gap: 24px; align-items: center;
+  }
+  .og .chrome-bot .left .who {
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .og .chrome-bot .left .sep {
+    color: var(--muted-soft);
+  }
+  .og .chrome-bot .cta {
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  /* ============ HOMEPAGE VARIANT ============ */
+  .og.home .title {
+    position: absolute;
+    top: 196px;
+    left: 64px; right: 64px;
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 96px;
+    line-height: 0.96;
+    letter-spacing: -0.04em;
+    color: var(--ink);
+    margin: 0;
+    max-width: 900px;
+  }
+  .og.home .title .period { color: var(--accent); }
+  .og.home .pitch {
+    position: absolute;
+    top: 414px;
+    left: 64px; right: 64px;
+    font-family: var(--sans);
+    font-size: 26px;
+    line-height: 1.4;
+    color: var(--ink-soft);
+    margin: 0;
+    max-width: 900px;
+  }
+  .og.home .pitch em { color: var(--accent); font-style: normal; }
+
+  /* ============ CASE STUDY VARIANT ============ */
+  .og.case-study {
+    background:
+      radial-gradient(80% 60% at 100% 0%, color-mix(in oklab, var(--accent) 7%, transparent) 0%, transparent 60%),
+      var(--bg);
+  }
+  .og.case-study .kpi-block {
+    position: absolute;
+    top: 168px;
+    left: 64px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .og.case-study .kpi-block .kpi-label {
+    font-family: var(--mono);
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--muted);
+  }
+  .og.case-study .kpi-block .kpi-value {
+    font-family: var(--mono);
+    font-size: 168px;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .og.case-study .kpi-block .kpi-value .unit {
+    font-size: 0.4em;
+    color: var(--muted);
+    letter-spacing: 0;
+    margin-left: 8px;
+  }
+  .og.case-study .title {
+    position: absolute;
+    top: 408px;
+    left: 64px; right: 64px;
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 44px;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin: 0;
+    max-width: 920px;
+  }
+
+  /* ============ WRITING POST VARIANT ============ */
+  .og.writing {
+    background:
+      repeating-linear-gradient(135deg,
+        color-mix(in oklab, var(--accent) 4%, var(--bg)) 0 2px,
+        var(--bg) 2px 18px);
+  }
+  .og.writing .stamp {
+    position: absolute;
+    top: 168px;
+    left: 64px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-family: var(--mono);
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--muted);
+  }
+  .og.writing .stamp .slash { color: var(--accent); }
+  .og.writing .title {
+    position: absolute;
+    top: 216px;
+    left: 64px; right: 64px;
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 68px;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin: 0;
+    max-width: 1000px;
+  }
+  .og.writing .dek {
+    position: absolute;
+    top: 442px;
+    left: 64px; right: 64px;
+    font-family: var(--sans);
+    font-size: 20px;
+    line-height: 1.4;
+    color: var(--ink-soft);
+    margin: 0;
+    max-width: 960px;
+  }
+
+  /* ============ NOW VARIANT ============ */
+  .og.now {
+    background:
+      radial-gradient(60% 80% at 0% 100%, color-mix(in oklab, var(--accent) 8%, transparent) 0%, transparent 60%),
+      var(--bg);
+  }
+  .og.now .updated-pill {
+    position: absolute;
+    top: 168px;
+    left: 64px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 16px;
+    background: var(--bg-elev);
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    font-family: var(--mono);
+    font-size: 14px;
+    color: var(--ink-soft);
+    letter-spacing: 0.02em;
+  }
+  .og.now .updated-pill::before {
+    content: "";
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 18%, transparent);
+  }
+  .og.now .title {
+    position: absolute;
+    top: 232px;
+    left: 64px; right: 64px;
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 92px;
+    line-height: 0.98;
+    letter-spacing: -0.04em;
+    color: var(--ink);
+    margin: 0;
+    max-width: 960px;
+  }
+  .og.now .title .accent { color: var(--accent); }
+  .og.now .dek {
+    position: absolute;
+    top: 444px;
+    left: 64px; right: 64px;
+    font-family: var(--sans);
+    font-size: 24px;
+    line-height: 1.4;
+    color: var(--ink-soft);
+    margin: 0;
+    max-width: 960px;
+  }
+</style>
+</head>
+<body>
+
+<div class="preview-shell">
+
+  <header class="preview-header">
+    <h1>OG image templates · 1200×630</h1>
+    <p>Static design preview of the dynamic Open Graph cards rendered by <code style="font-family: var(--mono);">/api/og</code>. These are the social-share previews that appear in LinkedIn DMs, Slack unfurls, iMessage, X, and recruiter email forwards. See the comment block at the top of this file for the next/og handoff doc.</p>
+  </header>
+
+  <!-- ============ HOMEPAGE ============ -->
+  <section class="variant">
+    <div class="variant-label">
+      <span class="v">/og</span>
+      <span>Homepage default</span>
+      <span class="meta">→ jvermaelen.com</span>
+    </div>
+    <div class="og home">
+      <div class="chrome-top">
+        <div class="wordmark">
+          <span>jv</span>
+          <span class="dot"></span>
+          <span class="url">jvermaelen.com</span>
+        </div>
+        <div class="badge">Open to good conversations</div>
+      </div>
+      <h2 class="title">Jason Vermaelen<span class="period">.</span></h2>
+      <p class="pitch">Senior BI Analyst at Indeed. The data partner Product, Sales, and Marketing actually want in the room — <em>shipping the right decisions, not just more features.</em></p>
+      <div class="chrome-bot">
+        <div class="left">
+          <span class="who">Sr. BI Analyst · Indeed</span>
+          <span class="sep">·</span>
+          <span>Austin, TX</span>
+        </div>
+        <span class="cta">read more →</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CASE STUDY ============ -->
+  <section class="variant">
+    <div class="variant-label">
+      <span class="v">/api/og?slug=salesforce-case-automation&amp;type=case-study</span>
+      <span>Case study</span>
+      <span class="meta">→ /work/salesforce-case-automation</span>
+    </div>
+    <div class="og case-study">
+      <div class="chrome-top">
+        <div class="wordmark">
+          <span>jv</span>
+          <span class="dot"></span>
+          <span class="url">jvermaelen.com / work</span>
+        </div>
+        <div class="badge" style="color: var(--accent);">Case study</div>
+      </div>
+      <div class="kpi-block">
+        <span class="kpi-label">/ outcome — hours returned per year</span>
+        <span class="kpi-value">~2K<span class="unit">hrs/yr</span></span>
+      </div>
+      <h2 class="title">Salesforce case automation that returned ~2,000 hours/year to the team.</h2>
+      <div class="chrome-bot">
+        <div class="left">
+          <span class="who">Sr. BI Analyst</span>
+          <span class="sep">·</span>
+          <span>Indeed · 2024</span>
+          <span class="sep">·</span>
+          <span>6 mo</span>
+        </div>
+        <span class="cta">read the case study →</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WRITING POST ============ -->
+  <section class="variant">
+    <div class="variant-label">
+      <span class="v">/api/og?slug=building-the-dashboard-the-org-actually-uses&amp;type=writing</span>
+      <span>Writing post</span>
+      <span class="meta">→ /writing/building-the-dashboard-the-org-actually-uses</span>
+    </div>
+    <div class="og writing">
+      <div class="chrome-top">
+        <div class="wordmark">
+          <span>jv</span>
+          <span class="dot"></span>
+          <span class="url">jvermaelen.com / writing</span>
+        </div>
+        <div class="badge" style="color: var(--accent);">Essay</div>
+      </div>
+      <div class="stamp">
+        <span class="slash">/</span>
+        <span>Writing · May 2026 · 8 min read</span>
+      </div>
+      <h2 class="title">Building the dashboard the org actually uses.</h2>
+      <p class="dek">Six months of work, the three rebuilds I'd skip if I started over, and the one rule that actually drove adoption past 80%.</p>
+      <div class="chrome-bot">
+        <div class="left">
+          <span class="who">Jason Vermaelen</span>
+          <span class="sep">·</span>
+          <span>Sr. BI Analyst, Indeed</span>
+        </div>
+        <span class="cta">jvermaelen.com →</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ NOW ============ -->
+  <section class="variant">
+    <div class="variant-label">
+      <span class="v">/api/og?type=now</span>
+      <span>Now page</span>
+      <span class="meta">→ /now</span>
+    </div>
+    <div class="og now">
+      <div class="chrome-top">
+        <div class="wordmark">
+          <span>jv</span>
+          <span class="dot"></span>
+          <span class="url">jvermaelen.com / now</span>
+        </div>
+        <div class="badge">/now</div>
+      </div>
+      <div class="updated-pill">updated May 19, 2026</div>
+      <h2 class="title">What I'm doing <span class="accent">right now.</span></h2>
+      <p class="dek">Shipping a v2 dashboard at Indeed, halfway through a Data Analytics MS, training BJJ 3–4× a week, and reading <em>The Hard Thing About Hard Things</em>.</p>
+      <div class="chrome-bot">
+        <div class="left">
+          <span class="who">Sr. BI Analyst · Indeed</span>
+          <span class="sep">·</span>
+          <span>Austin, TX</span>
+        </div>
+        <span class="cta">read /now →</span>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+</body>
+</html>

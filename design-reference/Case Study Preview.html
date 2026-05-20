@@ -1,0 +1,885 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Salesforce case automation — Jason Vermaelen</title>
+<meta name="description" content="Senior BI Analyst case study: automated Salesforce case routing and resolution flows that returned ~2,000 hours/year to the team." />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  /* ============ TOKENS ============ */
+  :root {
+    --bg: #0a0a0a; --bg-elev: #111111; --bg-elev-2: #161616;
+    --line: #1f1f1f; --line-strong: #2a2a2a;
+    --ink: #ededed; --ink-soft: #cfcfcf; --muted: #9a9a9a; --muted-soft: #6e6e6e;
+    --accent: oklch(78% 0.18 250); --accent-ink: #0a0a0a;
+    --reverse-bg: #ededed; --reverse-ink: #0a0a0a;
+    --sans: ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    --content: 1120px; --content-narrow: 720px; --gutter: 32px;
+  }
+  [data-theme="light"] {
+    --bg: #fafaf7; --bg-elev: #ffffff; --bg-elev-2: #f4f3ee;
+    --line: #e6e4dd; --line-strong: #d5d2c9;
+    --ink: #111111; --ink-soft: #2e2e2e; --muted: #595959; --muted-soft: #7c7c7c;
+    --accent: oklch(44% 0.18 250); --accent-ink: #ffffff;
+    --reverse-bg: #0a0a0a; --reverse-ink: #ededed;
+  }
+
+  /* ============ BASE ============ */
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: var(--ink); font-family: var(--sans);
+    font-size: 16px; line-height: 1.55;
+    -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+    transition: background 200ms ease, color 200ms ease;
+  }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: var(--accent); }
+  ::selection { background: var(--accent); color: var(--accent-ink); }
+  .container { max-width: var(--content); margin: 0 auto; padding: 0 var(--gutter); }
+  .container-narrow { max-width: var(--content-narrow); margin: 0 auto; padding: 0 var(--gutter); }
+
+  /* ============ NAV (shared) ============ */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: color-mix(in oklab, var(--bg) 85%, transparent);
+    backdrop-filter: saturate(180%) blur(12px);
+    -webkit-backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-row {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 56px; font-family: var(--mono); font-size: 13px;
+  }
+  .brand { font-weight: 600; color: var(--ink); display: flex; align-items: baseline; gap: 8px; }
+  .brand .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); transform: translateY(-2px); }
+  .brand .brand-label {
+    font-family: var(--mono); font-size: 12px; color: var(--muted);
+    margin-left: 4px; letter-spacing: 0.02em;
+    transition: color 150ms ease;
+  }
+  .brand:hover .brand-label,
+  .brand:focus-visible .brand-label { color: var(--accent); }
+  .nav-links { display: flex; gap: 26px; color: var(--muted); }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-links a.active { color: var(--ink); }
+  .nav-tools { display: flex; align-items: center; gap: 10px; }
+  .theme-btn {
+    background: var(--bg-elev); border: 1px solid var(--line-strong);
+    width: 26px; height: 26px; border-radius: 4px; cursor: pointer;
+    color: var(--muted); display: inline-flex; align-items: center; justify-content: center; padding: 0;
+  }
+  .theme-btn:hover { color: var(--ink); border-color: var(--accent); }
+  .theme-btn svg { width: 13px; height: 13px; }
+
+  /* ============ BREADCRUMB ============ */
+  .breadcrumb {
+    padding: 32px 0 0;
+    font-family: var(--mono); font-size: 12px;
+    color: var(--muted); letter-spacing: 0.02em;
+  }
+  .breadcrumb a { color: var(--muted); transition: color 150ms ease; }
+  .breadcrumb a:hover { color: var(--accent); }
+  .breadcrumb .sep { color: var(--muted-soft); margin: 0 8px; }
+  .breadcrumb .here { color: var(--ink-soft); }
+
+  /* ============ CASE HEADER (the "report header") ============ */
+  .case-header { padding: 32px 0 48px; }
+  .case-eyebrow {
+    font-family: var(--mono); font-size: 12px;
+    text-transform: uppercase; letter-spacing: 0.16em;
+    color: var(--muted); margin-bottom: 24px;
+    display: flex; gap: 14px; align-items: center; flex-wrap: wrap;
+  }
+  .case-eyebrow .accent-dot { color: var(--accent); }
+  .case-eyebrow .chip {
+    padding: 3px 9px; border: 1px solid var(--line-strong);
+    border-radius: 999px; font-size: 10px; letter-spacing: 0.1em;
+    background: var(--bg-elev); color: var(--ink-soft);
+  }
+  .case-eyebrow .chip.status {
+    background: color-mix(in oklab, var(--accent) 12%, var(--bg-elev));
+    border-color: color-mix(in oklab, var(--accent) 40%, var(--line-strong));
+    color: var(--accent);
+  }
+  .case-eyebrow .chip.status::before {
+    content: ""; display: inline-block; width: 5px; height: 5px;
+    border-radius: 50%; background: var(--accent); margin-right: 6px;
+    vertical-align: 1px;
+  }
+  h1.case-title {
+    font-family: var(--sans); font-weight: 600;
+    font-size: clamp(40px, 6vw, 72px); line-height: 1.02;
+    letter-spacing: -0.03em; margin: 0 0 28px; color: var(--ink);
+    max-width: 22ch; text-wrap: balance;
+  }
+  h1.case-title em { font-style: normal; color: var(--accent); }
+  .case-lead {
+    font-family: var(--sans);
+    font-size: clamp(18px, 1.6vw, 21px); line-height: 1.5;
+    color: var(--ink-soft); max-width: 64ch; margin: 0; text-wrap: pretty;
+  }
+  .case-lead strong { color: var(--ink); font-weight: 500; }
+
+  /* ============ META STRIP ============ */
+  .meta-strip {
+    margin-top: 36px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .meta-cell {
+    padding: 16px 18px;
+    border-right: 1px solid var(--line);
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .meta-cell:last-child { border-right: none; }
+  .meta-cell .k {
+    font-family: var(--mono); font-size: 10px;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--muted);
+  }
+  .meta-cell .v {
+    font-family: var(--mono); font-size: 13px;
+    color: var(--ink); letter-spacing: 0.01em;
+  }
+  .meta-cell .v.tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .meta-cell .v .tag {
+    background: var(--bg-elev); border: 1px solid var(--line-strong);
+    padding: 2px 7px; border-radius: 4px; font-size: 11px;
+  }
+  @media (max-width: 900px) {
+    .meta-strip { grid-template-columns: repeat(2, 1fr); }
+    .meta-cell { border-bottom: 1px solid var(--line); }
+    .meta-cell:nth-child(odd) { border-right: 1px solid var(--line); }
+    .meta-cell:nth-child(even) { border-right: none; }
+  }
+
+  /* ============ REPORT KPI STRIP ============ */
+  .case-kpis {
+    background: var(--bg-elev);
+    border-bottom: 1px solid var(--line);
+  }
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-left: 1px solid var(--line);
+  }
+  .kpi-tile {
+    padding: 28px 24px;
+    border-right: 1px solid var(--line);
+    display: flex; flex-direction: column; gap: 8px;
+    position: relative;
+  }
+  .kpi-tile .kpi-label {
+    font-family: var(--mono); font-size: 10px;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--ink-soft); line-height: 1.4;
+  }
+  .kpi-tile .kpi-value {
+    font-family: var(--mono); font-size: clamp(28px, 3.5vw, 44px);
+    font-weight: 500; line-height: 1; letter-spacing: -0.03em;
+    color: var(--accent);
+  }
+  .kpi-tile .kpi-value .small { font-size: 0.55em; color: var(--muted); letter-spacing: 0; margin-left: 4px; }
+  .kpi-tile .kpi-trend {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--muted); margin-top: auto; padding-top: 8px;
+  }
+  @media (max-width: 800px) {
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    .kpi-tile { border-bottom: 1px solid var(--line); }
+  }
+
+  /* ============ VIEW TOGGLE (filter chips) ============ */
+  .view-bar {
+    padding: 24px 0;
+    border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; gap: 16px;
+    flex-wrap: wrap;
+  }
+  .view-bar .label {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--muted); text-transform: uppercase; letter-spacing: 0.12em;
+  }
+  .view-tabs {
+    display: inline-flex;
+    background: var(--bg-elev); border: 1px solid var(--line-strong);
+    border-radius: 8px; padding: 3px;
+  }
+  .view-tab {
+    font-family: var(--mono); font-size: 12px;
+    padding: 7px 14px; border-radius: 5px;
+    background: transparent; border: none; cursor: pointer;
+    color: var(--muted); letter-spacing: 0.04em;
+    transition: background 150ms ease, color 150ms ease;
+  }
+  .view-tab:hover { color: var(--ink); }
+  .view-tab[aria-pressed="true"] {
+    background: var(--bg);
+    color: var(--ink);
+    box-shadow: 0 1px 0 rgba(0,0,0,0.04), 0 0 0 1px var(--line);
+  }
+  .view-meta {
+    margin-left: auto;
+    font-family: var(--mono); font-size: 11px;
+    color: var(--muted-soft);
+  }
+
+  /* View modes — hide sections that don't match */
+  body[data-view="metrics"] [data-views]:not([data-views~="metrics"]) { display: none; }
+  body[data-view="process"] [data-views]:not([data-views~="process"]) { display: none; }
+  body[data-view="all"] [data-views] { display: block; }
+
+  /* ============ CASE BODY ============ */
+  .case-body { padding: 64px 0 96px; }
+  .case-section { padding: 40px 0; border-top: 1px solid var(--line); }
+  .case-section:first-child { border-top: none; padding-top: 0; }
+  .case-section h2 {
+    font-family: var(--mono); font-size: 12px;
+    text-transform: uppercase; letter-spacing: 0.16em;
+    color: var(--muted); margin: 0 0 24px; font-weight: 500;
+  }
+  .case-section h2 .num { color: var(--accent); margin-right: 8px; }
+  .case-section p {
+    font-family: var(--sans); font-size: 18px; line-height: 1.6;
+    color: var(--ink-soft); margin: 0 0 18px; max-width: 62ch;
+    text-wrap: pretty;
+  }
+  .case-section p:last-child { margin-bottom: 0; }
+  .case-section p strong { color: var(--ink); font-weight: 500; }
+  .case-section p em { color: var(--accent); font-style: normal; }
+  .case-section .lead-graf {
+    font-size: 22px; line-height: 1.5; color: var(--ink);
+    font-weight: 400;
+    max-width: 58ch;
+  }
+  .case-section ul {
+    font-family: var(--sans); font-size: 17px; line-height: 1.6;
+    color: var(--ink-soft); margin: 0 0 18px; padding-left: 0;
+    list-style: none; max-width: 62ch;
+  }
+  .case-section ul li {
+    padding: 10px 0 10px 28px;
+    position: relative;
+    border-top: 1px dashed var(--line);
+  }
+  .case-section ul li:first-child { border-top: none; }
+  .case-section ul li::before {
+    content: "→";
+    position: absolute; left: 0; top: 10px;
+    font-family: var(--mono); color: var(--accent); font-size: 14px;
+  }
+  .case-section ul li strong { color: var(--ink); font-weight: 500; }
+
+  /* Callout — "what I chose not to do" */
+  .callout {
+    margin: 24px 0 0;
+    padding: 20px 24px;
+    border-left: 3px solid var(--accent);
+    background: color-mix(in oklab, var(--accent) 6%, var(--bg-elev));
+    border-radius: 0 8px 8px 0;
+    max-width: 62ch;
+  }
+  .callout .k {
+    font-family: var(--mono); font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--accent); margin-bottom: 6px;
+  }
+  .callout p {
+    font-family: var(--sans); font-size: 16px;
+    line-height: 1.55; color: var(--ink-soft); margin: 0;
+  }
+
+  /* Figure placeholder for architecture diagrams */
+  .figure {
+    margin: 32px 0 8px;
+    border: 1px solid var(--line);
+    border-radius: 10px; overflow: hidden;
+    background: var(--bg-elev);
+  }
+  .figure .figure-frame {
+    aspect-ratio: 16 / 9;
+    background-image:
+      repeating-linear-gradient(135deg,
+        color-mix(in oklab, var(--accent) 14%, var(--bg-elev-2)) 0 8px,
+        var(--bg-elev-2) 8px 18px);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: 13px;
+    color: var(--ink-soft); letter-spacing: 0.04em;
+    text-align: center;
+  }
+  .figure .figure-frame .placeholder {
+    background: var(--bg-elev);
+    padding: 8px 16px;
+    border: 1px solid var(--line-strong); border-radius: 4px;
+  }
+  .figure .figure-caption {
+    padding: 12px 18px;
+    font-family: var(--mono); font-size: 11px;
+    color: var(--muted); border-top: 1px solid var(--line);
+    background: var(--bg);
+  }
+
+  /* Results — Metric callout */
+  .metric-callout {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 0;
+    margin: 8px 0 24px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--bg-elev);
+  }
+  .metric-callout .primary {
+    padding: 28px 32px;
+    background: color-mix(in oklab, var(--accent) 8%, var(--bg-elev));
+    border-right: 1px solid var(--line);
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .metric-callout .primary .l {
+    font-family: var(--mono); font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--muted);
+  }
+  .metric-callout .primary .v {
+    font-family: var(--mono); font-size: clamp(32px, 4vw, 48px);
+    font-weight: 500; line-height: 1; letter-spacing: -0.03em;
+    color: var(--accent);
+  }
+  .metric-callout .secondary {
+    padding: 20px 24px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .metric-callout .row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-family: var(--mono); font-size: 13px;
+    padding-bottom: 10px; border-bottom: 1px dashed var(--line);
+  }
+  .metric-callout .row:last-child { border-bottom: none; padding-bottom: 0; }
+  .metric-callout .row .l { color: var(--muted); font-size: 11px; }
+  .metric-callout .row .v { color: var(--ink); }
+  @media (max-width: 700px) {
+    .metric-callout { grid-template-columns: 1fr; }
+    .metric-callout .primary { border-right: none; border-bottom: 1px solid var(--line); }
+  }
+
+  /* Before/after mini chart */
+  .ba {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    margin: 16px 0 24px;
+  }
+  .ba-card {
+    padding: 18px; border: 1px solid var(--line);
+    border-radius: 10px; background: var(--bg-elev);
+  }
+  .ba-card .k {
+    font-family: var(--mono); font-size: 10px;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--muted); margin-bottom: 10px;
+  }
+  .ba-card .bars {
+    display: grid; grid-template-columns: repeat(8, 1fr);
+    gap: 4px; align-items: end; height: 60px;
+  }
+  .ba-card .bar {
+    background: var(--accent);
+    border-radius: 1px;
+  }
+  .ba-card.before .bar { background: color-mix(in oklab, var(--muted) 70%, var(--accent)); }
+  .ba-card .summary {
+    margin-top: 12px;
+    font-family: var(--mono); font-size: 13px; color: var(--ink);
+  }
+  @media (max-width: 600px) { .ba { grid-template-columns: 1fr; } }
+
+  /* Tradeoffs structured list */
+  .tradeoffs { display: flex; flex-direction: column; gap: 0; max-width: 62ch; }
+  .tradeoff-row {
+    display: grid; grid-template-columns: 220px 1fr;
+    gap: 24px; padding: 18px 0;
+    border-top: 1px dashed var(--line);
+    align-items: baseline;
+  }
+  .tradeoff-row:first-child { border-top: none; padding-top: 0; }
+  .tradeoff-row .k {
+    font-family: var(--mono); font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--muted-soft);
+  }
+  .tradeoff-row .k.warn { color: var(--accent); }
+  .tradeoff-row .v {
+    font-family: var(--sans); font-size: 16px; line-height: 1.55;
+    color: var(--ink-soft);
+  }
+  .tradeoff-row .v strong { color: var(--ink); font-weight: 500; }
+  @media (max-width: 700px) {
+    .tradeoff-row { grid-template-columns: 1fr; gap: 4px; }
+  }
+
+  /* Artifacts list */
+  .artifacts { display: flex; flex-direction: column; gap: 0; max-width: 62ch; }
+  .artifact {
+    display: grid; grid-template-columns: 28px 1fr auto;
+    gap: 16px; padding: 14px 0;
+    border-top: 1px solid var(--line);
+    align-items: center;
+    transition: padding-left 200ms ease;
+  }
+  .artifact:last-child { border-bottom: 1px solid var(--line); }
+  .artifact:hover { padding-left: 8px; }
+  .artifact .ico {
+    font-family: var(--mono); color: var(--accent); font-size: 14px;
+    text-align: center;
+  }
+  .artifact .label {
+    font-family: var(--sans); font-size: 16px; color: var(--ink);
+  }
+  .artifact .meta {
+    font-family: var(--mono); font-size: 11px; color: var(--muted);
+  }
+
+  /* ============ NEXT CASE ============ */
+  .next-case {
+    background: var(--bg-elev);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 56px 0;
+  }
+  .next-case-card {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    gap: 32px;
+    padding: 32px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--bg);
+    align-items: center;
+    transition: border-color 200ms ease, transform 200ms ease;
+  }
+  .next-case-card:hover { border-color: var(--accent); }
+  .next-case-card:hover .arrow { transform: translateX(4px); }
+  .next-case-card .num {
+    font-family: var(--mono); font-size: 12px;
+    color: var(--accent); letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .next-case-card .num small {
+    display: block; color: var(--muted); font-size: 10px;
+    text-transform: uppercase; margin-bottom: 4px;
+  }
+  .next-case-card .title {
+    font-family: var(--sans); font-size: clamp(20px, 2vw, 26px);
+    font-weight: 600; color: var(--ink); margin: 0 0 6px;
+    line-height: 1.25; letter-spacing: -0.01em;
+  }
+  .next-case-card .outcome {
+    font-family: var(--mono); font-size: 12px; color: var(--muted);
+  }
+  .next-case-card .arrow {
+    font-family: var(--mono); font-size: 18px; color: var(--accent);
+    transition: transform 200ms ease;
+  }
+  @media (max-width: 700px) {
+    .next-case-card { grid-template-columns: 1fr; gap: 12px; }
+    .next-case-card .arrow { display: none; }
+  }
+
+  /* ============ CONTACT STRIP (same as other pages) ============ */
+  .contact-strip { background: var(--reverse-bg); color: var(--reverse-ink); padding: 80px 0; }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: end; }
+  .contact-strip h2 {
+    font-family: var(--sans); font-size: clamp(40px, 5vw, 64px);
+    line-height: 0.96; letter-spacing: -0.03em; font-weight: 600; margin: 0 0 12px;
+  }
+  .contact-strip .sub {
+    font-family: var(--mono); font-size: 13px;
+    color: color-mix(in oklab, var(--reverse-ink) 65%, var(--reverse-bg));
+  }
+  .contact-list { display: flex; flex-direction: column; gap: 0; }
+  .contact-item {
+    display: grid; grid-template-columns: 110px 1fr auto; gap: 24px;
+    padding: 18px 0;
+    border-top: 1px solid color-mix(in oklab, var(--reverse-ink) 18%, var(--reverse-bg));
+    align-items: baseline; font-family: var(--mono); font-size: 14px;
+    transition: padding-left 200ms ease;
+  }
+  .contact-item:last-child { border-bottom: 1px solid color-mix(in oklab, var(--reverse-ink) 18%, var(--reverse-bg)); }
+  .contact-item:hover { padding-left: 12px; }
+  .contact-item .k { color: color-mix(in oklab, var(--reverse-ink) 50%, var(--reverse-bg)); text-transform: uppercase; letter-spacing: 0.1em; font-size: 11px; }
+  .contact-item .v { color: var(--reverse-ink); }
+  .contact-item .a { font-family: var(--sans); font-size: 16px; }
+  @media (max-width: 800px) { .contact-grid { grid-template-columns: 1fr; gap: 32px; } }
+
+  /* ============ FOOTER (same) ============ */
+  .footer { padding: 24px 0; border-top: 1px solid var(--line); font-family: var(--mono); font-size: 11px; color: var(--muted); }
+  .footer-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; align-items: center; }
+  .footer-row .mid { text-align: center; }
+  .footer-row .end { text-align: right; }
+  .footer-row a:hover { color: var(--ink); }
+  .footer-meta { text-align: center; font-size: 10px; color: var(--muted-soft); padding-top: 12px; }
+  @media (max-width: 800px) {
+    .footer-row { grid-template-columns: 1fr; text-align: left; }
+    .footer-row .mid, .footer-row .end { text-align: left; }
+  }
+</style>
+</head>
+<body data-view="all">
+
+<!-- ============================== NAV -->
+<header class="nav">
+  <div class="container nav-row">
+    <a href="Homepage Preview.html" class="brand" aria-label="Home" title="Home"><span>jv</span><span class="dot"></span><span class="brand-label">/ home</span></a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="Homepage Preview.html#work" class="active">work</a>
+      <a href="Writing Preview.html">writing</a>
+      <a href="Now Preview.html">now</a>
+      <a href="About Preview.html">about</a>
+    </nav>
+    <div class="nav-tools">
+      <button class="theme-btn" id="theme-toggle" aria-label="Toggle theme">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ============================== BREADCRUMB -->
+<div class="container">
+  <div class="breadcrumb">
+    <a href="Homepage Preview.html">jv</a>
+    <span class="sep">/</span>
+    <a href="#">work</a>
+    <span class="sep">/</span>
+    <span class="here">salesforce-case-automation</span>
+  </div>
+</div>
+
+<!-- ============================== CASE HEADER -->
+<section class="case-header" data-screen-label="01 Case — Header">
+  <div class="container">
+    <div class="case-eyebrow">
+      <span><span class="accent-dot">§</span> Case study</span>
+      <span class="chip">2024</span>
+      <span class="chip status">live in production</span>
+    </div>
+    <h1 class="case-title">Salesforce case automation that returned <em>~2,000 hours/year</em> to the team.</h1>
+    <p class="case-lead">A 6-month internal automation build on top of Salesforce. Replaced manual case triage and resolution flows with a routing layer that handles the common path automatically — letting the team's analysts spend their time on the cases that actually need human judgment.</p>
+
+    <!-- Meta strip — Role · Company · Year · Duration · Tags -->
+    <div class="meta-strip">
+      <div class="meta-cell">
+        <span class="k">Role</span>
+        <span class="v">Sr. BI Analyst <span style="color: var(--muted)">· lead</span></span>
+      </div>
+      <div class="meta-cell">
+        <span class="k">Company</span>
+        <span class="v">Indeed</span>
+      </div>
+      <div class="meta-cell">
+        <span class="k">Duration</span>
+        <span class="v">6 months · 2024</span>
+      </div>
+      <div class="meta-cell">
+        <span class="k">Team</span>
+        <span class="v">BI · Sales Ops · SFDC Admins</span>
+      </div>
+      <div class="meta-cell">
+        <span class="k">Tags</span>
+        <span class="v tags">
+          <span class="tag">BI</span><span class="tag">Automation</span><span class="tag">Ops</span>
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== REPORT KPI STRIP -->
+<section class="case-kpis" data-screen-label="02 Case — KPIs">
+  <div class="kpi-grid">
+    <div class="kpi-tile">
+      <span class="kpi-value">~2K<span class="small">hrs/yr</span></span>
+      <span class="kpi-label">returned to the team</span>
+      <span class="kpi-trend">↑ annualized after month 4</span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-value">100<span class="small">%</span></span>
+      <span class="kpi-label">of common-path triage automated</span>
+      <span class="kpi-trend">human-in-loop kept for edge cases</span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-value">6<span class="small">mo</span></span>
+      <span class="kpi-label">spec → live, full rollout</span>
+      <span class="kpi-trend">phased: pilot at month 3</span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-value">1<span class="small">+ team</span></span>
+      <span class="kpi-label">analysts lead; sales ops partner</span>
+      <span class="kpi-trend">cross-functional review weekly</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== VIEW TOGGLE -->
+<div class="container">
+  <div class="view-bar">
+    <span class="label">/ view</span>
+    <div class="view-tabs" role="radiogroup" aria-label="Reader view mode">
+      <button class="view-tab" data-view="all"     aria-pressed="true">Full story</button>
+      <button class="view-tab" data-view="metrics" aria-pressed="false">Just the metrics</button>
+      <button class="view-tab" data-view="process" aria-pressed="false">Just the process</button>
+    </div>
+    <span class="view-meta">~6 min read · full</span>
+  </div>
+</div>
+
+<!-- ============================== CASE BODY -->
+<article class="case-body">
+  <div class="container-narrow">
+
+    <!-- 1 — The headline -->
+    <section class="case-section" id="headline" data-views="all metrics process">
+      <h2><span class="num">01</span>The headline</h2>
+      <p class="lead-graf">A six-person ops team was spending most of every morning hand-triaging Salesforce cases — assigning owners, routing categories, and closing the obvious resolutions. We replaced the morning ritual with a flow that does the routine work automatically. <strong>Return: ~2,000 analyst hours per year</strong>, redirected toward the cases that actually require judgment.</p>
+    </section>
+
+    <!-- 2 — Context & constraints -->
+    <section class="case-section" id="context" data-views="all process">
+      <h2><span class="num">02</span>Context &amp; constraints</h2>
+      <p>The team supports Scaled Business Solutions globally. Case volume had grown 3× over two years, but headcount had not. The pain point wasn't that hard cases were getting harder — it was that the team was so submerged in the easy ones, they couldn't get to the hard ones until mid-afternoon.</p>
+      <ul>
+        <li><strong>Vendor lock:</strong> the work had to live inside Salesforce. No separate orchestration tool.</li>
+        <li><strong>Auditability:</strong> every automated decision had to be reviewable by a human and reversible within one click.</li>
+        <li><strong>Scope:</strong> the project couldn't change the case data model — only the triage and resolution flows on top of it.</li>
+        <li><strong>Calendar:</strong> Q4 freeze landed in month 5; full rollout had to be done before then or wait until Q2.</li>
+      </ul>
+    </section>
+
+    <!-- 3 — The decision -->
+    <section class="case-section" id="decision" data-views="all process">
+      <h2><span class="num">03</span>The decision</h2>
+      <p>I built the routing layer in two parts: a <strong>classifier</strong> (rules-based, with a small ML-assisted bucket for the "doesn't match a known pattern" cases) and a <strong>resolver</strong> (templated responses + auto-close for cases the classifier scored high-confidence on). Everything else got routed to a human with a recommended owner pre-filled.</p>
+      <p>The most important call wasn't what to automate — it was what <em>not</em> to.</p>
+      <div class="callout">
+        <div class="k">/ What I chose not to do</div>
+        <p>I didn't try to automate any case the classifier scored below a defensible confidence threshold. The temptation was to ship "auto-close for borderline cases too," and the math said it would have added ~12% more hours saved. But the cost of a wrong auto-close on a real customer issue was an order of magnitude worse than the cost of a human glancing at it. The conservative threshold is why the team trusted the system in month 2 and not month 8.</p>
+      </div>
+    </section>
+
+    <!-- 4 — Process -->
+    <section class="case-section" id="process" data-views="all process">
+      <h2><span class="num">04</span>Process</h2>
+      <p>Built in four phases. Phase 1 was instrumentation only — we logged every manual decision the team was already making for six weeks. That gave us the ground truth dataset the classifier needed and, more importantly, the answer to "what would this thing have done last quarter?" before we shipped it.</p>
+      <p>Phase 2 was a shadow-mode rollout — the classifier made its prediction, the human made theirs, and we measured agreement. Phase 3 was a 20% live cutover with daily review. Phase 4 was full cutover with weekly review tapering to monthly.</p>
+      <p>The thing that almost killed the project was a Salesforce Apex flow limit nobody had hit before. We worked around it; in hindsight, I'd have done the limit math during the spec.</p>
+
+      <figure class="figure">
+        <div class="figure-frame"><span class="placeholder">architecture diagram · classifier ↔ resolver ↔ SFDC flow</span></div>
+        <figcaption class="figure-caption">Fig 1 · Routing layer architecture (real diagram in case study repo)</figcaption>
+      </figure>
+    </section>
+
+    <!-- 5 — Results -->
+    <section class="case-section" id="results" data-views="all metrics">
+      <h2><span class="num">05</span>Results</h2>
+
+      <div class="metric-callout">
+        <div class="primary">
+          <span class="l">Annualized return</span>
+          <span class="v">~2,000 hrs/yr</span>
+          <span style="font-family: var(--mono); font-size: 11px; color: var(--muted); margin-top: 4px;">measured against pre-rollout 6-week baseline</span>
+        </div>
+        <div class="secondary">
+          <div class="row"><span class="l">Common-path triage</span><span class="v">100% automated</span></div>
+          <div class="row"><span class="l">Auto-close accuracy</span><span class="v">99.4% (sampled)</span></div>
+          <div class="row"><span class="l">Mean time to first touch</span><span class="v">↓ 6h → 11m</span></div>
+          <div class="row"><span class="l">Adoption</span><span class="v">100% of team by month 6</span></div>
+        </div>
+      </div>
+
+      <div class="ba">
+        <div class="ba-card before">
+          <div class="k">Before — weekly manual triage hrs</div>
+          <div class="bars">
+            <div class="bar" style="height: 85%"></div>
+            <div class="bar" style="height: 90%"></div>
+            <div class="bar" style="height: 78%"></div>
+            <div class="bar" style="height: 95%"></div>
+            <div class="bar" style="height: 88%"></div>
+            <div class="bar" style="height: 92%"></div>
+            <div class="bar" style="height: 84%"></div>
+            <div class="bar" style="height: 89%"></div>
+          </div>
+          <div class="summary">~38 hrs/wk avg</div>
+        </div>
+        <div class="ba-card after">
+          <div class="k">After — weekly manual triage hrs</div>
+          <div class="bars">
+            <div class="bar" style="height: 28%"></div>
+            <div class="bar" style="height: 24%"></div>
+            <div class="bar" style="height: 18%"></div>
+            <div class="bar" style="height: 14%"></div>
+            <div class="bar" style="height: 10%"></div>
+            <div class="bar" style="height: 11%"></div>
+            <div class="bar" style="height: 9%"></div>
+            <div class="bar" style="height: 8%"></div>
+          </div>
+          <div class="summary">~8 hrs/wk avg</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6 — Tradeoffs -->
+    <section class="case-section" id="tradeoffs" data-views="all process">
+      <h2><span class="num">06</span>Tradeoffs &amp; what I'd do differently</h2>
+
+      <div class="tradeoffs">
+        <div class="tradeoff-row">
+          <div class="k">/ would do again</div>
+          <div class="v"><strong>Shadow mode before live cutover.</strong> The 6-week shadow phase felt slow at the time. In hindsight it was the cheapest insurance policy in the whole project — every classifier rule we'd have shipped without it would have needed a hotfix in week two.</div>
+        </div>
+        <div class="tradeoff-row">
+          <div class="k">/ would revisit</div>
+          <div class="v"><strong>Apex flow limits.</strong> I treated the Salesforce platform constraints as a "we'll find out when we get there" problem. We did, and the workaround was ugly. Spec the limits up front next time.</div>
+        </div>
+        <div class="tradeoff-row">
+          <div class="k">/ would do differently</div>
+          <div class="v"><strong>Ship the dashboards first, the automation second.</strong> We shipped the routing flow before the post-hoc analytics view, which meant for the first six weeks people had to take my word that it was working. With the dashboard first, trust would have built faster.</div>
+        </div>
+        <div class="tradeoff-row warn">
+          <div class="k warn">/ open question</div>
+          <div class="v"><strong>The ML-assisted bucket is opaque.</strong> Confidence scores are visible but the model itself is a black box to the operator team. As volume scales, I'd want to swap it for something more interpretable — even if accuracy takes a small hit.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7 — Artifacts -->
+    <section class="case-section" id="artifacts" data-views="all">
+      <h2><span class="num">07</span>Artifacts</h2>
+      <div class="artifacts">
+        <a href="#" class="artifact">
+          <span class="ico">⌖</span>
+          <span class="label">Live dashboard — anonymized read-only view</span>
+          <span class="meta">internal · request access</span>
+        </a>
+        <a href="#" class="artifact">
+          <span class="ico">⌗</span>
+          <span class="label">Architecture notes — Notion</span>
+          <span class="meta">15 min read</span>
+        </a>
+        <a href="#" class="artifact">
+          <span class="ico">⌘</span>
+          <span class="label">SQL queries — GitHub gist</span>
+          <span class="meta">8 queries</span>
+        </a>
+        <a href="#" class="artifact">
+          <span class="ico">⌥</span>
+          <span class="label">Walkthrough recording — Loom</span>
+          <span class="meta">12 min</span>
+        </a>
+      </div>
+    </section>
+
+  </div>
+</article>
+
+<!-- ============================== NEXT CASE -->
+<section class="next-case" data-screen-label="08 Next case">
+  <div class="container">
+    <a class="next-case-card" href="#">
+      <div class="num">02 / 03<small>next case</small></div>
+      <div>
+        <div class="title">Global Salesforce CRM Analytics dashboard — daily-active by hundreds across SBS.</div>
+        <div class="outcome">Indeed · 2024 · BI / Analytics</div>
+      </div>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+</section>
+
+<!-- ============================== CONTACT -->
+<section class="contact-strip" id="contact" data-screen-label="09 Contact">
+  <div class="container contact-grid">
+    <div>
+      <h2>Want to talk through it?</h2>
+      <div class="sub">I respond within 24 hours on weekdays. Happy to walk you through the architecture.</div>
+    </div>
+    <div class="contact-list">
+      <a href="https://app.cal.com/jason-vermaelen" class="contact-item">
+        <span class="k">Schedule</span>
+        <span class="v">app.cal.com/jason-vermaelen</span>
+        <span class="a">→</span>
+      </a>
+      <a href="mailto:jason.vermaelen@gmail.com" class="contact-item">
+        <span class="k">Email</span>
+        <span class="v">jason.vermaelen@gmail.com</span>
+        <span class="a">→</span>
+      </a>
+      <a href="https://linkedin.com/in/vermaelen" class="contact-item">
+        <span class="k">LinkedIn</span>
+        <span class="v">linkedin.com/in/vermaelen</span>
+        <span class="a">→</span>
+      </a>
+      <a href="https://github.com/jvermaelen" class="contact-item">
+        <span class="k">GitHub</span>
+        <span class="v">github.com/jvermaelen</span>
+        <span class="a">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-row">
+      <div>© Jason Vermaelen · Austin, TX · 2026</div>
+      <div class="mid"><a href="mailto:jason.vermaelen@gmail.com">jason.vermaelen@gmail.com</a></div>
+      <div class="end">Built with Next.js · <a href="https://github.com/jvermaelen/personal-site">view source ↗</a></div>
+    </div>
+    <div class="footer-meta">Case study last updated: May 19, 2026</div>
+  </div>
+</footer>
+
+<script>
+  // ============ Theme toggle (shared) ============
+  const html = document.documentElement;
+  const toggle = document.getElementById('theme-toggle');
+  function setTheme(t) {
+    html.setAttribute('data-theme', t);
+    try { localStorage.setItem('theme-v2', t); } catch(e) {}
+    const isDark = t === 'dark';
+    toggle.innerHTML = isDark
+      ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>'
+      : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+  }
+  try { setTheme(localStorage.getItem('theme-v2') || 'light'); } catch(e) { setTheme('light'); }
+  toggle.addEventListener('click', () => { const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'; setTheme(next); });
+
+  // ============ View toggle (filter chips) ============
+  const body = document.body;
+  const tabs = document.querySelectorAll('.view-tab');
+  const meta = document.querySelector('.view-meta');
+  const readTimes = { all: '~6 min · full', metrics: '~2 min · metrics only', process: '~4 min · process only' };
+  tabs.forEach(t => {
+    t.addEventListener('click', () => {
+      const view = t.dataset.view;
+      body.setAttribute('data-view', view);
+      tabs.forEach(x => x.setAttribute('aria-pressed', x === t ? 'true' : 'false'));
+      if (meta) meta.textContent = readTimes[view] || '';
+    });
+  });
+</script>
+
+<script src="command-palette.js"></script>
+<script src="ask-jason.js"></script>
+</body>
+</html>

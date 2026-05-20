@@ -1,0 +1,161 @@
+{
+  "$schema": "https://jsonresume.org/schema/1.0.0/resume.json",
+  "meta": {
+    "version": "1.0.0",
+    "lastModified": "2026-05-19",
+    "canonical": "https://jvermaelen.com/data/resume.json",
+    "note": "Single source of truth for /api/og, the Ask Jason RAG chat, and any data-driven UI on the site. Phone number lives in resume.pdf only — do not publish here."
+  },
+  "basics": {
+    "name": "Jason Vermaelen",
+    "label": "Senior Business Intelligence Analyst",
+    "image": "/headshot.png",
+    "email": "jason.vermaelen@gmail.com",
+    "url": "https://jvermaelen.com",
+    "summary": "BI Analyst II at Indeed and former GTM Product Strategist. I've been the data partner Product, Sales, and Marketing actually want in the room — owning feature prioritization, GTM strategy, and performance analysis. I ship the right decisions, not just more features.",
+    "location": {
+      "city": "Austin",
+      "region": "TX",
+      "countryCode": "US"
+    },
+    "profiles": [
+      { "network": "LinkedIn", "username": "vermaelen", "url": "https://linkedin.com/in/vermaelen" },
+      { "network": "GitHub",   "username": "jvermaelen", "url": "https://github.com/jvermaelen" },
+      { "network": "Cal.com",  "username": "jason-vermaelen", "url": "https://app.cal.com/jason-vermaelen" }
+    ]
+  },
+  "targetRoles": {
+    "openTo": ["Senior Analytics", "BizOps", "Product Management", "Strategy / Operations"],
+    "companyStage": ["Seed", "Series A", "Series B", "Series C", "Series D", "FAANG"],
+    "verticals": ["AI-native", "Developer tools", "Marketplaces", "SaaS"],
+    "location": ["Remote (US)", "Austin, TX hybrid"],
+    "compensationBand": null
+  },
+  "work": [
+    {
+      "company": "Indeed",
+      "position": "Senior Business Intelligence Analyst — Salesforce CRM Analytics",
+      "url": "https://indeed.com",
+      "startDate": "2024",
+      "endDate": null,
+      "location": "Austin, TX",
+      "summary": "Lead BI analyst on Salesforce CRM Analytics for Scaled Business Solutions. Own dashboarding, Salesforce automation, and the operational data layer used daily by hundreds of users globally.",
+      "highlights": [
+        {
+          "headline": "~2,000 hours/year returned to the team via Salesforce case automation",
+          "detail": "Automated case assignment and resolution flows. Removed manual triage work for the team.",
+          "metric": { "label": "hrs/yr", "value": 2000 }
+        },
+        {
+          "headline": "Built and launched a global CRM Analytics dashboard with hundreds of daily users",
+          "detail": "Led design, build, launch, and adoption rollout. Now used daily by Scaled Business Solutions teams worldwide.",
+          "metric": { "label": "daily users", "value": "100s", "scope": "global" }
+        }
+      ]
+    },
+    {
+      "company": "Indeed",
+      "position": "Product Strategist — Global Product Commercialization",
+      "url": "https://indeed.com",
+      "startDate": "2022",
+      "endDate": "2024",
+      "location": "Austin, TX",
+      "summary": "Drove GTM strategy, feature prioritization, and performance analysis for cross-functional product launches.",
+      "highlights": [
+        {
+          "headline": "Drove 2M+ employer↔jobseeker connections via GTM optimization on a new product launch",
+          "metric": { "label": "connections", "value": 2000000 }
+        },
+        {
+          "headline": "Led Sales/CS strategy for a 3-month marketing promotion that brought in 10K+ new clients",
+          "metric": { "label": "new clients", "value": 10000 }
+        },
+        {
+          "headline": "Ran a 700-client sales automation pilot that doubled product adoption vs. control",
+          "metric": { "label": "adoption lift", "value": "2x", "controlGroup": true }
+        },
+        {
+          "headline": "Influenced a new product launch that lifted job seeker↔employer connections by 6%",
+          "metric": { "label": "connections lift", "value": "+6%" }
+        }
+      ]
+    },
+    {
+      "company": "Talroo",
+      "position": "Senior Data Business Analyst",
+      "url": "https://talroo.com",
+      "startDate": "2018",
+      "endDate": "2022",
+      "location": "Austin, TX",
+      "summary": "Senior analyst supporting client success and product. Led technical rollouts and feature-level performance analysis.",
+      "highlights": [
+        {
+          "headline": "Led rollout and technical training of a title expansion feature",
+          "detail": "Client clicks up +50K, applicants up +3K Q/Q, with record-low CPA and record-high conversion.",
+          "metric": { "label": "clicks lift", "value": "+50K" }
+        }
+      ]
+    },
+    {
+      "company": "Talroo",
+      "position": "Client Success Analyst Team Lead",
+      "url": "https://talroo.com",
+      "startDate": "2017",
+      "endDate": "2018",
+      "location": "Austin, TX",
+      "summary": "Managed a 5-person CSA team responsible for 70% of company revenue.",
+      "highlights": [
+        {
+          "headline": "Grew vertical revenue 20% QoQ with 95% retention",
+          "metric": { "label": "QoQ growth", "value": "+20%" }
+        }
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "Western Governors University",
+      "area": "Data Analytics — Data Science",
+      "studyType": "MS",
+      "startDate": "2025",
+      "endDate": null,
+      "status": "In progress"
+    },
+    {
+      "institution": "Southeastern Louisiana University",
+      "area": "Marketing",
+      "studyType": "BA",
+      "endDate": "2014"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Data & Analytics",
+      "keywords": ["SQL", "Snowflake", "Python", "Jupyter", "Metabase", "Salesforce CRM Analytics", "Tableau", "Excel"]
+    },
+    {
+      "name": "Product & Strategy",
+      "keywords": ["GTM strategy", "Feature prioritization", "Cross-functional leadership", "Sales/CS enablement", "Performance analysis"]
+    },
+    {
+      "name": "Business Frameworks",
+      "keywords": ["CAC", "LTV", "Churn", "ROI", "Conversion", "Funnel analysis"]
+    }
+  ],
+  "interests": [
+    {
+      "name": "Brazilian Jiu-Jitsu",
+      "keywords": ["Black belt (2020)", "Paragon BJJ, Austin", "Training since 2006"]
+    },
+    {
+      "name": "Music discovery",
+      "keywords": ["Active Spotify listener", "/now page has live feed"]
+    }
+  ],
+  "headlineMetrics": [
+    { "label": "employer↔jobseeker connections driven", "value": "2M+", "context": "GTM optimization on new product launch", "company": "Indeed", "year": 2023 },
+    { "label": "new clients in a 3-month promo", "value": "10K+", "context": "Sales/CS-led marketing promotion", "company": "Indeed", "year": 2023 },
+    { "label": "daily global users of a dashboard I led", "value": "100s", "context": "Salesforce CRM Analytics, Scaled Business Solutions", "company": "Indeed", "year": 2024 },
+    { "label": "hrs/yr returned via Salesforce automation", "value": "2K", "context": "Case assignment & resolution flows", "company": "Indeed", "year": 2024 }
+  ]
+}

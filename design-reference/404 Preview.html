@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>404 — Query returned 0 rows · Jason Vermaelen</title>
+<meta name="description" content="The page you were looking for doesn't exist (yet)." />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  /* ============ TOKENS ============ */
+  :root {
+    --bg: #0a0a0a; --bg-elev: #111111; --bg-elev-2: #161616;
+    --line: #1f1f1f; --line-strong: #2a2a2a;
+    --ink: #ededed; --ink-soft: #cfcfcf; --muted: #9a9a9a; --muted-soft: #6e6e6e;
+    --accent: oklch(78% 0.18 250); --accent-ink: #0a0a0a;
+    --sans: ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    --gutter: 32px;
+  }
+  [data-theme="light"] {
+    --bg: #fafaf7; --bg-elev: #ffffff; --bg-elev-2: #f4f3ee;
+    --line: #e6e4dd; --line-strong: #d5d2c9;
+    --ink: #111111; --ink-soft: #2e2e2e; --muted: #595959; --muted-soft: #7c7c7c;
+    --accent: oklch(44% 0.18 250); --accent-ink: #ffffff;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; height: 100%; }
+  body {
+    background: var(--bg); color: var(--ink);
+    font-family: var(--sans); font-size: 16px; line-height: 1.55;
+    -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+    display: flex; flex-direction: column;
+    min-height: 100vh;
+    transition: background 200ms ease, color 200ms ease;
+  }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: var(--accent); }
+  ::selection { background: var(--accent); color: var(--accent-ink); }
+  .container { max-width: 880px; margin: 0 auto; padding: 0 var(--gutter); width: 100%; }
+
+  /* ============ NAV ============ */
+  .nav {
+    border-bottom: 1px solid var(--line);
+    background: var(--bg);
+  }
+  .nav-row {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 56px; font-family: var(--mono); font-size: 13px;
+  }
+  .brand { font-weight: 600; color: var(--ink); display: flex; align-items: baseline; gap: 8px; }
+  .brand .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); transform: translateY(-2px); }
+  .brand .brand-label {
+    font-family: var(--mono); font-size: 12px; color: var(--muted);
+    margin-left: 4px; letter-spacing: 0.02em;
+    transition: color 150ms ease;
+  }
+  .brand:hover .brand-label { color: var(--accent); }
+  .theme-btn {
+    background: var(--bg-elev); border: 1px solid var(--line-strong);
+    width: 26px; height: 26px; border-radius: 4px; cursor: pointer;
+    color: var(--muted); display: inline-flex; align-items: center; justify-content: center; padding: 0;
+  }
+  .theme-btn:hover { color: var(--ink); border-color: var(--accent); }
+  .theme-btn svg { width: 13px; height: 13px; }
+
+  /* ============ MAIN ============ */
+  main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding: 64px 0;
+  }
+  .stack { display: flex; flex-direction: column; gap: 40px; }
+
+  .eyebrow {
+    font-family: var(--mono); font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.16em;
+    color: var(--accent);
+    display: flex; align-items: center; gap: 12px;
+  }
+  .eyebrow::before {
+    content: ""; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 18%, transparent);
+  }
+
+  h1.title {
+    font-family: var(--sans); font-weight: 600;
+    font-size: clamp(64px, 12vw, 144px);
+    line-height: 0.9; letter-spacing: -0.05em;
+    color: var(--ink); margin: 0;
+  }
+  h1.title .small { font-size: 0.35em; color: var(--muted); letter-spacing: -0.02em; }
+
+  .lead {
+    font-family: var(--sans);
+    font-size: clamp(18px, 1.8vw, 22px); line-height: 1.5;
+    color: var(--ink-soft); margin: 0; max-width: 56ch;
+    text-wrap: pretty;
+  }
+  .lead strong { color: var(--ink); font-weight: 500; }
+
+  /* ============ SQL BLOCK ============ */
+  .sql-card {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--bg-elev);
+    overflow: hidden;
+    max-width: 720px;
+  }
+  .sql-head {
+    padding: 10px 18px;
+    border-bottom: 1px solid var(--line);
+    font-family: var(--mono); font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.12em;
+    background: var(--bg-elev-2);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .sql-head .dots { display: inline-flex; gap: 5px; }
+  .sql-head .dots span {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--line-strong);
+  }
+  .sql-body {
+    padding: 22px 24px;
+    font-family: var(--mono); font-size: 14px; line-height: 1.7;
+    color: var(--ink-soft);
+    overflow-x: auto;
+  }
+  .sql-kw { color: var(--accent); font-weight: 500; }
+  .sql-str { color: oklch(60% 0.13 30); }
+  [data-theme="dark"] .sql-str { color: oklch(75% 0.13 30); }
+  .sql-comment { color: var(--muted-soft); font-style: italic; }
+  .sql-result {
+    margin-top: 8px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--line);
+    font-family: var(--mono); font-size: 12px;
+    color: var(--muted);
+  }
+  .sql-result .zero { color: var(--accent); font-weight: 500; }
+
+  /* ============ SUGGESTIONS ============ */
+  .suggestions {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--line);
+    border-left: 1px solid var(--line);
+    margin-top: 16px;
+  }
+  .suggestion {
+    padding: 22px 24px;
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    display: flex; flex-direction: column; gap: 8px;
+    transition: background 200ms ease, padding-left 200ms ease;
+    color: inherit;
+    text-decoration: none;
+  }
+  .suggestion:hover {
+    background: color-mix(in oklab, var(--bg-elev) 70%, transparent);
+    padding-left: 32px;
+  }
+  .suggestion:hover .arrow { color: var(--accent); transform: translateX(4px); }
+  .suggestion .stamp {
+    font-family: var(--mono); font-size: 10px;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--muted);
+  }
+  .suggestion .what {
+    font-family: var(--sans); font-size: 18px; font-weight: 500;
+    color: var(--ink); line-height: 1.3;
+    letter-spacing: -0.01em;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  }
+  .suggestion .arrow {
+    font-family: var(--mono); color: var(--muted-soft);
+    font-size: 16px;
+    transition: color 200ms ease, transform 200ms ease;
+  }
+  .suggestion .why {
+    font-family: var(--sans); font-size: 13px;
+    color: var(--ink-soft); line-height: 1.5;
+  }
+  @media (max-width: 700px) { .suggestions { grid-template-columns: 1fr; } }
+
+  /* ============ FOOTER ============ */
+  .footer {
+    padding: 20px 0;
+    border-top: 1px solid var(--line);
+    font-family: var(--mono); font-size: 11px; color: var(--muted);
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================== NAV -->
+<header class="nav">
+  <div class="container nav-row">
+    <a href="Homepage Preview.html" class="brand" aria-label="Home" title="Home"><span>jv</span><span class="dot"></span><span class="brand-label">/ home</span></a>
+    <div>
+      <button class="theme-btn" id="theme-toggle" aria-label="Toggle theme">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ============================== MAIN -->
+<main>
+  <div class="container">
+    <div class="stack">
+
+      <div class="eyebrow">/ status — page not found</div>
+
+      <h1 class="title">404<span class="small"> — query returned 0 rows.</span></h1>
+
+      <p class="lead">The page you were looking for doesn't exist — at least not at this URL. Likely <strong>a stale link</strong>, a case study still drafting, or a path I haven't built yet. The recovery options below all work.</p>
+
+      <!-- SQL "explainer" card — on-brand for an analyst portfolio -->
+      <div class="sql-card" aria-hidden="true">
+        <div class="sql-head">
+          <span>postgres @ jvermaelen.com</span>
+          <span class="dots"><span></span><span></span><span></span></span>
+        </div>
+        <div class="sql-body"><span class="sql-comment">-- looking up the page you requested…</span>
+<span class="sql-kw">SELECT</span> page, status
+<span class="sql-kw">FROM</span> site.pages
+<span class="sql-kw">WHERE</span> url = <span class="sql-str">'<span id="bad-url">/that-page-you-wanted</span>'</span>;<div class="sql-result"><span class="zero">0 rows</span> returned · query executed in 4ms</div></div>
+      </div>
+
+      <!-- Suggestions -->
+      <div class="suggestions">
+        <a class="suggestion" href="Homepage Preview.html">
+          <span class="stamp">/ home</span>
+          <span class="what">Start at the top<span class="arrow">→</span></span>
+          <span class="why">The KPI strip, the highlights, the pitch in 30 seconds.</span>
+        </a>
+        <a class="suggestion" href="Work Index Preview.html">
+          <span class="stamp">/ work</span>
+          <span class="what">Case studies<span class="arrow">→</span></span>
+          <span class="why">Outcome-first writeups — and the empty state for the ones still in the writing pile.</span>
+        </a>
+        <a class="suggestion" href="Writing Preview.html">
+          <span class="stamp">/ writing</span>
+          <span class="what">Essays &amp; build logs<span class="arrow">→</span></span>
+          <span class="why">Long-form thinking and notes from things I've shipped.</span>
+        </a>
+        <a class="suggestion" href="About Preview.html">
+          <span class="stamp">/ about</span>
+          <span class="what">The long version<span class="arrow">→</span></span>
+          <span class="why">Career arc, how I work, what I'm building toward next.</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- ============================== FOOTER -->
+<footer class="footer">
+  <div class="container">
+    Lost? Email <a href="mailto:jason.vermaelen@gmail.com">jason.vermaelen@gmail.com</a> — I'll help find what you were looking for.
+  </div>
+</footer>
+
+<script>
+  // ============ Theme toggle ============
+  const html = document.documentElement;
+  const toggle = document.getElementById('theme-toggle');
+  function setTheme(t) {
+    html.setAttribute('data-theme', t);
+    try { localStorage.setItem('theme-v2', t); } catch(e) {}
+    const isDark = t === 'dark';
+    toggle.innerHTML = isDark
+      ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>'
+      : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+  }
+  try { setTheme(localStorage.getItem('theme-v2') || 'light'); } catch(e) { setTheme('light'); }
+  toggle.addEventListener('click', () => { const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'; setTheme(next); });
+
+  // ============ Show the actual missing URL the user tried ============
+  try {
+    const badUrlEl = document.getElementById('bad-url');
+    const path = window.location.hash || window.location.search;
+    // If we have a referrer-style hint, use it; else just keep the default sample.
+    // (Real /404 in Next.js can read from the URL directly server-side.)
+  } catch (e) {}
+</script>
+<script src="command-palette.js"></script>
+<script src="ask-jason.js"></script>
+</body>
+</html>

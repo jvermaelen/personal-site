@@ -1,0 +1,175 @@
+---
+# ============================================================================
+# CASE STUDY FRONTMATTER — required fields are marked REQUIRED.
+# This template is validated by lib/mdx.ts (Zod schema). Drop a copy of this
+# file into content/work/<slug>.mdx and fill it in. Do not ship `draft: true`.
+# ============================================================================
+
+# REQUIRED — appears in <title>, OG image, work index card, breadcrumbs.
+title: "Case Study Title — Outcome-Forward, Not Project-Forward"
+
+# REQUIRED — slug used in URL: /work/<slug>. Lowercase, kebab-case.
+slug: "case-study-slug"
+
+# REQUIRED — one-sentence headline. Lead with the outcome metric.
+# This is the line that does the work in interview screens — make it earn its keep.
+outcomeHeadline: "Returned ~2,000 hours/year to the team via Salesforce case-routing automation."
+
+# REQUIRED — role context.
+role: "Senior BI Analyst (lead)"
+company: "Indeed"
+year: 2024
+duration: "6 months"
+
+# REQUIRED — at least one tag. Used for /work index filtering.
+# Allowed values: "BI" | "Analytics" | "Product" | "GTM" | "BizOps" | "Automation" | "Operations"
+tags: ["BI", "Automation", "Operations"]
+
+# REQUIRED — 2–4 metric chips for the case-study header KPI strip.
+# Mirrors the dashboard-as-portfolio metaphor from the PRD.
+metrics:
+  - label: "Hours returned"
+    value: "~2,000"
+    unit: "/ year"
+  - label: "Manual triage removed"
+    value: "100%"
+    unit: ""
+  - label: "Adoption ramp"
+    value: "6"
+    unit: "months"
+
+# Optional — collaborators (credits each by team, not individual names).
+collaborators: ["Sales Ops", "Salesforce Admins", "BI Team"]
+
+# Optional — tooling. Powers the "stack" chip row on detail pages.
+tools: ["Salesforce CRM Analytics", "SQL", "Snowflake", "Apex flows"]
+
+# Optional — "Live", "Shipped", "Sunset", "Internal-only", etc.
+status: "Live"
+
+# Optional — sort order on /work (descending). Falls back to year + slug if absent.
+order: 1
+
+# REQUIRED — when true, page is excluded from /work and from sitemap.xml.
+# Flip to false before publishing.
+draft: true
+
+# Optional — cover art for /work index card and OG image.
+# Use ONE of these. If both present, `chart` wins.
+cover:
+  # image: "/work/case-study-slug/cover.png"
+  chart:
+    kind: "line"          # "line" | "bar" | "area" | "kpi"
+    dataset: "before-after-hours.csv"
+    accent: "var(--accent)"
+    caption: "Weekly manual triage hours, before vs. after rollout."
+
+# Optional — explicit OG image override. Defaults to /api/og?slug=<slug>.
+ogImage: null
+
+# Optional — SEO meta description. Falls back to outcomeHeadline.
+description: null
+---
+
+import { KPIStrip, MetricCallout, PullQuote, Aside, BeforeAfter, Figure, Stack } from "@/components/case-study";
+
+{/*
+  ============================================================================
+  BODY — Always render these seven sections, in this order. Do not reorder
+  without updating lib/mdx.ts and the work-index summary helpers.
+  ============================================================================
+*/}
+
+<KPIStrip metrics={frontmatter.metrics} />
+
+## The headline
+
+One paragraph. State the outcome plainly, in business terms. This is the
+"if a recruiter only reads one paragraph, this is the one" paragraph. Numbers
+in the first or second sentence. Active verbs. No setup, no preamble.
+
+> Replace this paragraph with the real one. Aim for 60–90 words.
+
+## Context & constraints
+
+What was the org facing? What couldn't change? Include only the constraints
+that meaningfully shaped the decision — team size, vendor lock-in, deadline,
+existing investment, political sensitivity. Skip generic "the business
+needed efficiency" context.
+
+- **What was true going in:** ...
+- **What couldn't change:** ...
+- **What I had to take as given:** ...
+
+## The decision
+
+What did you choose to do — and, critically, what did you choose **not** to
+do? This section is where hiring managers grade product judgment.
+
+<Aside>
+  The "what I chose not to do" sub-paragraph is non-optional. If you can't
+  name two paths you rejected, the work probably wasn't a real decision.
+</Aside>
+
+## Process
+
+How was it built, who was involved, what went sideways. Diagrams welcome.
+Be honest about the messy parts — the parts that were boring, the parts
+where you were wrong, the parts where the first plan didn't work.
+
+<Figure src="/work/case-study-slug/architecture.png" alt="System diagram" caption="..." />
+
+## Results
+
+Quantified. Specific. Sourced where possible (which dashboard, which query,
+which time window). Avoid percentages without denominators.
+
+<MetricCallout
+  primary={{ label: "Hours returned", value: "~2,000 / year" }}
+  secondary={[
+    { label: "Manual triage", value: "removed entirely" },
+    { label: "Adoption", value: "100% of team within 6 months" },
+  ]}
+/>
+
+<BeforeAfter
+  before={{ caption: "Before — weekly manual triage hours", figure: "/work/case-study-slug/before.png" }}
+  after={{  caption: "After — weekly manual triage hours",  figure: "/work/case-study-slug/after.png" }}
+/>
+
+## Tradeoffs & what I'd do differently
+
+**Non-optional section.** This is where the signal lives. Hiring managers
+read this section closely; recruiters skip it but hiring managers do not.
+
+- **The tradeoff I'd make again:** ...
+- **The tradeoff I'd revisit:** ...
+- **What I'd do differently if I started over:** ...
+- **What I'd want a peer reviewer to push back on:** ...
+
+## Artifacts
+
+Anything publicly shareable. Live demos > screenshots > write-ups.
+
+<Stack>
+  - 🔗 [Live dashboard (anonymized read-only view)](#)
+  - 📓 [Architecture notes — Notion](#)
+  - 💾 [SQL queries — GitHub gist](#)
+  - 📄 [Internal doc — redacted PDF](#)
+</Stack>
+
+{/*
+  ============================================================================
+  CHECKLIST BEFORE PUBLISHING
+  ----------------------------------------------------------------------------
+  [ ] Outcome metric is in `outcomeHeadline` AND first paragraph.
+  [ ] At least one specific number with denominator/time window.
+  [ ] "Tradeoffs & what I'd do differently" has real content, not platitudes.
+  [ ] Cover (image or chart) is set.
+  [ ] `draft: false`.
+  [ ] Any screenshots/data are cleared for public sharing — no internal
+      names, no PII, no proprietary metrics that aren't on the resume.
+  [ ] Read the whole thing out loud once. If a paragraph sounds like a
+      bullet point from a job description, rewrite it.
+  ============================================================================
+*/}

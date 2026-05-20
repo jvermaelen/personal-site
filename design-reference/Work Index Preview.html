@@ -1,0 +1,809 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Work — Jason Vermaelen</title>
+<meta name="description" content="Case studies from eight years across BI, Product Strategy, and BizOps at Indeed and Talroo." />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  /* ============ TOKENS ============ */
+  :root {
+    --bg: #0a0a0a; --bg-elev: #111111; --bg-elev-2: #161616;
+    --line: #1f1f1f; --line-strong: #2a2a2a;
+    --ink: #ededed; --ink-soft: #cfcfcf; --muted: #9a9a9a; --muted-soft: #6e6e6e;
+    --accent: oklch(78% 0.18 250); --accent-ink: #0a0a0a;
+    --reverse-bg: #ededed; --reverse-ink: #0a0a0a;
+    --sans: ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    --content: 1120px; --gutter: 32px;
+  }
+  [data-theme="light"] {
+    --bg: #fafaf7; --bg-elev: #ffffff; --bg-elev-2: #f4f3ee;
+    --line: #e6e4dd; --line-strong: #d5d2c9;
+    --ink: #111111; --ink-soft: #2e2e2e; --muted: #595959; --muted-soft: #7c7c7c;
+    --accent: oklch(44% 0.18 250); --accent-ink: #ffffff;
+    --reverse-bg: #0a0a0a; --reverse-ink: #ededed;
+  }
+
+  /* ============ BASE ============ */
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: var(--ink); font-family: var(--sans);
+    font-size: 16px; line-height: 1.55;
+    -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+    transition: background 200ms ease, color 200ms ease;
+  }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: var(--accent); }
+  ::selection { background: var(--accent); color: var(--accent-ink); }
+  .container { max-width: var(--content); margin: 0 auto; padding: 0 var(--gutter); }
+
+  /* ============ NAV (shared) ============ */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: color-mix(in oklab, var(--bg) 85%, transparent);
+    backdrop-filter: saturate(180%) blur(12px);
+    -webkit-backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-row {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 56px; font-family: var(--mono); font-size: 13px;
+  }
+  .brand { font-weight: 600; color: var(--ink); display: flex; align-items: baseline; gap: 8px; }
+  .brand .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); transform: translateY(-2px); }
+  .brand .brand-label {
+    font-family: var(--mono); font-size: 12px; color: var(--muted);
+    margin-left: 4px; letter-spacing: 0.02em;
+    transition: color 150ms ease;
+  }
+  .brand:hover .brand-label,
+  .brand:focus-visible .brand-label { color: var(--accent); }
+  .nav-links { display: flex; gap: 26px; color: var(--muted); }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-links a.active { color: var(--ink); }
+  .nav-tools { display: flex; align-items: center; gap: 10px; }
+  .theme-btn {
+    background: var(--bg-elev); border: 1px solid var(--line-strong);
+    width: 26px; height: 26px; border-radius: 4px; cursor: pointer;
+    color: var(--muted); display: inline-flex; align-items: center; justify-content: center; padding: 0;
+  }
+  .theme-btn:hover { color: var(--ink); border-color: var(--accent); }
+  .theme-btn svg { width: 13px; height: 13px; }
+
+  /* ============ PAGE HERO ============ */
+  .page-hero { padding: 88px 0 40px; }
+  .eyebrow {
+    font-family: var(--mono); font-size: 12px;
+    text-transform: uppercase; letter-spacing: 0.16em;
+    color: var(--muted); margin-bottom: 24px;
+  }
+  .eyebrow .accent-dot { color: var(--accent); }
+  h1.page-title {
+    font-family: var(--sans); font-weight: 600;
+    font-size: clamp(48px, 7vw, 88px); line-height: 0.96;
+    letter-spacing: -0.04em; margin: 0 0 24px; color: var(--ink);
+    max-width: 18ch; text-wrap: balance;
+  }
+  h1.page-title em { font-style: normal; color: var(--accent); }
+  .lead {
+    font-family: var(--sans);
+    font-size: clamp(18px, 1.6vw, 21px); line-height: 1.5;
+    color: var(--ink-soft); max-width: 62ch; margin: 0; text-wrap: pretty;
+  }
+
+  /* ============ FILTER BAR ============ */
+  .filter-bar {
+    padding: 40px 0 24px;
+    display: flex; flex-wrap: wrap;
+    align-items: center; gap: 14px;
+    border-bottom: 1px solid var(--line);
+  }
+  .filter-bar .label {
+    font-family: var(--mono); font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--muted);
+  }
+  .chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    font-family: var(--mono); font-size: 12px;
+    padding: 7px 14px;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    background: var(--bg-elev);
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: background 150ms ease, color 150ms ease, border-color 150ms ease;
+    display: inline-flex; align-items: center; gap: 6px;
+    letter-spacing: 0.02em;
+  }
+  .chip:hover { border-color: var(--accent); color: var(--ink); }
+  .chip[aria-pressed="true"] {
+    background: var(--accent);
+    color: var(--accent-ink);
+    border-color: var(--accent);
+  }
+  .chip .count {
+    font-size: 10px; color: var(--muted-soft);
+    padding-left: 4px;
+  }
+  .chip[aria-pressed="true"] .count { color: color-mix(in oklab, var(--accent-ink) 70%, transparent); }
+  .filter-meta {
+    margin-left: auto;
+    font-family: var(--mono); font-size: 11px;
+    color: var(--muted);
+  }
+  @media (max-width: 800px) {
+    .filter-meta { margin-left: 0; width: 100%; }
+  }
+
+  /* ============ WORK GRID ============ */
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    padding: 40px 0 24px;
+  }
+  @media (max-width: 800px) {
+    .work-grid { grid-template-columns: 1fr; gap: 16px; }
+  }
+
+  /* Card */
+  .card {
+    display: flex; flex-direction: column;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--bg-elev);
+    overflow: hidden;
+    transition: border-color 200ms ease, transform 200ms ease, box-shadow 200ms ease;
+    color: inherit; text-decoration: none;
+    min-height: 380px;
+  }
+  .card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px -16px color-mix(in oklab, var(--accent) 30%, transparent);
+  }
+  .card.coming-soon { cursor: default; opacity: 0.78; }
+  .card.coming-soon:hover { transform: none; border-color: var(--line-strong); box-shadow: none; }
+
+  /* Cover — chart or pattern */
+  .card-cover {
+    aspect-ratio: 16 / 9;
+    background: var(--bg-elev-2);
+    border-bottom: 1px solid var(--line);
+    position: relative;
+    overflow: hidden;
+  }
+  .card-cover .cover-label {
+    position: absolute; top: 14px; left: 14px;
+    font-family: var(--mono); font-size: 10px;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--muted);
+    background: color-mix(in oklab, var(--bg-elev) 80%, transparent);
+    border: 1px solid var(--line-strong);
+    padding: 4px 8px; border-radius: 4px;
+    z-index: 2;
+  }
+  .card-cover .cover-kpi {
+    position: absolute; bottom: 14px; right: 14px;
+    font-family: var(--mono);
+    font-size: 22px; font-weight: 500; letter-spacing: -0.02em;
+    color: var(--accent);
+    background: color-mix(in oklab, var(--bg-elev) 92%, transparent);
+    border: 1px solid var(--line-strong);
+    padding: 6px 12px; border-radius: 6px;
+    z-index: 2;
+  }
+  .card-cover .cover-kpi .small {
+    font-size: 0.6em; color: var(--muted); margin-left: 2px;
+  }
+
+  /* Chart variants — bars, line, area, pattern */
+  .cover-chart {
+    position: absolute; inset: 0;
+    padding: 36px 24px 36px;
+    display: flex; align-items: end; gap: 6px;
+  }
+  .cover-chart .bar {
+    flex: 1; background: var(--accent);
+    opacity: 0.6; border-radius: 2px 2px 0 0;
+  }
+  .cover-chart .bar:nth-last-child(-n+3) { opacity: 0.95; }
+
+  .cover-line {
+    position: absolute; inset: 0;
+    padding: 24px;
+  }
+  .cover-line svg { width: 100%; height: 100%; }
+  .cover-line .line {
+    fill: none; stroke: var(--accent); stroke-width: 2; stroke-linejoin: round;
+  }
+  .cover-line .area { fill: color-mix(in oklab, var(--accent) 18%, transparent); }
+  .cover-line .dot { fill: var(--accent); }
+  .cover-line .grid { stroke: var(--line); stroke-dasharray: 3 3; stroke-width: 1; }
+
+  .cover-pattern {
+    position: absolute; inset: 0;
+    background-image:
+      repeating-linear-gradient(135deg,
+        color-mix(in oklab, var(--accent) 22%, var(--bg-elev-2)) 0 6px,
+        var(--bg-elev-2) 6px 14px);
+  }
+  .cover-pattern.tba {
+    display: flex; align-items: center; justify-content: center;
+  }
+  .cover-pattern.tba .badge {
+    font-family: var(--mono); font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--muted);
+    background: var(--bg-elev);
+    border: 1px solid var(--line-strong);
+    padding: 6px 12px; border-radius: 4px;
+  }
+
+  /* Card body */
+  .card-body {
+    padding: 22px 24px 20px;
+    flex: 1;
+    display: flex; flex-direction: column;
+    gap: 12px;
+  }
+  .card-body h3 {
+    font-family: var(--sans); font-size: 19px; font-weight: 600;
+    color: var(--ink); margin: 0; line-height: 1.3;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+  .card-body .outcome {
+    font-family: var(--sans); font-size: 14px;
+    color: var(--ink-soft); line-height: 1.5; margin: 0;
+    text-wrap: pretty;
+  }
+  .card-body .outcome strong { color: var(--ink); font-weight: 500; }
+  .card-foot {
+    margin-top: auto;
+    padding-top: 14px;
+    border-top: 1px dashed var(--line);
+    display: flex; align-items: center; justify-content: space-between;
+    font-family: var(--mono); font-size: 11px;
+    color: var(--muted);
+  }
+  .card-foot .stack { display: flex; gap: 10px; }
+  .card-foot .stack .pill {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    padding: 2px 7px; border-radius: 3px;
+    color: var(--ink-soft); font-size: 10px;
+    letter-spacing: 0.04em;
+  }
+  .card-foot .arrow { color: var(--accent); }
+
+  /* "Coming soon" specific */
+  .card.coming-soon .card-body h3 { color: var(--ink-soft); }
+  .card.coming-soon .card-foot { color: var(--muted-soft); }
+  .card.coming-soon .card-foot .arrow { color: var(--muted-soft); }
+
+  /* ============ EMPTY-STATE NOTE ============ */
+  .empty-note {
+    margin: 24px 0 64px;
+    padding: 28px 32px;
+    border: 1px dashed var(--line-strong);
+    border-radius: 12px;
+    background: color-mix(in oklab, var(--accent) 4%, var(--bg-elev));
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 28px;
+    align-items: center;
+  }
+  .empty-note .glyph {
+    font-family: var(--mono); font-size: 13px;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    width: 44px; height: 44px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: color-mix(in oklab, var(--accent) 10%, var(--bg-elev));
+  }
+  .empty-note .body {
+    font-family: var(--sans); font-size: 15px; line-height: 1.5;
+    color: var(--ink-soft); margin: 0;
+    text-wrap: pretty;
+  }
+  .empty-note .body strong { color: var(--ink); font-weight: 500; }
+  .empty-note .cta {
+    font-family: var(--mono); font-size: 12px;
+    color: var(--accent);
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 14px;
+    border: 1px solid var(--accent);
+    border-radius: 6px;
+    transition: background 150ms ease, color 150ms ease;
+    white-space: nowrap;
+  }
+  .empty-note .cta:hover {
+    background: var(--accent); color: var(--accent-ink);
+  }
+  @media (max-width: 800px) {
+    .empty-note { grid-template-columns: 1fr; gap: 16px; }
+    .empty-note .glyph { display: none; }
+  }
+
+  /* ============ HIGHLIGHTS RAIL (teaser, like homepage) ============ */
+  .rail-section { padding: 48px 0 96px; border-top: 1px solid var(--line); }
+  .rail-head {
+    display: flex; align-items: baseline; gap: 16px; margin-bottom: 32px;
+  }
+  .rail-head h2 {
+    font-family: var(--mono); font-size: 12px; text-transform: uppercase;
+    letter-spacing: 0.16em; color: var(--muted); margin: 0; font-weight: 500;
+  }
+  .rail-head .rule { flex: 1; height: 1px; background: var(--line); }
+  .rail-head .meta { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+
+  .rail {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--line);
+    border-left: 1px solid var(--line);
+  }
+  .rail-cell {
+    padding: 24px;
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .rail-cell .val {
+    font-family: var(--mono); font-size: 28px; font-weight: 500;
+    letter-spacing: -0.03em; line-height: 1; color: var(--accent);
+  }
+  .rail-cell .val .small { font-size: 0.5em; color: var(--muted); margin-left: 4px; }
+  .rail-cell .body {
+    font-family: var(--sans); font-size: 14px; line-height: 1.45;
+    color: var(--ink-soft);
+  }
+  .rail-cell .body strong { color: var(--ink); font-weight: 500; }
+  .rail-cell .meta {
+    font-family: var(--mono); font-size: 10px; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.1em;
+    margin-top: auto; padding-top: 8px;
+  }
+  @media (max-width: 800px) { .rail { grid-template-columns: 1fr; } }
+
+  /* ============ CONTACT STRIP (same) ============ */
+  .contact-strip { background: var(--reverse-bg); color: var(--reverse-ink); padding: 80px 0; }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: end; }
+  .contact-strip h2 {
+    font-family: var(--sans); font-size: clamp(40px, 5vw, 64px);
+    line-height: 0.96; letter-spacing: -0.03em; font-weight: 600; margin: 0 0 12px;
+  }
+  .contact-strip .sub {
+    font-family: var(--mono); font-size: 13px;
+    color: color-mix(in oklab, var(--reverse-ink) 65%, var(--reverse-bg));
+  }
+  .contact-list { display: flex; flex-direction: column; gap: 0; }
+  .contact-item {
+    display: grid; grid-template-columns: 110px 1fr auto; gap: 24px;
+    padding: 18px 0;
+    border-top: 1px solid color-mix(in oklab, var(--reverse-ink) 18%, var(--reverse-bg));
+    align-items: baseline; font-family: var(--mono); font-size: 14px;
+    transition: padding-left 200ms ease;
+  }
+  .contact-item:last-child { border-bottom: 1px solid color-mix(in oklab, var(--reverse-ink) 18%, var(--reverse-bg)); }
+  .contact-item:hover { padding-left: 12px; }
+  .contact-item .k { color: color-mix(in oklab, var(--reverse-ink) 50%, var(--reverse-bg)); text-transform: uppercase; letter-spacing: 0.1em; font-size: 11px; }
+  .contact-item .v { color: var(--reverse-ink); }
+  .contact-item .a { font-family: var(--sans); font-size: 16px; }
+  @media (max-width: 800px) { .contact-grid { grid-template-columns: 1fr; gap: 32px; } }
+
+  /* ============ FOOTER (same) ============ */
+  .footer { padding: 24px 0; border-top: 1px solid var(--line); font-family: var(--mono); font-size: 11px; color: var(--muted); }
+  .footer-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; align-items: center; }
+  .footer-row .mid { text-align: center; }
+  .footer-row .end { text-align: right; }
+  .footer-row a:hover { color: var(--ink); }
+  .footer-meta { text-align: center; font-size: 10px; color: var(--muted-soft); padding-top: 12px; }
+  @media (max-width: 800px) {
+    .footer-row { grid-template-columns: 1fr; text-align: left; }
+    .footer-row .mid, .footer-row .end { text-align: left; }
+  }
+
+  /* ============ FILTER HIDE LOGIC ============ */
+  .card[hidden] { display: none !important; }
+</style>
+</head>
+<body>
+
+<!-- ============================== NAV -->
+<header class="nav">
+  <div class="container nav-row">
+    <a href="Homepage Preview.html" class="brand" aria-label="Home" title="Home"><span>jv</span><span class="dot"></span><span class="brand-label">/ home</span></a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="Work Index Preview.html" class="active">work</a>
+      <a href="Writing Preview.html">writing</a>
+      <a href="Now Preview.html">now</a>
+      <a href="About Preview.html">about</a>
+    </nav>
+    <div class="nav-tools">
+      <button class="theme-btn" id="theme-toggle" aria-label="Toggle theme">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ============================== PAGE HERO -->
+<section class="page-hero" data-screen-label="01 Work — Hero">
+  <div class="container">
+    <div class="eyebrow"><span class="accent-dot">§</span> Work · case studies</div>
+    <h1 class="page-title">Eight years of work, told <em>outcome-first.</em></h1>
+    <p class="lead">Each case study walks through the same seven sections: the headline, context &amp; constraints, the decision, the process, the results, the tradeoffs, and the artifacts. I lead with the number, then defend it.</p>
+  </div>
+</section>
+
+<!-- ============================== FILTERS -->
+<div class="container">
+  <div class="filter-bar">
+    <span class="label">/ filter</span>
+    <div class="chip-row" role="radiogroup" aria-label="Filter case studies">
+      <button class="chip" data-filter="all" aria-pressed="true">All <span class="count">—</span></button>
+      <button class="chip" data-filter="bi" aria-pressed="false">BI / Analytics <span class="count">—</span></button>
+      <button class="chip" data-filter="automation" aria-pressed="false">Automation <span class="count">—</span></button>
+      <button class="chip" data-filter="product" aria-pressed="false">Product / GTM <span class="count">—</span></button>
+      <button class="chip" data-filter="bizops" aria-pressed="false">BizOps <span class="count">—</span></button>
+    </div>
+    <span class="filter-meta" id="filter-meta">—</span>
+  </div>
+</div>
+
+<!-- ============================== WORK GRID -->
+<section data-screen-label="02 Work — Grid">
+  <div class="container">
+    <div class="work-grid" id="work-grid">
+
+      <!-- CASE 01 — Salesforce case automation (LIVE) -->
+      <a class="card" href="Case Study Preview.html" data-tags="bi automation">
+        <div class="card-cover">
+          <span class="cover-label">Fig 1 · Weekly hrs ↓ over rollout</span>
+          <div class="cover-line" aria-hidden="true">
+            <svg viewBox="0 0 100 50" preserveAspectRatio="none">
+              <line class="grid" x1="0" y1="12" x2="100" y2="12" />
+              <line class="grid" x1="0" y1="25" x2="100" y2="25" />
+              <line class="grid" x1="0" y1="38" x2="100" y2="38" />
+              <path class="area" d="M0,8 L14,10 L28,9 L42,18 L56,28 L70,36 L84,42 L100,44 L100,50 L0,50 Z" />
+              <path class="line" d="M0,8 L14,10 L28,9 L42,18 L56,28 L70,36 L84,42 L100,44" />
+              <circle class="dot" cx="0" cy="8" r="1.6" />
+              <circle class="dot" cx="100" cy="44" r="1.6" />
+            </svg>
+          </div>
+          <span class="cover-kpi">~2K<span class="small">hrs/yr</span></span>
+        </div>
+        <div class="card-body">
+          <h3>Salesforce case automation — returned ~2,000 hours/year to the team.</h3>
+          <p class="outcome">Routing layer + auto-resolution for the common path. Replaced morning manual triage with <strong>auditable, reversible automation</strong> the team trusted by month two.</p>
+          <div class="card-foot">
+            <div class="stack">
+              <span class="pill">Indeed</span>
+              <span class="pill">2024</span>
+              <span class="pill">6 mo</span>
+            </div>
+            <span class="arrow">read →</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- CASE 02 — Global CRM dashboard -->
+      <a class="card" href="Case Study Preview.html" data-tags="bi product">
+        <div class="card-cover">
+          <span class="cover-label">Fig 2 · Daily active users</span>
+          <div class="cover-line" aria-hidden="true">
+            <svg viewBox="0 0 100 50" preserveAspectRatio="none">
+              <line class="grid" x1="0" y1="12" x2="100" y2="12" />
+              <line class="grid" x1="0" y1="25" x2="100" y2="25" />
+              <line class="grid" x1="0" y1="38" x2="100" y2="38" />
+              <path class="area" d="M0,42 L14,38 L28,30 L42,22 L56,14 L70,10 L84,8 L100,6 L100,50 L0,50 Z" />
+              <path class="line" d="M0,42 L14,38 L28,30 L42,22 L56,14 L70,10 L84,8 L100,6" />
+              <circle class="dot" cx="0" cy="42" r="1.6" />
+              <circle class="dot" cx="100" cy="6" r="1.6" />
+            </svg>
+          </div>
+          <span class="cover-kpi">100s<span class="small">DAU</span></span>
+        </div>
+        <div class="card-body">
+          <h3>Global Salesforce CRM Analytics dashboard for Scaled Business Solutions.</h3>
+          <p class="outcome">Designed, built, launched, and ran the adoption rollout. <strong>Daily-active by hundreds of users globally</strong>. End-to-end ownership from spec to retro.</p>
+          <div class="card-foot">
+            <div class="stack">
+              <span class="pill">Indeed</span>
+              <span class="pill">2024</span>
+              <span class="pill">8 mo</span>
+            </div>
+            <span class="arrow">read →</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- CASE 03 — 2M+ connections / GTM -->
+      <a class="card coming-soon" data-tags="product">
+        <div class="card-cover">
+          <span class="cover-label">Fig 3 · Cumulative connections</span>
+          <div class="cover-line" aria-hidden="true">
+            <svg viewBox="0 0 100 50" preserveAspectRatio="none">
+              <line class="grid" x1="0" y1="12" x2="100" y2="12" />
+              <line class="grid" x1="0" y1="25" x2="100" y2="25" />
+              <line class="grid" x1="0" y1="38" x2="100" y2="38" />
+              <path class="area" d="M0,46 L20,42 L36,34 L52,22 L68,12 L82,7 L100,4 L100,50 L0,50 Z" />
+              <path class="line" d="M0,46 L20,42 L36,34 L52,22 L68,12 L82,7 L100,4" />
+              <circle class="dot" cx="100" cy="4" r="1.6" />
+            </svg>
+          </div>
+          <span class="cover-kpi">2M+<span class="small">connections</span></span>
+        </div>
+        <div class="card-body">
+          <h3>GTM strategy that drove 2M+ employer↔jobseeker connections on a new launch.</h3>
+          <p class="outcome">Performance analysis &amp; go-to-market optimization for a cross-functional product launch. <strong>Influenced R&amp;D resourcing</strong> for the next planning cycle.</p>
+          <div class="card-foot">
+            <div class="stack">
+              <span class="pill">Indeed</span>
+              <span class="pill">2023</span>
+              <span class="pill">Product Strategy</span>
+            </div>
+            <span class="arrow">drafting…</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- CASE 04 — Sales automation pilot -->
+      <a class="card coming-soon" data-tags="automation bizops">
+        <div class="card-cover">
+          <div class="cover-chart" aria-hidden="true">
+            <div class="bar" style="height: 30%; opacity: 0.45;"></div>
+            <div class="bar" style="height: 35%; opacity: 0.45;"></div>
+            <div class="bar" style="height: 32%; opacity: 0.45;"></div>
+            <div class="bar" style="height: 38%; opacity: 0.45;"></div>
+            <div class="bar" style="height: 70%;"></div>
+            <div class="bar" style="height: 75%;"></div>
+            <div class="bar" style="height: 78%;"></div>
+            <div class="bar" style="height: 82%;"></div>
+          </div>
+          <span class="cover-label">Fig 4 · Adoption — control vs. pilot</span>
+          <span class="cover-kpi">2×<span class="small">adoption</span></span>
+        </div>
+        <div class="card-body">
+          <h3>700-client sales automation pilot — doubled product adoption vs. control.</h3>
+          <p class="outcome">Designed the experiment, ran the cohort, defended the result. <strong>2× adoption uplift</strong> at the same CAC.</p>
+          <div class="card-foot">
+            <div class="stack">
+              <span class="pill">Indeed</span>
+              <span class="pill">2023</span>
+              <span class="pill">BizOps</span>
+            </div>
+            <span class="arrow">drafting…</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- CASE 05 — Title expansion rollout -->
+      <a class="card coming-soon" data-tags="product">
+        <div class="card-cover">
+          <div class="cover-chart" aria-hidden="true">
+            <div class="bar" style="height: 25%; opacity: 0.5;"></div>
+            <div class="bar" style="height: 32%; opacity: 0.5;"></div>
+            <div class="bar" style="height: 28%; opacity: 0.5;"></div>
+            <div class="bar" style="height: 40%; opacity: 0.5;"></div>
+            <div class="bar" style="height: 58%;"></div>
+            <div class="bar" style="height: 72%;"></div>
+            <div class="bar" style="height: 88%;"></div>
+            <div class="bar" style="height: 96%;"></div>
+          </div>
+          <span class="cover-label">Fig 5 · Clicks + applicants Q/Q</span>
+          <span class="cover-kpi">+50K<span class="small">clicks</span></span>
+        </div>
+        <div class="card-body">
+          <h3>Title expansion rollout: clicks +50K, applicants +3K Q/Q, record-low CPA.</h3>
+          <p class="outcome">Led product training and technical rollout across the Talroo client book. <strong>Record-low CPA</strong> and <strong>record-high conversion</strong> in the quarter.</p>
+          <div class="card-foot">
+            <div class="stack">
+              <span class="pill">Talroo</span>
+              <span class="pill">2020</span>
+              <span class="pill">Product</span>
+            </div>
+            <span class="arrow">drafting…</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- TBA placeholder — future study -->
+      <a class="card coming-soon" data-tags="all">
+        <div class="card-cover">
+          <div class="cover-pattern tba" aria-hidden="true">
+            <span class="badge">/ next</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3>A live SQL playground built on a public dataset.</h3>
+          <p class="outcome">A queryable, embedded demo (BLS or similar). <strong>The portfolio piece I'm building for the portfolio itself.</strong></p>
+          <div class="card-foot">
+            <div class="stack">
+              <span class="pill">Side</span>
+              <span class="pill">2026</span>
+              <span class="pill">Coming</span>
+            </div>
+            <span class="arrow">in flight…</span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- ============================== EMPTY-STATE NOTE -->
+    <div class="empty-note" role="status">
+      <span class="glyph" aria-hidden="true">✎</span>
+      <p class="body">
+        <strong>Most case studies are still being written.</strong> They're being cleared for public sharing one at a time — the two with live links are the first batch. The rest are scaffolded with real metrics and will land here as they're ready. The same applies to the live SQL playground side project.
+      </p>
+      <a class="cta" href="mailto:jason.vermaelen@gmail.com?subject=Case%20study%20deep-dive">
+        <span>Ask for a deep-dive</span>
+        <span>→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== HIGHLIGHTS RAIL (teaser, from resume) -->
+<section class="rail-section" data-screen-label="03 Work — Highlights rail">
+  <div class="container">
+    <div class="rail-head">
+      <h2>§ Highlights — the short version</h2>
+      <span class="rule"></span>
+      <span class="meta">resume bullets · while case studies ship</span>
+    </div>
+
+    <div class="rail">
+      <div class="rail-cell">
+        <span class="val">2M+</span>
+        <span class="body">Drove over <strong>2 million employer↔jobseeker connections</strong> via GTM optimization on a new product launch.</span>
+        <span class="meta">Indeed · Product Strategist · 2023</span>
+      </div>
+      <div class="rail-cell">
+        <span class="val">10K+</span>
+        <span class="body">Led Sales/CS strategy for a 3-month marketing promotion that brought in <strong>10,000+ new clients</strong>.</span>
+        <span class="meta">Indeed · Product Strategist · 2023</span>
+      </div>
+      <div class="rail-cell">
+        <span class="val">+6<span class="small">%</span></span>
+        <span class="body">Influenced a new product launch that lifted <strong>employer↔jobseeker connections by 6%</strong>.</span>
+        <span class="meta">Indeed · Product Strategist · 2023</span>
+      </div>
+      <div class="rail-cell">
+        <span class="val">+3K<span class="small">Q/Q</span></span>
+        <span class="body">Title expansion lifted applicants <strong>+3K Q/Q</strong> at record-low CPA, record-high conversion.</span>
+        <span class="meta">Talroo · Sr. Data BA · 2020</span>
+      </div>
+      <div class="rail-cell">
+        <span class="val">20<span class="small">% QoQ</span></span>
+        <span class="body">Led a 5-person CSA team managing <strong>70% of company revenue</strong>. Grew vertical <strong>20% QoQ</strong> at 95% retention.</span>
+        <span class="meta">Talroo · CSA Lead · 2017–18</span>
+      </div>
+      <div class="rail-cell">
+        <span class="val">100s</span>
+        <span class="body">Built a CRM Analytics dashboard with <strong>hundreds of daily users globally</strong> across Scaled Business Solutions.</span>
+        <span class="meta">Indeed · Sr. BI Analyst · 2024</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== CONTACT -->
+<section class="contact-strip" id="contact" data-screen-label="04 Contact">
+  <div class="container contact-grid">
+    <div>
+      <h2>Want the long version?</h2>
+      <div class="sub">Happy to walk you through any of these in detail.</div>
+    </div>
+    <div class="contact-list">
+      <a href="https://app.cal.com/jason-vermaelen" class="contact-item">
+        <span class="k">Schedule</span>
+        <span class="v">app.cal.com/jason-vermaelen</span>
+        <span class="a">→</span>
+      </a>
+      <a href="mailto:jason.vermaelen@gmail.com" class="contact-item">
+        <span class="k">Email</span>
+        <span class="v">jason.vermaelen@gmail.com</span>
+        <span class="a">→</span>
+      </a>
+      <a href="https://linkedin.com/in/vermaelen" class="contact-item">
+        <span class="k">LinkedIn</span>
+        <span class="v">linkedin.com/in/vermaelen</span>
+        <span class="a">→</span>
+      </a>
+      <a href="https://github.com/jvermaelen" class="contact-item">
+        <span class="k">GitHub</span>
+        <span class="v">github.com/jvermaelen</span>
+        <span class="a">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-row">
+      <div>© Jason Vermaelen · Austin, TX · 2026</div>
+      <div class="mid"><a href="mailto:jason.vermaelen@gmail.com">jason.vermaelen@gmail.com</a></div>
+      <div class="end">Built with Next.js · <a href="https://github.com/jvermaelen/personal-site">view source ↗</a></div>
+    </div>
+    <div class="footer-meta">Last updated: May 19, 2026</div>
+  </div>
+</footer>
+
+<script>
+  // ============ Theme toggle (shared) ============
+  const html = document.documentElement;
+  const toggle = document.getElementById('theme-toggle');
+  function setTheme(t) {
+    html.setAttribute('data-theme', t);
+    try { localStorage.setItem('theme-v2', t); } catch(e) {}
+    const isDark = t === 'dark';
+    toggle.innerHTML = isDark
+      ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>'
+      : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+  }
+  try { setTheme(localStorage.getItem('theme-v2') || 'light'); } catch(e) { setTheme('light'); }
+  toggle.addEventListener('click', () => { const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'; setTheme(next); });
+
+  // ============ Filter chips ============
+  const chips = document.querySelectorAll('.chip[data-filter]');
+  const cards = document.querySelectorAll('#work-grid .card');
+  const filterMeta = document.getElementById('filter-meta');
+
+  // Compute counts per filter from actual cards in the DOM, so they're never
+  // out-of-sync if cards are added/removed.
+  function computeCounts() {
+    chips.forEach(chip => {
+      const filter = chip.dataset.filter;
+      let n = 0;
+      cards.forEach(card => {
+        const tags = (card.dataset.tags || '').split(/\s+/);
+        if (filter === 'all' || tags.includes(filter)) n++;
+      });
+      const countEl = chip.querySelector('.count');
+      if (countEl) countEl.textContent = n;
+    });
+  }
+
+  function applyFilter(filter) {
+    let shown = 0;
+    cards.forEach(card => {
+      const tags = (card.dataset.tags || '').split(/\s+/);
+      const match = filter === 'all' || tags.includes(filter);
+      if (match) { card.removeAttribute('hidden'); shown++; }
+      else { card.setAttribute('hidden', ''); }
+    });
+    filterMeta.textContent = `showing ${shown} of ${cards.length}`;
+  }
+
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      const filter = chip.dataset.filter;
+      chips.forEach(c => c.setAttribute('aria-pressed', c === chip ? 'true' : 'false'));
+      applyFilter(filter);
+    });
+  });
+
+  // Initial paint
+  computeCounts();
+  applyFilter('all');
+</script>
+
+<script src="command-palette.js"></script>
+<script src="ask-jason.js"></script>
+</body>
+</html>

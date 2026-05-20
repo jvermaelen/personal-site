@@ -1,0 +1,990 @@
+<!doctype html>
+<html lang="en" data-theme="light" data-green="cobalt">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Jason Vermaelen — Senior BI Analyst, Indeed</title>
+<meta name="description" content="Senior BI Analyst at Indeed. Open to Senior Analytics, BizOps, and Product roles. Case studies, writing, and the numbers behind them." />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  /* ============ TOKENS ============ */
+  :root {
+    /* Dark (default) */
+    --bg:           #0a0a0a;
+    --bg-elev:      #111111;
+    --bg-elev-2:    #161616;
+    --line:         #1f1f1f;
+    --line-strong:  #2a2a2a;
+    --ink:          #ededed;
+    --ink-soft:     #cfcfcf;   /* was #b8b8b8 — ~12.8:1 */
+    --muted:        #9a9a9a;   /* was #7a7a7a — ~6.3:1 AA */
+    --muted-soft:   #6e6e6e;   /* was #555555 — ~3.4:1 for non-text */
+    --accent:       oklch(80% 0.16 152);
+    --accent-ink:   #0a0a0a;
+    --warn:         oklch(78% 0.16 60);
+    --reverse-bg:   #ededed;
+    --reverse-ink:  #0a0a0a;
+    --shadow:       0 0 0 1px rgba(255,255,255,0.04);
+
+    --sans: ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+    --content: 1120px;
+    --gutter: 32px;
+  }
+  [data-theme="light"] {
+    --bg:           #fafaf7;
+    --bg-elev:      #ffffff;
+    --bg-elev-2:    #f4f3ee;
+    --line:         #e6e4dd;
+    --line-strong:  #d5d2c9;
+    --ink:          #111111;
+    --ink-soft:     #2e2e2e;   /* was #353535 */
+    --muted:        #595959;   /* was #6b6b6b — ~6.4:1 AA */
+    --muted-soft:   #7c7c7c;   /* was #9c9c9c — ~3.6:1 for non-text */
+    --accent:       oklch(42% 0.13 152);
+    --accent-ink:   #ffffff;
+    --reverse-bg:   #0a0a0a;
+    --reverse-ink:  #ededed;
+    --shadow:       0 1px 0 rgba(0,0,0,0.02), 0 12px 32px -16px rgba(0,0,0,0.06);
+  }
+
+  /* Accent palette options — switch via [data-green] on <html> */
+  /* Default = "forest" (the committed pick). Each option keeps the same hue
+     family but adjusts L and C to hit WCAG AA on both themes. */
+  [data-green="forest"]                       { --accent: oklch(42% 0.13 152); }
+  [data-green="forest"][data-theme="dark"]    { --accent: oklch(80% 0.16 152); }
+  [data-green="emerald"]                      { --accent: oklch(46% 0.16 150); }
+  [data-green="emerald"][data-theme="dark"]   { --accent: oklch(82% 0.18 150); }
+  [data-green="pine"]                         { --accent: oklch(44% 0.10 168); }
+  [data-green="pine"][data-theme="dark"]      { --accent: oklch(80% 0.12 168); }
+  [data-green="moss"]                         { --accent: oklch(40% 0.08 145); }
+  [data-green="moss"][data-theme="dark"]      { --accent: oklch(80% 0.10 145); }
+  /* Blue options */
+  [data-green="slate"]                        { --accent: oklch(45% 0.10 240); }
+  [data-green="slate"][data-theme="dark"]     { --accent: oklch(80% 0.12 240); }
+  [data-green="ocean"]                        { --accent: oklch(46% 0.13 220); }
+  [data-green="ocean"][data-theme="dark"]     { --accent: oklch(80% 0.14 220); }
+  [data-green="cobalt"]                       { --accent: oklch(44% 0.18 250); }
+  [data-green="cobalt"][data-theme="dark"]    { --accent: oklch(78% 0.18 250); }
+  [data-green="indigo"]                       { --accent: oklch(42% 0.16 275); }
+  [data-green="indigo"][data-theme="dark"]    { --accent: oklch(78% 0.16 275); }
+
+  /* ============ BASE ============ */
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    transition: background 200ms ease, color 200ms ease;
+  }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: var(--accent); }
+  ::selection { background: var(--accent); color: var(--accent-ink); }
+  .container { max-width: var(--content); margin: 0 auto; padding: 0 var(--gutter); }
+
+  /* ============ NAV ============ */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: color-mix(in oklab, var(--bg) 85%, transparent);
+    backdrop-filter: saturate(180%) blur(12px);
+    -webkit-backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+    font-family: var(--mono);
+    font-size: 13px;
+  }
+  .brand {
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: 0;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+  .brand .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+    transform: translateY(-2px);
+  }
+  .brand .brand-label {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    margin-left: 4px;
+    letter-spacing: 0.02em;
+    transition: color 150ms ease;
+  }
+  .brand:hover .brand-label,
+  .brand:focus-visible .brand-label { color: var(--accent); }
+  .nav-links { display: flex; gap: 26px; color: var(--muted); }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-tools { display: flex; align-items: center; gap: 10px; }
+  /* .kbd styles provided by command-palette.js */
+  .theme-btn {
+    background: var(--bg-elev);
+    border: 1px solid var(--line-strong);
+    width: 26px; height: 26px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: var(--muted);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
+  .theme-btn:hover { color: var(--ink); border-color: var(--accent); }
+  .theme-btn svg { width: 13px; height: 13px; }
+
+  /* ============ HERO ============ */
+  .hero { padding: 88px 0 64px; }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: clamp(32px, 5vw, 80px);
+    align-items: center;
+  }
+  .hero-avatar {
+    width: clamp(260px, 30vw, 380px);
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    overflow: hidden;
+    background: var(--bg-elev-2);
+    border: 1px solid var(--line-strong);
+    box-shadow:
+      0 1px 0 rgba(0,0,0,0.02),
+      0 24px 60px -24px rgba(0,0,0,0.22);
+    position: relative;
+    flex-shrink: 0;
+  }
+  .hero-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .hero-avatar::after {
+    content: "";
+    position: absolute;
+    right: 4%;
+    bottom: 8%;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 3px solid var(--bg);
+    box-shadow: 0 0 0 1px var(--line);
+  }
+  @media (max-width: 900px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 32px; }
+    .hero-avatar { width: 200px; order: -1; }
+    .hero-avatar::after { width: 14px; height: 14px; border-width: 2px; }
+  }
+  .role-line {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-soft);
+    letter-spacing: 0.02em;
+    margin-bottom: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+    align-items: center;
+  }
+  .role-line .sep { color: var(--muted-soft); }
+  .role-line .open {
+    color: var(--accent);
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .role-line .open::before {
+    content: "";
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 0 var(--accent);
+    animation: pulse 2.4s ease-out infinite;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 color-mix(in oklab, var(--accent) 60%, transparent); }
+    70%  { box-shadow: 0 0 0 8px color-mix(in oklab, var(--accent) 0%, transparent); }
+    100% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--accent) 0%, transparent); }
+  }
+
+  .hero h1 {
+    font-family: var(--sans);
+    font-size: clamp(56px, 8.5vw, 112px);
+    line-height: 0.94;
+    letter-spacing: -0.04em;
+    font-weight: 600;
+    margin: 0 0 28px;
+    color: var(--ink);
+  }
+  .hero h1 .period { color: var(--accent); }
+
+  .hero .pitch {
+    font-family: var(--sans);
+    font-size: clamp(18px, 1.8vw, 22px);
+    line-height: 1.45;
+    color: var(--ink-soft);
+    max-width: 62ch;
+    margin: 0 0 36px;
+    text-wrap: pretty;
+  }
+  .hero .pitch em { color: var(--accent); font-style: normal; }
+
+  .ctas { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 500;
+    height: 44px;
+    padding: 0 18px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    background: transparent;
+    color: var(--ink);
+    transition: background 150ms ease, border-color 150ms ease, color 150ms ease, transform 150ms ease;
+  }
+  .btn.primary {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+  .btn.primary:hover { background: color-mix(in oklab, var(--accent) 85%, white); }
+  .btn.ghost {
+    border-color: var(--line-strong);
+    color: var(--ink);
+    background: transparent;
+  }
+  .btn.ghost:hover { border-color: var(--accent); color: var(--accent); }
+  .btn .arrow { transition: transform 150ms ease; }
+  .btn:hover .arrow { transform: translateX(2px); }
+  .btn.email .mail { font-family: var(--mono); font-size: 13px; color: var(--muted); }
+  .btn.email:hover .mail { color: var(--ink); }
+  .scroll-hint {
+    margin-top: 56px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-soft);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    background: var(--bg-elev);
+    transition: border-color 150ms ease, color 150ms ease, background 150ms ease;
+  }
+  .scroll-hint:hover { color: var(--accent); border-color: var(--accent); }
+  .scroll-hint .scroll-arrow {
+    display: inline-block;
+    animation: scroll-bounce 1.8s ease-in-out infinite;
+  }
+  @keyframes scroll-bounce {
+    0%, 100% { transform: translateY(0); opacity: 0.55; }
+    50%      { transform: translateY(4px); opacity: 1; }
+  }
+
+  /* ============ KPI STRIP ============ */
+  .kpi-section {
+    border-top: 1px solid var(--line);
+    background: var(--bg-elev);
+  }
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+  }
+  .kpi-tile {
+    padding: 32px 28px;
+    border-right: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+  }
+  .kpi-tile:last-child { border-right: none; }
+  .kpi-tile::after {
+    content: "";
+    position: absolute;
+    top: 16px; right: 16px;
+    width: 8px; height: 8px;
+    border-top: 1px solid var(--muted-soft);
+    border-right: 1px solid var(--muted-soft);
+    transform: rotate(45deg);
+    opacity: 0.5;
+  }
+  .kpi-value {
+    font-family: var(--mono);
+    font-size: clamp(36px, 4vw, 52px);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--accent);
+  }
+  .kpi-value .unit { color: var(--accent); font-size: 0.6em; margin-left: 2px; }
+  .kpi-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+    line-height: 1.4;
+  }
+  .kpi-caption {
+    padding: 16px 28px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-soft);
+    border-top: 1px solid var(--line);
+    background: var(--bg);
+  }
+  @media (max-width: 800px) {
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    .kpi-tile { border-bottom: 1px solid var(--line); }
+    .kpi-tile:nth-child(2) { border-right: none; }
+  }
+
+  /* ============ HIGHLIGHTS ============ */
+  .section {
+    padding: 96px 0;
+  }
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+  .section-head h2 {
+    font-family: var(--mono);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--muted);
+    margin: 0;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .section-head .rule {
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+  }
+  .section-head .meta {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .highlights { display: flex; flex-direction: column; }
+  .hl {
+    display: grid;
+    grid-template-columns: 200px 1fr 240px;
+    gap: 40px;
+    padding: 32px 0;
+    border-top: 1px solid var(--line);
+    align-items: baseline;
+    transition: background 200ms ease, padding-left 200ms ease;
+    color: inherit;
+    text-decoration: none;
+  }
+  .hl:last-child { border-bottom: 1px solid var(--line); }
+  .hl:hover { background: color-mix(in oklab, var(--bg-elev) 70%, transparent); padding-left: 12px; padding-right: 12px; }
+  a.hl:hover .hl-body { color: var(--ink); }
+  .hl-num {
+    font-family: var(--mono);
+    font-size: clamp(32px, 3vw, 44px);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+  .hl-num .a { color: var(--accent); }
+  .hl-num .small { font-size: 0.55em; color: var(--muted); letter-spacing: 0; }
+  .hl-body {
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.45;
+    color: var(--ink-soft);
+    max-width: 56ch;
+  }
+  .hl-body strong { color: var(--ink); font-weight: 500; }
+  .hl-meta {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    text-align: right;
+    letter-spacing: 0.02em;
+  }
+  .hl-meta .role { color: var(--ink-soft); }
+  @media (max-width: 800px) {
+    .hl { grid-template-columns: 1fr; gap: 12px; }
+    .hl-meta { text-align: left; }
+  }
+
+  /* ============ NOW ============ */
+  .now-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    padding: 32px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--bg-elev);
+  }
+  .now-block .label-row {
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    margin-bottom: 14px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .now-block p {
+    font-family: var(--sans);
+    font-size: 18px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+  .now-block p strong { color: var(--ink); font-weight: 500; }
+  .now-block .read-more {
+    margin-top: 18px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .now-block .read-more:hover { gap: 10px; }
+  .now-side {
+    border-left: 1px solid var(--line);
+    padding-left: 32px;
+  }
+  .now-side .stack {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .now-side .item {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 16px;
+    font-family: var(--mono);
+    font-size: 12px;
+  }
+  .now-side .item .k { color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; font-size: 10px; padding-top: 2px; }
+  .now-side .item .v { color: var(--ink-soft); }
+  .now-side .item .v .accent { color: var(--accent); }
+  @media (max-width: 800px) {
+    .now-block { grid-template-columns: 1fr; }
+    .now-side { border-left: none; border-top: 1px solid var(--line); padding-left: 0; padding-top: 24px; }
+  }
+
+  /* ============ CONTACT STRIP — expanded into a full destination ============ */
+  .contact-strip {
+    background: var(--reverse-bg);
+    color: var(--reverse-ink);
+    padding: 96px 0 80px;
+  }
+  .contact-strip .contact-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: color-mix(in oklab, var(--reverse-ink) 55%, var(--reverse-bg));
+    margin-bottom: 28px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .contact-strip .contact-eyebrow .accent-dot { color: var(--accent); }
+  .contact-strip .contact-eyebrow::before {
+    content: "";
+    width: 32px; height: 1px;
+    background: color-mix(in oklab, var(--reverse-ink) 30%, var(--reverse-bg));
+  }
+  .contact-strip h2 {
+    font-family: var(--sans);
+    font-size: clamp(48px, 6vw, 88px);
+    line-height: 0.96; letter-spacing: -0.04em;
+    font-weight: 600;
+    margin: 0 0 20px;
+    text-wrap: balance;
+    max-width: 16ch;
+  }
+  .contact-strip h2 em { color: var(--accent); font-style: normal; }
+  .contact-strip .sub {
+    font-family: var(--sans);
+    font-size: clamp(17px, 1.4vw, 19px);
+    line-height: 1.5;
+    color: color-mix(in oklab, var(--reverse-ink) 75%, var(--reverse-bg));
+    max-width: 52ch;
+    margin: 0 0 28px;
+  }
+  .contact-strip .sub strong { color: var(--reverse-ink); font-weight: 500; }
+
+  /* Best-topics meta block */
+  .best-topics {
+    margin-top: 32px;
+    padding-top: 28px;
+    border-top: 1px dashed color-mix(in oklab, var(--reverse-ink) 22%, var(--reverse-bg));
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .best-topics .label {
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: color-mix(in oklab, var(--reverse-ink) 55%, var(--reverse-bg));
+  }
+  .best-topics .list {
+    display: flex; flex-wrap: wrap; gap: 8px;
+  }
+  .best-topics .topic {
+    padding: 6px 12px;
+    border: 1px solid color-mix(in oklab, var(--reverse-ink) 25%, var(--reverse-bg));
+    border-radius: 999px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: color-mix(in oklab, var(--reverse-ink) 88%, var(--reverse-bg));
+    letter-spacing: 0.02em;
+  }
+
+  /* Response-time strip */
+  .response-strip {
+    margin-top: 32px;
+    padding: 16px 20px;
+    background: color-mix(in oklab, var(--accent) 18%, var(--reverse-bg));
+    border: 1px solid color-mix(in oklab, var(--accent) 45%, transparent);
+    border-radius: 8px;
+    display: flex; align-items: center; gap: 14px;
+    font-family: var(--mono); font-size: 13px;
+    color: var(--reverse-ink);
+  }
+  .response-strip .pulse {
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+    box-shadow: 0 0 0 0 var(--accent);
+    animation: contact-pulse 2.4s ease-out infinite;
+  }
+  .response-strip .text strong { font-weight: 500; }
+  @keyframes contact-pulse {
+    0%   { box-shadow: 0 0 0 0 color-mix(in oklab, var(--accent) 60%, transparent); }
+    70%  { box-shadow: 0 0 0 8px color-mix(in oklab, var(--accent) 0%, transparent); }
+    100% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--accent) 0%, transparent); }
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: 72px;
+    align-items: start;
+  }
+  .contact-list {
+    display: flex; flex-direction: column; gap: 0;
+  }
+  .contact-list .header {
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: color-mix(in oklab, var(--reverse-ink) 55%, var(--reverse-bg));
+    padding-bottom: 10px;
+  }
+  .contact-item {
+    display: grid;
+    grid-template-columns: 110px 1fr auto;
+    gap: 24px;
+    padding: 20px 0;
+    border-top: 1px solid color-mix(in oklab, var(--reverse-ink) 22%, var(--reverse-bg));
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 14px;
+    transition: padding-left 200ms ease, background 200ms ease;
+  }
+  .contact-item:last-child { border-bottom: 1px solid color-mix(in oklab, var(--reverse-ink) 22%, var(--reverse-bg)); }
+  .contact-item:hover { padding-left: 12px; }
+  .contact-item.primary {
+    background: color-mix(in oklab, var(--accent) 10%, transparent);
+    border-top-color: color-mix(in oklab, var(--accent) 40%, transparent);
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .contact-item.primary:hover { padding-left: 24px; }
+  .contact-item .k {
+    color: color-mix(in oklab, var(--reverse-ink) 55%, var(--reverse-bg));
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 11px;
+  }
+  .contact-item.primary .k { color: var(--accent); }
+  .contact-item .v { color: var(--reverse-ink); display: flex; flex-direction: column; gap: 3px; }
+  .contact-item .v .label-sub {
+    font-family: var(--mono); font-size: 11px;
+    color: color-mix(in oklab, var(--reverse-ink) 55%, var(--reverse-bg));
+  }
+  .contact-item .a { font-family: var(--sans); font-size: 16px; color: var(--accent); }
+  @media (max-width: 800px) {
+    .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    .contact-strip { padding: 64px 0 56px; }
+  }
+
+  /* ============ FOOTER ============ */
+  .footer {
+    padding: 24px 0;
+    border-top: 1px solid var(--line);
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .footer-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; align-items: center; }
+  .footer-row .mid { text-align: center; }
+  .footer-row .end { text-align: right; }
+  .footer-row a:hover { color: var(--ink); }
+  .footer-meta { text-align: center; font-size: 10px; color: var(--muted-soft); padding-top: 12px; }
+  @media (max-width: 800px) {
+    .footer-row { grid-template-columns: 1fr; text-align: left; }
+    .footer-row .mid, .footer-row .end { text-align: left; }
+  }
+
+  /* ============ CMD+K palette styles provided by command-palette.js ============ */
+
+  /* ============ MISC ============ */
+  .preview-banner {
+    background: var(--accent);
+    color: var(--accent-ink);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 6px 12px;
+  }
+</style>
+</head>
+<body>
+
+<div class="preview-banner">Preview · Option B — Operating System · jvermaelen.com · ⌘K palette · ☼/☾ theme toggle</div>
+
+<!-- ============================== NAV -->
+<header class="nav">
+  <div class="container nav-row">
+    <a href="Homepage Preview.html" class="brand" aria-label="Home" title="Home"><span>jv</span><span class="dot"></span><span class="brand-label">/ home</span></a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="Work Index Preview.html">work</a>
+      <a href="Writing Preview.html">writing</a>
+      <a href="Now Preview.html">now</a>
+      <a href="About Preview.html">about</a>
+    </nav>
+    <div class="nav-tools">
+      <button class="theme-btn" id="theme-toggle" aria-label="Toggle theme">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ============================== HERO -->
+<section class="hero" data-screen-label="01 Hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-text">
+        <div class="role-line">
+          <span>Senior Business Intelligence Analyst</span>
+          <span class="sep">·</span>
+          <span>Indeed</span>
+          <span class="sep">·</span>
+          <span>Austin, TX</span>
+          <span class="sep">&nbsp;&nbsp;</span>
+          <span class="open">Open to good conversations</span>
+        </div>
+        <h1>Jason Vermaelen<span class="period">.</span></h1>
+        <p class="pitch">The data partner Product, Sales, and Marketing actually want in the room. I've owned feature prioritization, GTM strategy, and performance analysis — and <em>I ship the right decisions, not just more features.</em></p>
+        <div class="ctas">
+          <a href="https://app.cal.com/jason-vermaelen" class="btn primary">
+            <span>Schedule a call</span>
+            <span class="arrow">→</span>
+          </a>
+          <a href="mailto:jason.vermaelen@gmail.com" class="btn ghost email">
+            <span>Email</span>
+            <span class="mail">jason.vermaelen@gmail.com</span>
+          </a>
+        </div>
+      </div>
+      <div class="hero-avatar" aria-hidden="true">
+        <img src="headshot.png" alt="Jason Vermaelen" width="760" height="760" />
+      </div>
+    </div>
+    <a class="scroll-hint" href="#kpis">
+      <span>see the numbers</span>
+      <span class="scroll-arrow">↓</span>
+    </a>
+  </div>
+</section>
+
+<!-- ============================== KPI STRIP -->
+<section class="kpi-section" id="kpis" data-screen-label="02 KPIs">
+  <div class="kpi-grid">
+    <div class="kpi-tile">
+      <div class="kpi-value" data-count="2" data-suffix="M+">2M+</div>
+      <div class="kpi-label">employer↔jobseeker<br/>connections driven</div>
+    </div>
+    <div class="kpi-tile">
+      <div class="kpi-value" data-count="10" data-suffix="K+">10K+</div>
+      <div class="kpi-label">new clients in a<br/>3-month promo</div>
+    </div>
+    <div class="kpi-tile">
+      <div class="kpi-value" data-count="100" data-suffix="s">100s</div>
+      <div class="kpi-label">daily global users of<br/>a dashboard I led</div>
+    </div>
+    <div class="kpi-tile">
+      <div class="kpi-value" data-count="2" data-suffix="K">2K</div>
+      <div class="kpi-label">hrs/yr returned via<br/>Salesforce automation</div>
+    </div>
+  </div>
+  <div class="container kpi-caption">
+    selected outcomes · 8 years · indeed + talroo · full context in case studies (shipping post-launch)
+  </div>
+</section>
+
+<!-- ============================== HIGHLIGHTS -->
+<section class="section" id="work" data-screen-label="03 Highlights">
+  <div class="container">
+    <div class="section-head">
+      <h2>§ Highlights</h2>
+      <span class="rule"></span>
+      <span class="meta">seven outcomes · most recent first</span>
+    </div>
+
+    <div class="highlights">
+      <a class="hl" href="Case Study Preview.html">
+        <div class="hl-num"><span class="a">2K</span><span class="small"> hrs/yr</span></div>
+        <div class="hl-body">Automated Salesforce case assignments and resolutions for my team — returning <strong>~2,000 hours per year</strong>.</div>
+        <div class="hl-meta"><div class="role">Senior BI Analyst</div>Indeed · 2024–now</div>
+      </a>
+
+      <a class="hl" href="Work Index Preview.html">
+        <div class="hl-num"><span class="a">100</span><span class="small">s</span></div>
+        <div class="hl-body">Led, built, and launched a Salesforce CRM Analytics dashboard now used <strong>daily by hundreds of users globally</strong> across Scaled Business Solutions.</div>
+        <div class="hl-meta"><div class="role">Senior BI Analyst</div>Indeed · 2024–now</div>
+      </a>
+
+      <article class="hl">
+        <div class="hl-num">2M+</div>
+        <div class="hl-body">Drove over <strong>2 million employer↔jobseeker connections</strong> by analyzing performance data and optimizing go-to-market strategy for a new product launch.</div>
+        <div class="hl-meta"><div class="role">Product Strategist</div>Indeed · 2022–24</div>
+      </article>
+
+      <article class="hl">
+        <div class="hl-num">10K+</div>
+        <div class="hl-body">Led Sales/CS strategy for a 3-month marketing promotion that brought in <strong>over 10,000 new clients</strong>.</div>
+        <div class="hl-meta"><div class="role">Product Strategist</div>Indeed · 2022–24</div>
+      </article>
+
+      <article class="hl">
+        <div class="hl-num">2×</div>
+        <div class="hl-body">Ran a <strong>700-client sales automation pilot</strong> that doubled product adoption versus the control group.</div>
+        <div class="hl-meta"><div class="role">Product Strategist</div>Indeed · 2022–24</div>
+      </article>
+
+      <article class="hl">
+        <div class="hl-num"><span class="a">+50K</span><span class="small"> · +3K</span></div>
+        <div class="hl-body">Led rollout and technical training of a title expansion feature: client clicks up <strong>+50K</strong>, applicants up <strong>+3K Q/Q</strong>, record-low CPA, record-high conversion.</div>
+        <div class="hl-meta"><div class="role">Sr. Data Business Analyst</div>Talroo · 2018–22</div>
+      </article>
+
+      <article class="hl">
+        <div class="hl-num">20<span class="small">% QoQ</span></div>
+        <div class="hl-body">Led a 5-person CSA team managing <strong>70% of company revenue</strong>. Grew vertical revenue <strong>20% QoQ</strong> with <strong>95% retention</strong>.</div>
+        <div class="hl-meta"><div class="role">CSA Team Lead</div>Talroo · 2017–18</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== NOW -->
+<section class="section" id="now" style="padding-top: 0" data-screen-label="04 Now">
+  <div class="container">
+    <div class="section-head">
+      <h2>§ Currently</h2>
+      <span class="rule"></span>
+      <span class="meta">updated may 2026</span>
+    </div>
+
+    <div class="now-block">
+      <div>
+        <div class="label-row"><span>What I'm doing</span><span>/now</span></div>
+        <p><strong>Senior BI Analyst at Indeed</strong>, working on Salesforce CRM Analytics. Pursuing an <strong>MS in Data Analytics</strong> at WGU. Training jiu-jitsu at <strong>Paragon BJJ</strong> in Austin. Reading more, shipping more, looking for what's next.</p>
+        <a href="Now Preview.html" class="read-more">read the full Now page <span>→</span></a>
+      </div>
+      <div class="now-side">
+        <div class="stack">
+          <div class="item"><span class="k">Role</span><span class="v">Sr. BI Analyst</span></div>
+          <div class="item"><span class="k">Location</span><span class="v">Austin, TX</span></div>
+          <div class="item"><span class="k">Stack</span><span class="v">SQL · Snowflake · Python · SFDC · Metabase</span></div>
+          <div class="item"><span class="k">Training</span><span class="v">BJJ · black belt since 2020</span></div>
+          <div class="item"><span class="k">Listening</span><span class="v">music discovery is a hobby — Spotify feed live on /now</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== CONTACT -->
+<section class="contact-strip" id="contact" data-screen-label="05 Contact">
+  <div class="container contact-grid">
+    <div>
+      <div class="contact-eyebrow"><span class="accent-dot">§</span> Contact</div>
+      <h2>Let's talk about <em>the work.</em></h2>
+      <p class="sub">Best topics: <strong>data partnership at startups</strong>, BI-to-PM moves, the math behind a feature decision, or any of the case studies on this site. Worst topics: anything I haven't lived. I'll tell you when I haven't.</p>
+
+      <div class="response-strip" role="status">
+        <span class="pulse" aria-hidden="true"></span>
+        <span class="text"><strong>Response time:</strong> within 24 hours on weekdays · longer if I'm on the mats.</span>
+      </div>
+
+      <div class="best-topics">
+        <span class="label">/ what I'm best at hearing about</span>
+        <div class="list">
+          <span class="topic">Senior Analytics / BizOps roles</span>
+          <span class="topic">PM tracks with a data layer</span>
+          <span class="topic">Salesforce automation</span>
+          <span class="topic">CRM Analytics</span>
+          <span class="topic">GTM strategy</span>
+          <span class="topic">Topic ideas for /writing</span>
+          <span class="topic">BJJ</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-list">
+      <div class="header">/ ways to reach me</div>
+      <a href="https://app.cal.com/jason-vermaelen" class="contact-item primary">
+        <span class="k">Schedule</span>
+        <span class="v">
+          <span>app.cal.com/jason-vermaelen</span>
+          <span class="label-sub">fastest — grab a 30-min slot</span>
+        </span>
+        <span class="a">→</span>
+      </a>
+      <a href="mailto:jason.vermaelen@gmail.com" class="contact-item">
+        <span class="k">Email</span>
+        <span class="v">
+          <span>jason.vermaelen@gmail.com</span>
+          <span class="label-sub">preferred for anything with detail</span>
+        </span>
+        <span class="a">→</span>
+      </a>
+      <a href="https://linkedin.com/in/vermaelen" class="contact-item">
+        <span class="k">LinkedIn</span>
+        <span class="v">
+          <span>linkedin.com/in/vermaelen</span>
+          <span class="label-sub">DMs open — connection requests too</span>
+        </span>
+        <span class="a">→</span>
+      </a>
+      <a href="https://github.com/jvermaelen" class="contact-item">
+        <span class="k">GitHub</span>
+        <span class="v">
+          <span>github.com/jvermaelen</span>
+          <span class="label-sub">source for this site · side projects</span>
+        </span>
+        <span class="a">→</span>
+      </a>
+      <a href="/resume.pdf" class="contact-item" download>
+        <span class="k">Resume</span>
+        <span class="v">
+          <span>Jason_Vermaelen_Resume.pdf</span>
+          <span class="label-sub">82 KB · updated May 2026</span>
+        </span>
+        <span class="a">↓</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-row">
+      <div>© Jason Vermaelen · Austin, TX · 2026</div>
+      <div class="mid"><a href="mailto:jason.vermaelen@gmail.com">jason.vermaelen@gmail.com</a></div>
+      <div class="end">Built with Next.js · <a href="https://github.com/jvermaelen/personal-site">view source ↗</a></div>
+    </div>
+    <div class="footer-meta">Last updated: May 19, 2026</div>
+  </div>
+</footer>
+
+<!-- ============================== CMD+K palette injected by command-palette.js -->
+
+<script src="command-palette.js"></script>
+<script src="ask-jason.js"></script>
+
+<script>
+  // ============ Theme toggle ============
+  const html = document.documentElement;
+  const toggle = document.getElementById('theme-toggle');
+  function setTheme(t) {
+    html.setAttribute('data-theme', t);
+    try { localStorage.setItem('theme-v2', t); } catch(e) {}
+    const isDark = t === 'dark';
+    toggle.innerHTML = isDark
+      ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>'
+      : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+  }
+  try { setTheme(localStorage.getItem('theme-v2') || 'light'); } catch(e) { setTheme('light'); }
+  toggle.addEventListener('click', () => { const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'; setTheme(next); });
+
+  // ============ Command palette and Ask Jason handled by external scripts ============
+
+  // ============ KPI counter animation ============
+  function animateCount(el) {
+    const target = parseFloat(el.dataset.count);
+    const suffix = el.dataset.suffix || '';
+    if (!target) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) { el.textContent = target + suffix; return; }
+    const dur = 1100;
+    const start = performance.now();
+    function tick(t) {
+      const p = Math.min(1, (t - start) / dur);
+      const eased = 1 - Math.pow(1 - p, 3);
+      const v = target * eased;
+      const formatted = (target >= 10 ? Math.round(v) : v.toFixed(0));
+      el.textContent = formatted + suffix;
+      if (p < 1) requestAnimationFrame(tick);
+      else el.textContent = target + suffix;
+    }
+    requestAnimationFrame(tick);
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if (en.isIntersecting) { animateCount(en.target); io.unobserve(en.target); }
+    });
+  }, { threshold: 0.4 });
+  document.querySelectorAll('.kpi-value').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
