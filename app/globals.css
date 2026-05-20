@@ -2951,3 +2951,42 @@ h1.page-title .accent {
 .not-found-footer a {
   color: var(--accent);
 }
+
+/* ============ MOBILE FIXES ============ */
+
+/* Nav cramping — hide "/ home" label first, then tighten the rest. */
+@media (max-width: 640px) {
+  .brand .brand-label {
+    display: none;
+  }
+
+  .nav-links {
+    gap: 18px;
+  }
+
+  .nav-tools {
+    gap: 8px;
+  }
+}
+
+@media (max-width: 440px) {
+  .nav-links {
+    gap: 12px;
+    font-size: 12px;
+  }
+
+  /* Hide the ⌘K trigger on phones — keyboard shortcut is desktop-only anyway. */
+  .nav-tools .kbd {
+    display: none;
+  }
+}
+
+/* Contact-strip headline was constrained to max-width: 16ch + clamp(48px, 6vw, 88px),
+   which on narrow phones left the headline as a tall left-aligned column that
+   read as "pushed right" against the wider content below. Relax both. */
+@media (max-width: 700px) {
+  .contact-strip h2 {
+    max-width: none;
+    font-size: clamp(32px, 9vw, 48px);
+  }
+}

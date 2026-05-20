@@ -6,15 +6,8 @@ import { CommandPalette } from '@/components/command-palette/CommandPalette';
 import { NAV_LINKS } from '@/lib/constants';
 import { ThemeToggle } from './ThemeToggle';
 
-function getBrandLabel(pathname: string): string {
-  if (pathname === '/') return 'home';
-  const seg = pathname.split('/')[1];
-  return seg || 'home';
-}
-
 export function Nav() {
   const pathname = usePathname();
-  const brandLabel = getBrandLabel(pathname);
 
   function isActive(href: string): boolean {
     return pathname === href || pathname.startsWith(`${href}/`);
@@ -26,7 +19,7 @@ export function Nav() {
         <Link href="/" className="brand" aria-label="Home" title="Home">
           <span>jv</span>
           <span className="dot" aria-hidden="true" />
-          <span className="brand-label">/ {brandLabel}</span>
+          <span className="brand-label">/ home</span>
         </Link>
         <nav className="nav-links" aria-label="Primary">
           {NAV_LINKS.map((link) => (

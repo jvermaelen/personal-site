@@ -9,8 +9,19 @@ const jetbrainsMono = JetBrains_Mono({
   display: 'swap',
 });
 
+/**
+ * metadataBase prefers the Vercel deploy URL while the custom domain isn't
+ * pointing at the site yet. Once jasonvermaelen.com is wired up in Vercel,
+ * VERCEL_URL on production deploys will resolve to the custom domain, so this
+ * single line handles preview + production cleanly. Local dev falls back to
+ * the canonical URL (OG previews aren't tested locally anyway).
+ */
+const SITE_URL = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : 'https://jasonvermaelen.com';
+
 export const metadata: Metadata = {
-  metadataBase: new URL('https://jasonvermaelen.com'),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: 'Jason Vermaelen — Senior BI Analyst, Indeed',
     template: '%s — Jason Vermaelen',
@@ -20,7 +31,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     siteName: 'Jason Vermaelen',
-    url: 'https://jasonvermaelen.com',
+    url: SITE_URL,
   },
   twitter: { card: 'summary_large_image' },
 };
