@@ -22,3 +22,10 @@ Build inputs at repo root, read in this order:
 - `data/` — structured data (`resume.json` is canonical)
 - `design-reference/` — page previews + JS reference; **delete after launch**
 - `public/` — static assets shipped as-is
+
+## Content guides (post-launch)
+
+For writing case studies, blog posts, and other content once the site is live:
+
+- [`docs/INSTRUCTIONS.md`](docs/INSTRUCTIONS.md) — content structure, case study format, copy rules
+- [`docs/VOICE.md`](docs/VOICE.md) — writing voice, tone, words to use and avoid
