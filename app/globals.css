@@ -492,6 +492,334 @@ a:hover {
   }
 }
 
+/* ============ HERO ============ */
+.hero {
+  padding: 88px 0 64px;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: clamp(32px, 5vw, 80px);
+  align-items: center;
+}
+
+.hero-avatar {
+  width: clamp(260px, 30vw, 380px);
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--bg-elev-2);
+  border: 1px solid var(--line-strong);
+  box-shadow:
+    0 1px 0 rgba(0, 0, 0, 0.02),
+    0 24px 60px -24px rgba(0, 0, 0, 0.22);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.hero-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hero-avatar::after {
+  content: "";
+  position: absolute;
+  right: 4%;
+  bottom: 8%;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 3px solid var(--bg);
+  box-shadow: 0 0 0 1px var(--line);
+}
+
+@media (max-width: 900px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .hero-avatar {
+    width: 200px;
+    order: -1;
+  }
+
+  .hero-avatar::after {
+    width: 14px;
+    height: 14px;
+    border-width: 2px;
+  }
+}
+
+.role-line {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-soft);
+  letter-spacing: 0.02em;
+  margin-bottom: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  align-items: center;
+}
+
+.role-line .sep {
+  color: var(--muted-soft);
+}
+
+.role-line .open {
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.role-line .open::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 0 var(--accent);
+  animation: hero-open-pulse 2.4s ease-out infinite;
+}
+
+@keyframes hero-open-pulse {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--accent) 60%, transparent);
+  }
+
+  70% {
+    box-shadow: 0 0 0 8px color-mix(in oklab, var(--accent) 0%, transparent);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--accent) 0%, transparent);
+  }
+}
+
+.hero h1 {
+  font-family: var(--sans);
+  font-size: clamp(56px, 8.5vw, 112px);
+  line-height: 0.94;
+  letter-spacing: -0.04em;
+  font-weight: 600;
+  margin: 0 0 28px;
+  color: var(--ink);
+}
+
+.hero h1 .period {
+  color: var(--accent);
+}
+
+.hero .pitch {
+  font-family: var(--sans);
+  font-size: clamp(18px, 1.8vw, 22px);
+  line-height: 1.45;
+  color: var(--ink-soft);
+  max-width: 62ch;
+  margin: 0 0 36px;
+  text-wrap: pretty;
+}
+
+.hero .pitch em {
+  color: var(--accent);
+  font-style: normal;
+}
+
+.ctas {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 500;
+  height: 44px;
+  padding: 0 18px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  background: transparent;
+  color: var(--ink);
+  transition:
+    background 150ms ease,
+    border-color 150ms ease,
+    color 150ms ease,
+    transform 150ms ease;
+}
+
+.btn.primary {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.btn.primary:hover {
+  background: color-mix(in oklab, var(--accent) 85%, white);
+}
+
+.btn.ghost {
+  border-color: var(--line-strong);
+  color: var(--ink);
+  background: transparent;
+}
+
+.btn.ghost:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.btn .arrow {
+  transition: transform 150ms ease;
+}
+
+.btn:hover .arrow {
+  transform: translateX(2px);
+}
+
+.btn.email .mail {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.btn.email:hover .mail {
+  color: var(--ink);
+}
+
+.scroll-hint {
+  margin-top: 56px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-soft);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--bg-elev);
+  transition:
+    border-color 150ms ease,
+    color 150ms ease,
+    background 150ms ease;
+}
+
+.scroll-hint:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.scroll-hint .scroll-arrow {
+  display: inline-block;
+  animation: scroll-bounce 1.8s ease-in-out infinite;
+}
+
+@keyframes scroll-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.55;
+  }
+
+  50% {
+    transform: translateY(4px);
+    opacity: 1;
+  }
+}
+
+/* ============ KPI STRIP ============ */
+.kpi-section {
+  border-top: 1px solid var(--line);
+  background: var(--bg-elev);
+}
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+}
+
+.kpi-tile {
+  padding: 32px 28px;
+  border-right: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+}
+
+.kpi-tile:last-child {
+  border-right: none;
+}
+
+.kpi-tile::after {
+  content: "";
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 8px;
+  height: 8px;
+  border-top: 1px solid var(--muted-soft);
+  border-right: 1px solid var(--muted-soft);
+  transform: rotate(45deg);
+  opacity: 0.5;
+}
+
+.kpi-value {
+  font-family: var(--mono);
+  font-size: clamp(36px, 4vw, 52px);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--accent);
+}
+
+.kpi-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+  line-height: 1.4;
+}
+
+.kpi-caption {
+  padding: 16px 28px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-soft);
+  border-top: 1px solid var(--line);
+  background: var(--bg);
+}
+
+@media (max-width: 800px) {
+  .kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .kpi-tile {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .kpi-tile:nth-child(2) {
+    border-right: none;
+  }
+}
+
 /* ============ ACCESSIBILITY UTILITIES ============ */
 .sr-only {
   position: absolute;

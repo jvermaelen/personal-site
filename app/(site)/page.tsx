@@ -1,22 +1,12 @@
+import { Hero } from '@/components/home/Hero';
+import { KPIStrip } from '@/components/home/KPIStrip';
 import { ContactStrip } from '@/components/ui/ContactStrip';
 
 export default function HomePage() {
   return (
     <>
-      <section style={{ padding: '88px 0 64px' }}>
-        <div className="container">
-          <p
-            style={{
-              fontFamily: 'var(--mono)',
-              fontSize: 13,
-              color: 'var(--muted)',
-              letterSpacing: '0.02em',
-            }}
-          >
-            jasonvermaelen.com · building — hero, KPIs, highlights, and Now come next.
-          </p>
-        </div>
-      </section>
+      <Hero />
+      <KPIStrip />
 
       <ContactStrip
         variant="hero"
