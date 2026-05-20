@@ -4,7 +4,7 @@ Personal website for Jason Vermaelen (Senior BI Analyst). Currently in build.
 
 ## For humans
 
-- **Live site:** _TBD — domain not yet registered_
+- **Live site:** [jasonvermaelen.com](https://jasonvermaelen.com) _(launching soon)_
 - **Email:** [jason.vermaelen@gmail.com](mailto:jason.vermaelen@gmail.com)
 - **LinkedIn:** [linkedin.com/in/vermaelen](https://www.linkedin.com/in/vermaelen/)
 

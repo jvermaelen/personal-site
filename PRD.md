@@ -404,9 +404,7 @@ A small, persistent button (bottom-right) that opens a chat UI. The model has ac
 
 ### Domain
 
-**Recommendation: `jvermaelen.com`** as primary, with `jasonv.co` as a memorable shortlink redirect if Jason wants one. `.com` is non-negotiable for recruiter trust.
-
-Backup candidates if `.com` is taken: `jvermaelen.dev`, `jvermaelen.me`. Avoid `.io` (oversaturated, dating now).
+**Domain: `jasonvermaelen.com`** — registered. (`jvermaelen.com` was the original recommendation; Jason chose the spelled-out form for clarity and recall.)
 
 ### Wordmark
 

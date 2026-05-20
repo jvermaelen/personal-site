@@ -16,7 +16,7 @@ Tech stack (confirmed per PRD section 9):
 - **Vercel** hosting + Analytics
 - **Repo:** `github.com/jvermaelen/personal-site`
 
-Domain: **`jvermaelen.com`**
+Domain: **`jasonvermaelen.com`** (registered)
 
 ---
 

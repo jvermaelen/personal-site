@@ -12,7 +12,7 @@ You'll need accounts at each of these. The starred ones (★) are required for v
 |---|---|---|
 | **GitHub** ★ | Hosting the source repo | ✅ |
 | **Vercel** ★ | Hosting the site | ✅ |
-| **A domain registrar** (Namecheap, Cloudflare, etc.) ★ | Buy `jvermaelen.com` | ✅ |
+| **A domain registrar** (Namecheap, Cloudflare, etc.) ★ | Bought `jasonvermaelen.com` | ✅ |
 | **Cal.com** ★ | Scheduling link `app.cal.com/jason-vermaelen` | ✅ (or whatever scheduling tool you already use) |
 | **Anthropic Console** | API key for Ask Jason chat | ⚪ (defer to Week 4) |
 | **Upstash** | Vector store + rate limit for Ask Jason | ⚪ (defer to Week 4) |
@@ -183,7 +183,7 @@ When Claude Code says "ready to launch":
 - [ ] Favicon shows up in browser tabs
 - [ ] `/resume.pdf` downloads cleanly
 - [ ] Cal.com link opens scheduling
-- [ ] Custom domain `jvermaelen.com` resolves with valid SSL
+- [ ] Custom domain `jasonvermaelen.com` resolves with valid SSL
 - [ ] `linkedin.com/in/vermaelen` profile updated with the new URL
 - [ ] Test the share-card preview on LinkedIn DM, Slack, iMessage
 
