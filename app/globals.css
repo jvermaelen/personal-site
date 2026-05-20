@@ -382,6 +382,15 @@ a:hover {
   font-weight: 500;
 }
 
+/* min-width:0 lets the flex child shrink below its content's intrinsic width,
+   which is required to let monospace text wrap inside a flex container. Without
+   this, the mono text on narrow viewports forces horizontal page overflow. */
+.response-strip .text {
+  min-width: 0;
+  flex: 1;
+  overflow-wrap: break-word;
+}
+
 @keyframes contact-pulse {
   0% {
     box-shadow: 0 0 0 0 color-mix(in oklab, var(--accent) 60%, transparent);
@@ -2996,5 +3005,13 @@ h1.page-title .accent {
     font-size: clamp(24px, 7vw, 40px);
     text-wrap: pretty;
     overflow-wrap: break-word;
+  }
+
+  /* Response strip: smaller font + flex-start alignment so the pulse dot
+     stays top-left when the mono text wraps to multiple lines on phones. */
+  .response-strip {
+    align-items: flex-start;
+    padding: 12px 14px;
+    font-size: 12px;
   }
 }
