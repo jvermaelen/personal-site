@@ -2954,25 +2954,30 @@ h1.page-title .accent {
 
 /* ============ MOBILE FIXES ============ */
 
-/* Nav cramping — hide "/ home" label first, then tighten the rest. */
+/* Nav cramping — keep "/ home" label visible at every size (it's the only
+   affordance that tells you "jv" is a home link). Tighten everything else. */
 @media (max-width: 640px) {
+  .nav-row {
+    font-size: 12px;
+  }
+
   .brand .brand-label {
-    display: none;
+    font-size: 11px;
   }
 
   .nav-links {
-    gap: 18px;
+    gap: 14px;
   }
 
   .nav-tools {
-    gap: 8px;
+    gap: 6px;
   }
 }
 
 @media (max-width: 440px) {
   .nav-links {
-    gap: 12px;
-    font-size: 12px;
+    gap: 10px;
+    font-size: 11px;
   }
 
   /* Hide the ⌘K trigger on phones — keyboard shortcut is desktop-only anyway. */
@@ -2981,12 +2986,15 @@ h1.page-title .accent {
   }
 }
 
-/* Contact-strip headline was constrained to max-width: 16ch + clamp(48px, 6vw, 88px),
-   which on narrow phones left the headline as a tall left-aligned column that
-   read as "pushed right" against the wider content below. Relax both. */
+/* Contact-strip headline: previous min-font of 32px was just barely too big
+   on 360px viewports — text fit one line and ran to the right edge instead of
+   wrapping. Drop the floor to 24px and switch text-wrap to `pretty` so the
+   wrap behavior on narrow screens is forgiving. */
 @media (max-width: 700px) {
   .contact-strip h2 {
     max-width: none;
-    font-size: clamp(32px, 9vw, 48px);
+    font-size: clamp(24px, 7vw, 40px);
+    text-wrap: pretty;
+    overflow-wrap: break-word;
   }
 }

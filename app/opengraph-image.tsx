@@ -23,9 +23,16 @@ export const alt = 'Jason Vermaelen — Senior BI Analyst at Indeed';
 
 const BG = '#fafaf7';
 const INK = '#111111';
-const INK_SOFT = '#2e2e2e';
 const MUTED = '#595959';
+const LINE = '#d5d2c9';
 const COBALT = '#1a3aa6'; // approximation of oklch(44% 0.18 250)
+
+const KPIS = [
+  { value: '2M+', label: 'connections driven' },
+  { value: '10K+', label: 'new clients · 3 mo' },
+  { value: '100s', label: 'daily dashboard users' },
+  { value: '2K', label: 'hrs/yr returned' },
+];
 
 export default function OpenGraphImage() {
   return new ImageResponse(
@@ -37,7 +44,7 @@ export default function OpenGraphImage() {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
-        padding: '64px 80px',
+        padding: '56px 72px',
         fontFamily: 'system-ui, -apple-system, sans-serif',
       }}
     >
@@ -55,8 +62,8 @@ export default function OpenGraphImage() {
         <span style={{ fontSize: 22, color: MUTED, letterSpacing: 1 }}>jasonvermaelen.com</span>
       </div>
 
-      {/* Middle/bottom — main */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 22 }}>
+      {/* Middle — role + big name */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
         <div
           style={{
             fontFamily: 'monospace',
@@ -70,7 +77,7 @@ export default function OpenGraphImage() {
         </div>
         <div
           style={{
-            fontSize: 112,
+            fontSize: 116,
             fontWeight: 600,
             letterSpacing: '-4px',
             lineHeight: 1,
@@ -80,17 +87,52 @@ export default function OpenGraphImage() {
         >
           Jason Vermaelen<span style={{ color: COBALT }}>.</span>
         </div>
-        <div
-          style={{
-            fontSize: 28,
-            lineHeight: 1.4,
-            color: INK_SOFT,
-            maxWidth: 980,
-            display: 'flex',
-          }}
-        >
-          The data partner Product, Sales, and Marketing actually want in the room.
-        </div>
+      </div>
+
+      {/* Bottom — KPI strip */}
+      <div
+        style={{
+          display: 'flex',
+          borderTop: `1px solid ${LINE}`,
+          paddingTop: 24,
+          gap: 32,
+        }}
+      >
+        {KPIS.map((k) => (
+          <div
+            key={k.value}
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 6,
+              flex: 1,
+            }}
+          >
+            <span
+              style={{
+                fontFamily: 'monospace',
+                fontSize: 48,
+                fontWeight: 500,
+                color: COBALT,
+                letterSpacing: '-2px',
+                lineHeight: 1,
+              }}
+            >
+              {k.value}
+            </span>
+            <span
+              style={{
+                fontFamily: 'monospace',
+                fontSize: 13,
+                color: MUTED,
+                letterSpacing: 1.2,
+                textTransform: 'uppercase',
+              }}
+            >
+              {k.label}
+            </span>
+          </div>
+        ))}
       </div>
     </div>,
     size,
