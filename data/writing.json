@@ -1,0 +1,57 @@
+[
+  {
+    "slug": "building-the-portfolio",
+    "date": "May 19",
+    "year": "2026",
+    "title": "Building the portfolio I'd actually want a recruiter to read.",
+    "dek": "The brief, the rejected directions, the design decisions I made on the way to a v1 — and the one thing I'd tell another analyst to do before designing anything.",
+    "tag": "build",
+    "tagLabel": "Build log",
+    "readTime": "8 min read",
+    "status": "drafting"
+  },
+  {
+    "slug": "analyst-seat-launch-meeting",
+    "date": "~ Jun 2026",
+    "year": "drafting",
+    "title": "The analyst's seat at the launch meeting.",
+    "dek": "Most BI work fails because it shows up too late. Some thoughts on what it actually costs an org when the data person is in the post-mortem but not the pre-mortem.",
+    "tag": "essay",
+    "tagLabel": "Essay",
+    "readTime": "~6 min",
+    "status": "drafting"
+  },
+  {
+    "slug": "live-sql-playground",
+    "date": "~ Jun 2026",
+    "year": "drafting",
+    "title": "A live SQL playground for a public dataset.",
+    "dek": "A queryable, embeddable demo running on BLS data. The case-study-shaped side project I'm building for the portfolio itself.",
+    "tag": "build",
+    "tagLabel": "Build log",
+    "readTime": "~12 min",
+    "status": "drafting"
+  },
+  {
+    "slug": "crm-analytics-patterns",
+    "date": "~ Jul 2026",
+    "year": "planned",
+    "title": "Three patterns I keep seeing in Salesforce CRM Analytics.",
+    "dek": "Quick notes from a year of shipping dashboards. The good defaults, the easy mistakes, and one thing I wish someone had told me on day one.",
+    "tag": "note",
+    "tagLabel": "Note",
+    "readTime": "~4 min",
+    "status": "planned"
+  },
+  {
+    "slug": "bi-to-pm",
+    "date": "~ Jul 2026",
+    "year": "planned",
+    "title": "BI to PM, without dropping the SQL.",
+    "dek": "Notes from a two-year stretch on the product strategy side. What transferred, what didn't, and what I'd tell a senior analyst eyeing the same move.",
+    "tag": "essay",
+    "tagLabel": "Essay",
+    "readTime": "~10 min",
+    "status": "planned"
+  }
+]
