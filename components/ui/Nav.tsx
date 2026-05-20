@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { CommandPalette } from '@/components/command-palette/CommandPalette';
 import { NAV_LINKS } from '@/lib/constants';
 import { ThemeToggle } from './ThemeToggle';
 
@@ -39,6 +40,7 @@ export function Nav() {
           ))}
         </nav>
         <div className="nav-tools">
+          <CommandPalette />
           <ThemeToggle />
         </div>
       </div>
