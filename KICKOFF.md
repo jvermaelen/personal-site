@@ -76,7 +76,7 @@ Then skim the rest of design-reference/ to see the other 7 page designs
 
 Once you've done that, before writing any code:
 
-1. Confirm the tech stack matches what's in the PRD (Next.js 15 App
+1. Confirm the tech stack matches what's in the PRD (Next.js 16 App
    Router, TypeScript strict, Tailwind v4, MDX, Vercel).
 2. Propose the repo structure. Compare against HANDOFF.md's proposed
    structure — flag any deltas and why.

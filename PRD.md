@@ -1,7 +1,7 @@
 # Personal Site PRD — Jason Vermaelen
 
 **Repo:** `github.com/jvermaelen/personal-site`
-**Stack:** Next.js 15 (App Router) · TypeScript · Tailwind · MDX · Vercel
+**Stack:** Next.js 16 (App Router) · TypeScript · Tailwind v4 · MDX · Vercel
 **Builder:** Claude Code + Claude Opus 4.7
 **Owner:** Jason Vermaelen
 **Status:** Draft v1 — May 2026
@@ -304,7 +304,7 @@ Based on the projects Jason provided, these are the three v1 case studies. **All
 ## 9. Tech stack
 
 **Confirmed:**
-- **Framework:** Next.js 15, App Router, React Server Components.
+- **Framework:** Next.js 16, App Router, React Server Components.
 - **Language:** TypeScript, strict mode.
 - **Styling:** Tailwind CSS v4 with CSS variables for theming.
 - **Content:** MDX files in `/content`. No CMS. `next-mdx-remote` + `gray-matter` for parsing. Optional: `contentlayer2` or `velite` for type-safe content.
@@ -416,7 +416,7 @@ Set in the body sans, all lowercase, no logo glyph. "jason vermaelen" or just "j
 
 ### Headshot
 
-Single photo on the About page only. Not on the home page. Plain background, looking at camera, ¾ crop. Jason has one already — use it.
+Used in two places: the **Homepage hero** (circular crop, ~380px) and the **About page** personal section (square, alongside the BJJ/music copy). Plain background, looking at camera, ¾ crop. Jason has one already — use it.
 
 ---
 
@@ -444,7 +444,7 @@ UTM tagging on all outbound shares (LinkedIn, email signatures) so attribution i
 **Total: 4 weeks. Build with Claude Code in this order.**
 
 ### Week 1 — Foundation
-- Repo setup, Next.js 15, Tailwind, TypeScript strict.
+- Repo setup, Next.js 16, Tailwind, TypeScript strict.
 - Design tokens (CSS variables for both themes).
 - Layout, nav, footer.
 - Cmd+K palette skeleton.

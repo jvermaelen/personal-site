@@ -9,7 +9,7 @@ This document explains everything Claude Code needs to build the production site
 A personal portfolio site for **Jason Vermaelen** — Senior BI Analyst at Indeed, targeting Senior Analytics, BizOps, and Product roles at Seed–Series D startups, AI-native companies, and FAANG.
 
 Tech stack (confirmed per PRD section 9):
-- **Next.js 15** (App Router, React Server Components)
+- **Next.js 16** (App Router, React Server Components)
 - **TypeScript** (strict)
 - **Tailwind CSS v4** (with CSS variables for theming)
 - **MDX** for content (next-mdx-remote + gray-matter, or contentlayer2/velite for type-safe content)
@@ -147,7 +147,7 @@ Load JetBrains Mono via `next/font/google` in `app/layout.tsx` for performance +
 ## Implementation roadmap (4 weeks per PRD section 14)
 
 **Week 1 — Foundation**
-Repo + Next.js 15 + Tailwind + TS strict. Extract tokens to globals.css. Build shared `<Nav/>` and `<Footer/>` components. Port `command-palette.js` → React component (use `cmdk`). Set up MDX pipeline with Zod-validated frontmatter. Deploy to Vercel preview on every PR.
+Repo + Next.js 16 + Tailwind v4 + TS strict. Extract tokens to globals.css. Build shared `<Nav/>` and `<Footer/>` components. Port `command-palette.js` → React component (use `cmdk`). Set up MDX pipeline with Zod-validated frontmatter. Deploy to Vercel preview on every PR.
 
 **Week 2 — Core content pages**
 Homepage, About, Now, Work Index, 404 — port from the design references. Theme toggle (cookie-backed). Wire `data/resume.json` into the pages that need it (KPI strip, About arc, headline metrics). Read the Spotify component spec in `Now Preview.html` and build `SpotifyRecent.tsx` + `/api/spotify/recent`.

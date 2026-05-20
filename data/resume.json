@@ -3,7 +3,7 @@
   "meta": {
     "version": "1.0.0",
     "lastModified": "2026-05-19",
-    "canonical": "https://jvermaelen.com/data/resume.json",
+    "canonical": "https://jasonvermaelen.com/data/resume.json",
     "note": "Single source of truth for /api/og, the Ask Jason RAG chat, and any data-driven UI on the site. Phone number lives in resume.pdf only — do not publish here."
   },
   "basics": {
@@ -11,7 +11,7 @@
     "label": "Senior Business Intelligence Analyst",
     "image": "/headshot.png",
     "email": "jason.vermaelen@gmail.com",
-    "url": "https://jvermaelen.com",
+    "url": "https://jasonvermaelen.com",
     "summary": "BI Analyst II at Indeed and former GTM Product Strategist. I've been the data partner Product, Sales, and Marketing actually want in the room — owning feature prioritization, GTM strategy, and performance analysis. I ship the right decisions, not just more features.",
     "location": {
       "city": "Austin",
