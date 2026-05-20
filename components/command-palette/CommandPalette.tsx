@@ -22,13 +22,15 @@ import { SITE } from '@/lib/constants';
  */
 export function CommandPalette() {
   const [open, setOpen] = useState(false);
+  const [isMac, setIsMac] = useState(false);
   const router = useRouter();
 
   // ⌘K / Ctrl+K toggle, ESC close (cmdk handles ESC inside the dialog, but
   // the toggle binding is ours).
   useEffect(() => {
+    setIsMac(/mac/i.test(navigator.platform || navigator.userAgent));
     function onKeyDown(e: KeyboardEvent) {
-      if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
+      if (e.key.toLowerCase() === 'k' && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
         setOpen((current) => !current);
       }
@@ -78,15 +80,10 @@ export function CommandPalette() {
         onClick={() => setOpen(true)}
         aria-label="Open command palette"
       >
-        ⌘ K
+        {isMac ? '⌘' : 'Ctrl'} K
       </button>
 
-      <Command.Dialog
-        open={open}
-        onOpenChange={setOpen}
-        label="Command palette"
-        className="palette-dialog"
-      >
+      <Command.Dialog open={open} onOpenChange={setOpen} label="Command palette">
         <Dialog.Title className="sr-only">Command palette</Dialog.Title>
         <Command.Input placeholder="Type a command or search…" />
         <Command.List>

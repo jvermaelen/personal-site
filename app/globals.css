@@ -1075,6 +1075,20 @@ a.hl:hover .hl-body {
   border-color: var(--accent);
 }
 
+/**
+ * cmdk modal layout — flex-centering wrapper pattern.
+ *
+ * Why not `position: fixed; top: 14vh; left: 50%; translate(-50%)` on the
+ * inner box? Radix Dialog's portal tree creates a transformed ancestor, which
+ * becomes the containing block for position:fixed descendants. That breaks
+ * "50% of viewport" into "50% of the ancestor box," and the dialog renders at
+ * the top-left corner instead of viewport-center.
+ *
+ * Instead: [cmdk-dialog] (Dialog.Content) covers the viewport as a flex
+ * container with pointer-events:none so clicks pass through to the overlay
+ * (for click-outside-to-close). [cmdk-root] (the Command box) flex-centers
+ * itself horizontally with a top offset.
+ */
 [cmdk-overlay] {
   position: fixed;
   inset: 0;
@@ -1084,13 +1098,19 @@ a.hl:hover .hl-body {
   z-index: 100;
 }
 
-[cmdk-dialog],
-.palette-dialog {
+[cmdk-dialog] {
   position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 14vh;
+  pointer-events: none;
   z-index: 101;
-  top: 14vh;
-  left: 50%;
-  transform: translateX(-50%);
+}
+
+[cmdk-root] {
+  pointer-events: auto;
   width: min(580px, 92vw);
   background: var(--bg-elev);
   border: 1px solid var(--line-strong);
@@ -1102,12 +1122,12 @@ a.hl:hover .hl-body {
 
 @keyframes palette-pop {
   from {
-    transform: translateX(-50%) translateY(-12px) scale(0.98);
+    transform: translateY(-12px) scale(0.98);
     opacity: 0;
   }
 
   to {
-    transform: translateX(-50%);
+    transform: none;
     opacity: 1;
   }
 }
