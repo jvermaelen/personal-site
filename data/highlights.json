@@ -1,0 +1,51 @@
+[
+  {
+    "num": { "value": "2K", "small": " hrs/yr" },
+    "body": "Automated Salesforce case assignments and resolutions for my team — returning **~2,000 hours per year**.",
+    "role": "Senior BI Analyst",
+    "company": "Indeed",
+    "years": "2024–now"
+  },
+  {
+    "num": { "value": "100", "small": "s" },
+    "body": "Led, built, and launched a Salesforce CRM Analytics dashboard now used **daily by hundreds of users globally** across Scaled Business Solutions.",
+    "role": "Senior BI Analyst",
+    "company": "Indeed",
+    "years": "2024–now"
+  },
+  {
+    "num": "2M+",
+    "body": "Drove over **2 million employer↔jobseeker connections** by analyzing performance data and optimizing go-to-market strategy for a new product launch.",
+    "role": "Product Strategist",
+    "company": "Indeed",
+    "years": "2022–24"
+  },
+  {
+    "num": "10K+",
+    "body": "Led Sales/CS strategy for a 3-month marketing promotion that brought in **over 10,000 new clients**.",
+    "role": "Product Strategist",
+    "company": "Indeed",
+    "years": "2022–24"
+  },
+  {
+    "num": "2×",
+    "body": "Ran a **700-client sales automation pilot** that doubled product adoption versus the control group.",
+    "role": "Product Strategist",
+    "company": "Indeed",
+    "years": "2022–24"
+  },
+  {
+    "num": { "value": "+50K", "small": " · +3K" },
+    "body": "Led rollout and technical training of a title expansion feature: client clicks up **+50K**, applicants up **+3K Q/Q**, record-low CPA, record-high conversion.",
+    "role": "Sr. Data Business Analyst",
+    "company": "Talroo",
+    "years": "2018–22"
+  },
+  {
+    "num": { "value": "20", "small": "% QoQ" },
+    "body": "Led a 5-person CSA team managing **70% of company revenue**. Grew vertical revenue **20% QoQ** with **95% retention**.",
+    "role": "CSA Team Lead",
+    "company": "Talroo",
+    "years": "2017–18"
+  }
+]
