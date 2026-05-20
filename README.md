@@ -1,51 +1,24 @@
-# Jason Vermaelen — Personal Website & Portfolio
+# Jason Vermaelen — Personal Site
 
-This repository contains the source code and content for my personal website, plus documentation, project case studies, and LinkedIn post drafts organized for repeatability.
+Personal website for Jason Vermaelen (Senior BI Analyst). Currently in build.
 
-## Quick Links
-- 🌐 **Live site:** _TBD — domain not yet registered_
-- 📄 **How to contribute content:** [`docs/INSTRUCTIONS.md`](docs/INSTRUCTIONS.md)
-- ✍️ **Voice & style guide:** [`docs/VOICE.md`](docs/VOICE.md)
+## For humans
 
----
+- **Live site:** _TBD — domain not yet registered_
+- **Email:** [jason.vermaelen@gmail.com](mailto:jason.vermaelen@gmail.com)
+- **LinkedIn:** [linkedin.com/in/vermaelen](https://www.linkedin.com/in/vermaelen/)
 
-## Repo Structure
+## For Claude Code / contributors
 
-```
-/
-├── README.md                   ← You are here
-├── docs/
-│   ├── INSTRUCTIONS.md         ← Master guide for adding content, projects, copy
-│   ├── VOICE.md                ← Writing voice & tone guide
-│   └── HANDOFF.md              ← Tech stack/CMS handoff (coming from Claude Design)
-├── projects/
-│   ├── template/
-│   │   └── README.md           ← Template for every new project
-│   └── [project-slug]/         ← One folder per project (e.g., homemates-biz-plan)
-│       ├── README.md           ← Case study write-up
-│       ├── assets/             ← Charts, screenshots, exports
-│       └── linkedin-post.md    ← LinkedIn post draft for this project
-├── linkedin/
-│   └── post-archive.md         ← Running archive of all published LinkedIn posts
-└── [site source files]         ← CMS/framework files (structure TBD from handoff doc)
-```
+Build inputs at repo root, read in this order:
 
----
+1. `PRD.md` — product requirements
+2. `HANDOFF.md` — tech stack, components, conventions
+3. `KICKOFF.md` — build plan
 
-## Workflow: Adding a New Project
+### Directory layout
 
-1. Copy `projects/template/` → rename to `projects/[project-slug]/`
-2. Fill out the `README.md` inside using the case study template in `docs/INSTRUCTIONS.md`
-3. Drop any supporting assets into `assets/`
-4. Draft the LinkedIn post in `linkedin-post.md`
-5. Add the case study to the live site
-6. Publish the LinkedIn post and link to the site
-7. Commit and push everything together
-
----
-
-## About
-
-I'm a BI Analyst / BizOps / Product Manager based in Austin, TX. This site showcases my work and thinking, with a focus on landing roles at FAANG companies and high-growth startups (Series Seed–Series D).
-
-Built with 🤖 + ☕ in Austin.
+- `content/work/` — case study MDX (start from `_template.mdx`)
+- `data/` — structured data (`resume.json` is canonical)
+- `design-reference/` — page previews + JS reference; **delete after launch**
+- `public/` — static assets shipped as-is
