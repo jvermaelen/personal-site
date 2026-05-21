@@ -2392,15 +2392,13 @@ h1.page-title .accent {
 }
 
 /* ============ NOW MAIN GRID + SECTIONS ============ */
+/* Sits inside .container — container handles max-width + horizontal gutter,
+   .now-main only handles grid layout + vertical padding + the top divider. */
 .now-main {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 360px;
   gap: 64px;
-  /* Long-form padding so the .container class on the same element (the JSX
-     has className="container now-main") keeps its horizontal `padding: 0 32px`.
-     A `padding: 56px 0 96px` shorthand here would reset all four sides to 0 horizontally. */
-  padding-top: 56px;
-  padding-bottom: 96px;
+  padding: 56px 0 96px;
   border-top: 1px solid var(--line);
 }
 

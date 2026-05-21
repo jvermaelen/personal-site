@@ -17,12 +17,14 @@ export default function NowPage() {
       <NowHero />
 
       <section>
-        <div className="container now-main">
-          <NowSections />
-          <aside className="now-side" aria-label="Live activity">
-            <SpotifyRecent />
-            <ReadingCard />
-          </aside>
+        <div className="container">
+          <div className="now-main">
+            <NowSections />
+            <aside className="now-side" aria-label="Live activity">
+              <SpotifyRecent />
+              <ReadingCard />
+            </aside>
+          </div>
         </div>
       </section>
 
