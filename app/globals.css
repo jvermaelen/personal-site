@@ -258,6 +258,9 @@ a:hover {
   background: var(--reverse-bg);
   color: var(--reverse-ink);
   padding: 96px 0 80px;
+  /* Defense-in-depth: clip any horizontal overflow inside the strip so a long
+     URL or chip can't push the page wider than the viewport. */
+  overflow-x: clip;
 }
 
 .contact-strip.compact {
@@ -3013,5 +3016,20 @@ h1.page-title .accent {
     align-items: flex-start;
     padding: 12px 14px;
     font-size: 12px;
+  }
+
+  /* Contact-item: the 1fr value column was refusing to shrink because the
+     mono URLs inside have no natural break points. Switching to minmax(0,1fr)
+     lets it actually shrink, and overflow-wrap:anywhere lets the URL break.
+     Also tighten the key column + gaps for narrow viewports. */
+  .contact-item {
+    grid-template-columns: 80px minmax(0, 1fr) auto;
+    gap: 12px;
+    font-size: 12px;
+  }
+
+  .contact-item .v {
+    min-width: 0;
+    overflow-wrap: anywhere;
   }
 }
