@@ -19,8 +19,8 @@ const STATUS_LABEL: Record<Post['status'], string> = {
 export function PostRow({ post }: { post: Post }) {
   const isComingSoon = post.status !== 'live';
 
-  return (
-    <article className={`post${isComingSoon ? ' coming-soon' : ''}`}>
+  const inner = (
+    <>
       <div className="post-date">
         {post.date}
         <span className="year">{post.year}</span>
@@ -39,6 +39,21 @@ export function PostRow({ post }: { post: Post }) {
       <span className="post-arrow" aria-hidden="true">
         →
       </span>
+    </>
+  );
+
+  // Live posts link to the detail page; coming-soon posts are non-interactive.
+  if (!isComingSoon) {
+    return (
+      <a className="post" href={`/writing/${post.slug}`}>
+        {inner}
+      </a>
+    );
+  }
+
+  return (
+    <article className="post coming-soon" aria-label={post.title}>
+      {inner}
     </article>
   );
 }

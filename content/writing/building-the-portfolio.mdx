@@ -1,0 +1,72 @@
+---
+title: "Building the portfolio I'd actually want a recruiter to read."
+slug: "building-the-portfolio"
+date: "2026-05-19"
+dek: "The brief, the rejected directions, the design decisions I made on the way to a v1 — and the one thing I'd tell another analyst to do before designing anything."
+tags: ["build"]
+readTime: "8 min"
+status: "Live"
+draft: false
+---
+
+## Why this at all
+
+The job hunt that preceded this portfolio was educational. Not in a good way.
+
+My first attempt was the standard template: three past companies, a list of tools I'd used, and some bullet points describing what I worked on. Every BI analyst I know has one of these. Every recruiter I talked to said the same thing after screening calls: "we'd love to see your work."
+
+By "your work" they didn't mean a list of Tableau links. They meant: what problem did you solve, what was the before and after, and why did it matter? The standard portfolio answers none of those questions. It lists projects and hopes the interviewer fills in the blanks.
+
+So I built something different. This is how it went.
+
+## The brief
+
+Two constraints shaped everything.
+
+**The audience is a Series A–C VP of Product or Growth Analytics lead, not another BI analyst.** They'll spend 90 seconds on this site before deciding whether to reply to my cold email. They don't need confirmation that I know SQL — everyone applying for this kind of role knows SQL. They need to see that I've shipped something that changed a number.
+
+**I'm not primarily a developer, and pretending I am would backfire.** A portfolio that looks like a developer's portfolio but was built by a BI analyst reads as "interesting project, probably can't ship the actual work." I wanted something that said: this person leads with outcomes and builds the minimum thing that makes the point.
+
+That's the brief: outcome-first, minimum viable signal.
+
+## What I tried first
+
+**Direction 1: Template site.** I looked at Notion, Framer, and a handful of portfolio templates. They're fine for frontend engineers who want a portfolio up in a day. For a BI analyst, they all have the same problem: the template assumes the work is visual. Dashboards don't screenshot well. SQL queries don't either. The templates are built for designers and engineers, not for people whose work lives inside enterprise SaaS platforms.
+
+**Direction 2: Resume PDF + LinkedIn.** Simpler, yes. But the feedback from the first round of applications was consistent: a PDF is a static claim. "Returned ~2,000 hours per year to the team" is a sentence a recruiter takes on faith. A case study with the before/after data, the constraint that shaped the decision, and the part where it almost went sideways — that's a claim that earns some trust.
+
+**Direction 3: Build something elaborate and ship it later.** The opposite failure mode. I talked myself into building a full interactive SQL playground with live BLS data, a Spotify now-playing widget, a chatbot trained on my resume. Fun to build. None of it was the reason a hiring manager would reply to my email. The work on this site is the case studies. Everything else is scaffolding.
+
+What I landed on: a site that functions like a report. One headline metric per case study. Every section built to answer one question a hiring manager actually asks.
+
+## The design decisions
+
+I built this in Next.js 16 with Tailwind CSS 4 and no UI library. The decisions that felt arbitrary at the time turned out to be load-bearing.
+
+**One accent color, full stop.** The whole color scheme is a single cobalt accent on near-black (dark mode default) / off-white (light). One accent forces every element to earn its place — if something doesn't use the cobalt, it better be structural. A richer palette gives you more creative options and more opportunities to make the site look like a theme someone else designed.
+
+**The command palette.** Cmd+K opens a quick-nav. I added it because the hiring managers I'm targeting are technical enough to reach for it. It also shortcuts the most important pages: the case study list, the resume download, the schedule link. If someone is interested and impatient, it's the fastest path to what they actually want.
+
+**The case study structure.** Every case study has seven sections, in order: headline, context, decision, process, results, tradeoffs, artifacts. The tradeoffs section is non-optional. A portfolio that only shows wins is a brochure. The "what I'd do differently" section is where the signal actually lives — it's the difference between someone who executed a plan and someone who learned something from it.
+
+**No contact form.** I have email, a Cal.com scheduling link, and LinkedIn. A contact form adds friction for the person filling it out and a deliverability headache for me. Direct links are better.
+
+**Headshot on the homepage.** The BI-to-product track I'm targeting has a "culture fit" component that's heavier than most people admit. A headshot on the homepage isn't vanity — it acknowledges that the hiring manager decides in 30 seconds whether they want to talk to this person. The headshot is one data point in that decision. Burying it on an About page is false modesty.
+
+## What I'd change
+
+The case studies aren't live yet. They're the most important thing on the site, and they're still coming. I built the template before the content deliberately — knowing the structure before sitting down to write makes each case study a fill-in exercise instead of a blank-page problem. That said, a portfolio without case studies is a landing page for a product that doesn't ship until later.
+
+The headshot is soft. 591×586 pixels is below retina resolution at the size it displays. I'll swap it once I have a better photo.
+
+The Spotify "recently played" widget is mocked. The plumbing is straightforward — Spotify Web API, refresh-token rotation, a 5-minute Edge cache — but I needed to ship the site before wiring the credentials. It'll be live in the next update.
+
+## The one thing
+
+If there's one thing I'd tell another analyst before they start their portfolio:
+
+**Lead with the number, not the project.**
+
+"Salesforce case automation" is a project name. "Returned ~2,000 hours per year to the team" is an outcome. When you're applying for a role, the hiring manager is trying to answer one question: is this person likely to move a number at our company? Start with the answer to that question, then explain how you got there.
+
+This applies everywhere — resume bullets, cover letters, cold emails, this site. The number is the lead. Everything else is context.
