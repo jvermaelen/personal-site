@@ -15,11 +15,11 @@
   },
   {
     "slug": "global-crm-analytics-dashboard",
-    "title": "Global Salesforce CRM Analytics dashboard for Scaled Business Solutions.",
-    "outcome": "Designed, built, launched, and ran the adoption rollout. **Daily-active by hundreds of users globally**. End-to-end ownership from spec to retro.",
-    "tags": ["bi", "product"],
-    "pills": ["Indeed", "2024", "8 mo"],
-    "status": "coming-soon",
+    "title": "Global SBS CRM Analytics dashboard - 400K opportunities tracked, hundreds of daily users.",
+    "outcome": "Rebuilt the SBS CRM Analytics dashboard for a new opportunity-measurement model. **400K opportunities tracked per quarter**, daily-active by hundreds across SBS, GTM, and Support. **One quarter from spec to launch**.",
+    "tags": ["bi", "operations"],
+    "pills": ["Indeed", "2025", "1 Q"],
+    "status": "live",
     "cover": {
       "kind": "line",
       "label": "Fig 2 · Daily active users",

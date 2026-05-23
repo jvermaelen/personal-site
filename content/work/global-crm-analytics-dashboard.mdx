@@ -1,0 +1,127 @@
+---
+title: "Global SBS CRM Analytics dashboard - 400K opportunities tracked, hundreds of daily users."
+slug: "global-crm-analytics-dashboard"
+outcomeHeadline: "Updated the SBS CRM Analytics dashboard for a new opportunity-measurement model. 400K opportunities tracked per quarter, hundreds of daily users across SBS, GTM, and Support. One quarter from spec to launch."
+role: "Senior BI Analyst (lead)"
+company: "Indeed"
+year: 2025
+duration: "3 months"
+tags: ["BI", "Operations"]
+collaborators: ["Data Engineering", "Sales Ops"]
+tools: ["Salesforce CRM Analytics", "SAQL", "Snowflake", "SQL", "AWS"]
+status: "Live"
+order: 2
+draft: false
+metrics:
+  - label: "Daily users"
+    value: "100s"
+    unit: "/day"
+  - label: "Opportunities tracked"
+    value: "400K"
+    unit: "/quarter"
+  - label: "Spec to launch"
+    value: "1"
+    unit: "quarter"
+  - label: "Adjacent teams served"
+    value: "3+"
+    unit: "cross-functional"
+description: "How I rebuilt the SBS CRM Analytics dashboard for a new opportunity-measurement model, kept scope creep at bay, and shipped one quarter from spec to live."
+---
+
+<CaseSection id="headline" views="all metrics process">
+
+<h2><span className="num">01</span>The headline</h2>
+
+The Scaled Business Solutions team at Indeed shifted to a new opportunity-measurement model mid-2025: new targets, new Gong Call goals, new business logic. The dashboard the team relied on every day didn't reflect any of it. I led the rebuild end-to-end - **400K opportunities tracked per quarter**, with the ~30K that convert to clients visible in the same view. Used daily by **hundreds of users** across SBS, GTM, and Support. One quarter from spec to launch.
+
+</CaseSection>
+
+<CaseSection id="context" views="all process">
+
+<h2><span className="num">02</span>Context &amp; constraints</h2>
+
+The SBS team supports Indeed's largest book of clients. In 2025 they transitioned to a new opportunity-measurement workflow - new fields, new calculations, and a target on Gong Calls. The existing dashboard the team used daily didn't model any of it.
+
+A few constraints shaped the build:
+
+- **The numbers had to be exactly right.** Reps were scored on what the dashboard showed. A bug in the calculation was a bug in someone's quarterly review. Higher accuracy bar than a typical reporting dashboard.
+- **One quarter, hard deadline.** The team needed the new view in production before the next quarterly planning cycle. Slip the deadline and reps spend a quarter without working numbers.
+- **New business logic.** The opportunity-measurement model was new across the org. I had to learn the rules before I could code them.
+- **Data lived in AWS, not just Salesforce.** Some of the goaled metrics came from AWS-hosted tables outside the Salesforce object model. The dashboard had to read both and reconcile them. I queried AWS directly to validate numbers against the source-of-truth tables before they landed in production.
+
+</CaseSection>
+
+<CaseSection id="decision" views="all process">
+
+<h2><span className="num">03</span>The decision</h2>
+
+I built the project around a **scored requirements sheet** and held the line on it.
+
+Every potential feature got two ratings: how badly does the team need this, and can we build it in one quarter. The intersection of high-need and feasible-in-Q became the v1 cut. Everything else either pushed to v2 or got dropped. Once the must-haves were in production, I worked through the nice-to-haves as time allowed - by launch, the v1 had every essential goaled metric plus several quality-of-life additions stakeholders had asked for.
+
+<Aside label="/ What I chose not to do">
+
+**Say yes to every late requirement.** After the requirements-closed date, stakeholders kept floating new items, and many of them were legitimately useful. I logged them as fast-follows for individual post-launch tickets instead of pulling them into the v1 scope. That single line of resistance is what kept the quarter-to-launch promise intact. Saying yes felt collaborative; saying yes would have slipped the deadline.
+
+</Aside>
+
+</CaseSection>
+
+<CaseSection id="process" views="all process">
+
+<h2><span className="num">04</span>Process</h2>
+
+Four phases, roughly:
+
+- **Phase 1: requirements and scope.** Set the project meeting cadence, documented every requirement, and scored each one for need + feasibility. Closed the list with stakeholder sign-off.
+- **Phase 2: alignment and timeline.** Met with Data Engineering (the source owners) and the SBS stakeholders separately. Walked each side through what was in scope and what wasn't, then set realistic timelines for each piece.
+- **Phase 3: build, test, iterate.** Initial build, presentation to stakeholders, review, changes. Then testing with the SBS team before launch. Caught a handful of calculation issues here - the kind that would have been embarrassing in front of reps who saw their own number on the dashboard.
+- **Phase 4: launch + fast-follows.** Pushed live in production. Worked through the post-deadline requirements as individual tickets, prioritized by which reps were missing what.
+
+**Almost killed it: scope creep.** After requirements closed, stakeholders kept proposing additions, and most of the proposals were legitimately useful, which made them harder to refuse. The fix was structural - I drew a hard "requirements closed" line at the end of week 2, set the expectation up front that anything after that became a fast-follow, and stuck to it even when the late asks were good ones.
+
+</CaseSection>
+
+<CaseSection id="results" views="all metrics">
+
+<h2><span className="num">05</span>Results</h2>
+
+<MetricCallout
+  primary={{ label: "Daily active users", value: "100s", caption: "across SBS plus adjacent GTM and Support teams" }}
+  secondary={[
+    { label: "Opportunities tracked", value: "400K / quarter" },
+    { label: "Conversions visible", value: "~30K / quarter" },
+    { label: "Teams served", value: "SBS · GTM · Support" },
+    { label: "Spec to launch", value: "1 quarter" }
+  ]}
+/>
+
+The dashboard surfaces every opportunity in the SBS book - around 400K per quarter - and the ~30K that convert to clients within the same view. Reps use it daily to track their own pipeline against the new goaled targets; managers use the same view for coaching conversations. The cumulative-DAU chart on the work-index card shows adoption climbing through the first months post-launch.
+
+</CaseSection>
+
+<CaseSection id="tradeoffs" views="all process">
+
+<h2><span className="num">06</span>Tradeoffs &amp; what I'd do differently</h2>
+
+- **Would do again - lock requirements before anything else.** The first two weeks went entirely into the scored requirements sheet before a single calculation got written. It felt slow at the time. It's the reason the project shipped on time. Same call without question.
+
+- **Would revisit - the testing window.** I budgeted enough testing time for the must-haves but not for the volume of late-add fast-follows that piled up between launch and the start of the next quarter. The first wave of post-launch bug reports was avoidable with another week of structured pre-launch testing. Next time I'd budget for the bug-finding scrum at the end of the build, not just the build itself.
+
+- **Would do differently - close requirements harder.** I drew a hard "requirements closed" line and stuck to it, but stakeholders kept floating new items in the gray area between "fast-follow" and "must-have." Next time I'd be more explicit at the kickoff about what becomes a fast-follow versus what gets dropped entirely - the ambiguity is what lets requests sneak back in even after a hard close date.
+
+</CaseSection>
+
+<CaseSection id="artifacts" views="all">
+
+<h2><span className="num">07</span>Artifacts</h2>
+
+<Stack>
+
+- Anonymized walkthrough · available on request
+- SAQL code examples · available on request
+- Requirements + scope doc · available on request
+
+</Stack>
+
+</CaseSection>
