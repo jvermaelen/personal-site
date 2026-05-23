@@ -24,7 +24,7 @@
     },
     {
       "label": "/ shipping",
-      "body": "This site is the active side project. Built with **Next.js + MDX + Vercel**, source on [GitHub](https://github.com/jvermaelen/personal-site). Most of the case studies are still in the writing pile - they'll land here as they're cleared for public sharing."
+      "body": "This site is the active side project. Built with **Next.js + MDX + Vercel**, source on [GitHub](https://github.com/jvermaelen/personal-site). **Three case studies are live**; the rest are in the writing pile."
     }
   ],
   "tracks": [
@@ -49,11 +49,7 @@
   "changelog": [
     {
       "when": "May 2026",
-      "what": "Site launch. New /work page. Crab ride still not working."
-    },
-    {
-      "when": "May 2026",
-      "what": "Wrapping a Salesforce automation project at Indeed (~2K hrs/yr returned). Listening to new podcast series."
+      "what": "Site launch. New /work page. Wrapping a Salesforce automation project at Indeed (~1,500 hrs/yr returned)."
     },
     {
       "when": "Apr 2026",
