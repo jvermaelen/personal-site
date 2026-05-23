@@ -2,7 +2,7 @@ const PRINCIPLES = [
   {
     num: '/ 01',
     title: 'Numbers before adjectives.',
-    body: '"Returned ~2,000 hours per year" reads differently from "dramatically improved efficiency." If the metric isn\'t there, the decision wasn\'t real. I write - and ship - with that filter on.',
+    body: '"Returned ~1,500 hours per year" reads differently from "dramatically improved efficiency." If the metric isn\'t there, the decision wasn\'t real. I write - and ship - with that filter on.',
   },
   {
     num: '/ 02',

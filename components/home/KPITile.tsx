@@ -48,7 +48,17 @@ export function KPITile({ value, label }: KPITileProps) {
           const p = Math.min(1, (now - start) / duration);
           const eased = 1 - (1 - p) ** 3;
           const v = count * eased;
-          const formatted = count >= 10 ? Math.round(v).toString() : Math.floor(v).toString();
+          // Big numbers (>=10) round to integer. Whole single-digit targets
+          // floor to integer (cleaner ramp). Fractional targets (e.g. 1.5)
+          // use toFixed(1) so the ramp shows the partial value, not jumps.
+          let formatted: string;
+          if (count >= 10) {
+            formatted = Math.round(v).toString();
+          } else if (Number.isInteger(count)) {
+            formatted = Math.floor(v).toString();
+          } else {
+            formatted = v.toFixed(1);
+          }
           setDisplay(`${formatted}${suffix}`);
           if (p < 1) {
             requestAnimationFrame(tick);

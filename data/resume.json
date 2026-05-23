@@ -50,9 +50,9 @@
       "summary": "Lead BI analyst on Salesforce CRM Analytics for Scaled Business Solutions. Own dashboarding, Salesforce automation, and the operational data layer used daily by hundreds of users globally.",
       "highlights": [
         {
-          "headline": "~2,000 hours/year returned to the team via Salesforce case automation",
+          "headline": "~1,500 hours/year returned to the team via Salesforce case automation",
           "detail": "Automated case assignment and resolution flows. Removed manual triage work for the team.",
-          "metric": { "label": "hrs/yr", "value": 2000 }
+          "metric": { "label": "hrs/yr", "value": 1500 }
         },
         {
           "headline": "Built and launched a global CRM Analytics dashboard with hundreds of daily users",
@@ -199,7 +199,7 @@
     },
     {
       "label": "hrs/yr returned via Salesforce automation",
-      "value": "2K",
+      "value": "1.5K",
       "context": "Case assignment & resolution flows",
       "company": "Indeed",
       "year": 2024

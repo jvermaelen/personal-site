@@ -31,7 +31,7 @@ const KPIS = [
   { value: '2M+', label: 'connections driven' },
   { value: '10K+', label: 'new clients · 3 mo' },
   { value: '100s', label: 'daily dashboard users' },
-  { value: '2K', label: 'hrs/yr returned' },
+  { value: '1.5K', label: 'hrs/yr returned' },
 ];
 
 export default function OpenGraphImage() {
