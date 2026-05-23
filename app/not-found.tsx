@@ -4,7 +4,7 @@ import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { SITE } from '@/lib/constants';
 
 /**
- * 404 — `app/not-found.tsx` lives outside the (site) route group so it uses
+ * 404 - `app/not-found.tsx` lives outside the (site) route group so it uses
  * only the root layout (html + fonts + theme cookie). Chrome here is minimal:
  * brand + theme toggle in the header, single-line footer. By design.
  */
@@ -27,14 +27,14 @@ export default function NotFound() {
       <main className="not-found-main">
         <div className="container">
           <div className="not-found-stack">
-            <div className="not-found-eyebrow">/ status — page not found</div>
+            <div className="not-found-eyebrow">/ status - page not found</div>
 
             <h1 className="not-found-title">
-              404<span className="small"> — query returned 0 rows.</span>
+              404<span className="small"> - query returned 0 rows.</span>
             </h1>
 
             <p className="not-found-lead">
-              The page you were looking for doesn&apos;t exist — at least not at this URL. Likely{' '}
+              The page you were looking for doesn&apos;t exist - at least not at this URL. Likely{' '}
               <strong>a stale link</strong>, a case study still drafting, or a path I haven&apos;t
               built yet. The recovery options below all work.
             </p>
@@ -82,7 +82,7 @@ export default function NotFound() {
                   <span className="arrow">→</span>
                 </span>
                 <span className="why">
-                  Outcome-first writeups — and the empty state for the ones still in the writing
+                  Outcome-first writeups - and the empty state for the ones still in the writing
                   pile.
                 </span>
               </Link>
@@ -113,7 +113,7 @@ export default function NotFound() {
 
       <footer className="not-found-footer">
         <div className="container">
-          Lost? Email <a href={`mailto:${SITE.email}`}>{SITE.email}</a> — I&apos;ll help find what
+          Lost? Email <a href={`mailto:${SITE.email}`}>{SITE.email}</a> - I&apos;ll help find what
           you were looking for.
         </div>
       </footer>

@@ -1,8 +1,8 @@
 [
   {
     "slug": "salesforce-case-automation",
-    "title": "Salesforce case automation — a 2-week AI-augmented build that returned ~1,500 hours/year.",
-    "outcome": "Python service on the Salesforce REST API. Auto-assignment, AI-summarized resolution notes, Slack notifications. Built in **Cursor + Claude CLI** in 2 weeks — what used to be a 6-month Apex/Flow build.",
+    "title": "Salesforce case automation - a 2-week AI-augmented build that returned ~1,500 hours/year.",
+    "outcome": "Python service on the Salesforce REST API. Auto-assignment, AI-summarized resolution notes, Slack notifications. Built in **Cursor + Claude CLI** in 2 weeks - what used to be a 6-month Apex/Flow build.",
     "tags": ["bi", "automation", "ai"],
     "pills": ["Indeed", "2026", "2 wks"],
     "status": "live",
@@ -43,14 +43,14 @@
   },
   {
     "slug": "sales-automation-pilot",
-    "title": "700-client sales automation pilot — doubled product adoption vs. control.",
+    "title": "700-client sales automation pilot - doubled product adoption vs. control.",
     "outcome": "Designed the experiment, ran the cohort, defended the result. **2× adoption uplift** at the same CAC.",
     "tags": ["automation", "bizops"],
     "pills": ["Indeed", "2023", "BizOps"],
     "status": "coming-soon",
     "cover": {
       "kind": "bar",
-      "label": "Fig 4 · Adoption — control vs. pilot",
+      "label": "Fig 4 · Adoption - control vs. pilot",
       "kpi": { "value": "2×", "small": "adoption" },
       "bars": [
         { "h": 30, "muted": true },

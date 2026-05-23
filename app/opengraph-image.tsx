@@ -7,7 +7,7 @@ import { ImageResponse } from 'next/og';
  * page metadata. The output URL is `${metadataBase}/opengraph-image.<ext>?<id>`.
  * Per-route overrides go in route folders (none yet).
  *
- * Runtime: Edge. Cached by Vercel at the CDN — first request renders, all
+ * Runtime: Edge. Cached by Vercel at the CDN - first request renders, all
  * subsequent shares pull the cached PNG.
  *
  * next/og constraints worth knowing:
@@ -19,7 +19,7 @@ import { ImageResponse } from 'next/og';
 export const runtime = 'edge';
 export const contentType = 'image/png';
 export const size = { width: 1200, height: 630 };
-export const alt = 'Jason Vermaelen — Senior BI Analyst at Indeed';
+export const alt = 'Jason Vermaelen - Senior BI Analyst at Indeed';
 
 const BG = '#fafaf7';
 const INK = '#111111';
@@ -48,7 +48,7 @@ export default function OpenGraphImage() {
         fontFamily: 'system-ui, -apple-system, sans-serif',
       }}
     >
-      {/* Top — wordmark */}
+      {/* Top - wordmark */}
       <div
         style={{
           display: 'flex',
@@ -62,7 +62,7 @@ export default function OpenGraphImage() {
         <span style={{ fontSize: 22, color: MUTED, letterSpacing: 1 }}>jasonvermaelen.com</span>
       </div>
 
-      {/* Middle — role + big name */}
+      {/* Middle - role + big name */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
         <div
           style={{
@@ -89,7 +89,7 @@ export default function OpenGraphImage() {
         </div>
       </div>
 
-      {/* Bottom — KPI strip */}
+      {/* Bottom - KPI strip */}
       <div
         style={{
           display: 'flex',

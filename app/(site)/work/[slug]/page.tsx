@@ -47,7 +47,7 @@ export async function generateMetadata({
   const post = work.find((p) => p.slug === slug);
   if (!post) return {};
   return {
-    title: `${post.title} — ${SITE.name}`,
+    title: `${post.title} - ${SITE.name}`,
     description: post.description ?? post.outcomeHeadline,
   };
 }
@@ -97,7 +97,7 @@ export default async function CaseStudyPage({
           <h1 className="case-title">{post.title}</h1>
           <p className="case-lead">{post.outcomeHeadline}</p>
 
-          {/* Meta strip — role / company / duration / team / tags */}
+          {/* Meta strip - role / company / duration / team / tags */}
           <div className="meta-strip">
             <div className="meta-cell">
               <span className="k">Role</span>

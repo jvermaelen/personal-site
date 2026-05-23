@@ -3,14 +3,14 @@ import { SITE } from '@/lib/constants';
 import { getCurrentRole } from '@/lib/resume';
 
 /**
- * Hero pitch — intentionally NOT pulled from resume.json's basics.summary.
+ * Hero pitch - intentionally NOT pulled from resume.json's basics.summary.
  * The resume summary is the PDF-context version; the hero needs a tighter,
  * recruit-tuned version. See PRD §4 (positioning) for the source.
  *
  * If this copy ever changes, update PRD §4 to keep them aligned.
  */
 const HERO_PITCH_PREFIX =
-  "The data partner Product, Sales, and Marketing actually want in the room. I've owned feature prioritization, GTM strategy, and performance analysis — and ";
+  "The data partner Product, Sales, and Marketing actually want in the room. I've owned feature prioritization, GTM strategy, and performance analysis - and ";
 const HERO_PITCH_ACCENT = 'I ship the right decisions, not just more features.';
 
 export function Hero() {

@@ -14,20 +14,20 @@ export function Personal() {
         <div className="personal">
           <div>
             <h3>Brazilian Jiu-Jitsu, 20 years in.</h3>
-            {/* BJJ paragraph — verbatim from PRD §15 res 8. Bolded keywords match the design. */}
+            {/* BJJ paragraph - verbatim from PRD §15 res 8. Bolded keywords match the design. */}
             <p>
               I started training Brazilian Jiu-Jitsu in 2006 and earned my{' '}
               <strong>black belt in 2020</strong>. I train at <strong>Paragon BJJ</strong> in
               Austin. I love it because it keeps me in great physical shape, keeps me mentally
               sharp, is genuinely fun, and is easy to keep doing for decades. It&apos;s also been an
-              amazing social outlet — I&apos;ve met hundreds of people and made friends from all
+              amazing social outlet - I&apos;ve met hundreds of people and made friends from all
               walks of life around the world through jiu-jitsu. It&apos;s shaped me into the person
               I am today.
             </p>
 
             <h3>Music is the other hobby.</h3>
             <p>
-              I am a deeply nerdy listener — discovering and cataloguing new music is something
+              I am a deeply nerdy listener - discovering and cataloguing new music is something
               I&apos;ve done since I was a teenager. There&apos;s a live feed of what I&apos;ve been
               playing on the{' '}
               <Link href="/now" style={{ color: 'var(--accent)' }}>

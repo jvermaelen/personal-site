@@ -19,7 +19,7 @@ export default function WritingPage() {
 
       <ContactStrip
         headline="Want to write back?"
-        subline="Topic suggestions, push-back, or just a thread to pull — I read everything."
+        subline="Topic suggestions, push-back, or just a thread to pull - I read everything."
       />
     </>
   );

@@ -23,8 +23,8 @@ const SITE_URL = process.env.VERCEL_URL
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'Jason Vermaelen — Senior BI Analyst, Indeed',
-    template: '%s — Jason Vermaelen',
+    default: 'Jason Vermaelen - Senior BI Analyst, Indeed',
+    template: '%s - Jason Vermaelen',
   },
   description:
     'Senior BI Analyst at Indeed. Open to Senior Analytics, BizOps, and Product roles. Case studies, writing, and the numbers behind them.',

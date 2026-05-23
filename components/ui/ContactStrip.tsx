@@ -74,7 +74,7 @@ export function ContactStrip({
             <span className="k">Schedule</span>
             <span className="v">
               <span>{SITE.calDisplay}</span>
-              {isHero && <span className="label-sub">fastest — grab a 30-min slot</span>}
+              {isHero && <span className="label-sub">fastest - grab a 30-min slot</span>}
             </span>
             <span className="a">→</span>
           </a>
@@ -97,7 +97,7 @@ export function ContactStrip({
             <span className="k">LinkedIn</span>
             <span className="v">
               <span>{SITE.linkedinDisplay}</span>
-              {isHero && <span className="label-sub">DMs open — connection requests too</span>}
+              {isHero && <span className="label-sub">DMs open - connection requests too</span>}
             </span>
             <span className="a">→</span>
           </a>

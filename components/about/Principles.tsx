@@ -2,7 +2,7 @@ const PRINCIPLES = [
   {
     num: '/ 01',
     title: 'Numbers before adjectives.',
-    body: '"Returned ~2,000 hours per year" reads differently from "dramatically improved efficiency." If the metric isn\'t there, the decision wasn\'t real. I write — and ship — with that filter on.',
+    body: '"Returned ~2,000 hours per year" reads differently from "dramatically improved efficiency." If the metric isn\'t there, the decision wasn\'t real. I write - and ship - with that filter on.',
   },
   {
     num: '/ 02',
@@ -12,7 +12,7 @@ const PRINCIPLES = [
   {
     num: '/ 03',
     title: 'Honest about tradeoffs.',
-    body: "Every project I write up has a \"what I'd do differently\" section. Not as a performance of humility — as the part hiring managers actually grade. If you find an analyst who can't name the tradeoff they made, they didn't make one.",
+    body: "Every project I write up has a \"what I'd do differently\" section. Not as a performance of humility - as the part hiring managers actually grade. If you find an analyst who can't name the tradeoff they made, they didn't make one.",
   },
 ] as const;
 

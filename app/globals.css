@@ -3578,6 +3578,7 @@ h1.case-title em {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+  gap: 24px;
   font-family: var(--mono);
   font-size: 13px;
   padding-bottom: 10px;
@@ -3592,10 +3593,14 @@ h1.case-title em {
 .mc-row .l {
   color: var(--muted);
   font-size: 11px;
+  flex-shrink: 0;
 }
 
 .mc-row .v {
   color: var(--ink);
+  text-align: right;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 @media (max-width: 700px) {

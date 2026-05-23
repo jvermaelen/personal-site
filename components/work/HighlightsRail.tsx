@@ -30,7 +30,7 @@ export function HighlightsRail() {
     <section className="rail-section">
       <div className="container">
         <div className="rail-head">
-          <h2>§ Highlights — the short version</h2>
+          <h2>§ Highlights - the short version</h2>
           <span className="rule" />
           <span className="meta">resume bullets · while case studies ship</span>
         </div>

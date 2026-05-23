@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 /**
- * Now block — Homepage excerpt of /now. Content is hardcoded here for v1.
+ * Now block - Homepage excerpt of /now. Content is hardcoded here for v1.
  * When /now ships (Day 7+), extract the paragraph + side items into
  * content/now.mdx and read from there.
  */
@@ -11,7 +11,7 @@ const SIDE_ITEMS = [
   { k: 'Location', v: 'Austin, TX' },
   { k: 'Stack', v: 'SQL · Snowflake · Python · SFDC · Metabase' },
   { k: 'Training', v: 'BJJ · black belt since 2020' },
-  { k: 'Listening', v: 'music discovery is a hobby — Spotify feed live on /now' },
+  { k: 'Listening', v: 'music discovery is a hobby - Spotify feed live on /now' },
 ] as const;
 
 export function NowBlock() {

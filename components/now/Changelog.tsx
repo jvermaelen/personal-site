@@ -5,7 +5,7 @@ export function Changelog() {
     <section className="changelog">
       <div className="container">
         <div className="changelog-head">
-          <h2>§ Now — changelog</h2>
+          <h2>§ Now - changelog</h2>
           <span className="rule" />
           <span className="meta">past updates</span>
         </div>

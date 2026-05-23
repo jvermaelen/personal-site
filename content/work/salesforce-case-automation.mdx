@@ -1,7 +1,7 @@
 ---
 title: "A 2-week AI-augmented build that returned ~1,500 hours/year to the team."
 slug: "salesforce-case-automation"
-outcomeHeadline: "Python service on the Salesforce REST API: auto-assignment, AI resolution summaries, Slack notifications. Built in 2 weeks in Cursor + Claude CLI — what used to be a 6-month Apex/Flow project."
+outcomeHeadline: "Python service on the Salesforce REST API: auto-assignment, AI resolution summaries, Slack notifications. Built in 2 weeks in Cursor + Claude CLI - what used to be a 6-month Apex/Flow project."
 role: "Senior BI Analyst (lead)"
 company: "Indeed"
 year: 2026
@@ -25,14 +25,14 @@ metrics:
   - label: "Team adoption"
     value: "100%"
     unit: "by mo. 1"
-description: "How a 5-person BI team replaced morning case triage with a Python service built in two weeks using Cursor and Claude CLI — returning ~1,500 analyst hours per year."
+description: "How a 5-person BI team replaced morning case triage with a Python service built in two weeks using Cursor and Claude CLI - returning ~1,500 analyst hours per year."
 ---
 
 <CaseSection id="headline" views="all metrics process">
 
 <h2><span className="num">01</span>The headline</h2>
 
-A 5-person BI team was spending most of every morning hand-triaging Salesforce cases — pulling the new ones, assigning owners, summarizing for routing, posting to Slack so everyone knew what they had. The work was routine but not skippable. I replaced the morning ritual with a Python service that does it automatically. **Returns ~1,500 analyst hours per year**, redirected toward the cases that actually need human judgment. Two-week build in Cursor with Claude CLI, on top of the Salesforce REST API — what used to be a six-month Apex/Flow project.
+A 5-person BI team was spending most of every morning hand-triaging Salesforce cases - pulling the new ones, assigning owners, summarizing for routing, posting to Slack so everyone knew what they had. The work was routine but not skippable. I replaced the morning ritual with a Python service that does it automatically. **Returns ~1,500 analyst hours per year**, redirected toward the cases that actually need human judgment. Two-week build in Cursor with Claude CLI, on top of the Salesforce REST API - what used to be a six-month Apex/Flow project.
 
 </CaseSection>
 
@@ -40,7 +40,7 @@ A 5-person BI team was spending most of every morning hand-triaging Salesforce c
 
 <h2><span className="num">02</span>Context &amp; constraints</h2>
 
-The team I lead supports all CRM Analytics dashboards and central analytics data globally — five people, growing scope, no headcount on the horizon. Case triage was eating the morning before anyone could touch real work.
+The team I lead supports all CRM Analytics dashboards and central analytics data globally - five people, growing scope, no headcount on the horizon. Case triage was eating the morning before anyone could touch real work.
 
 A few constraints shaped the build:
 
@@ -61,7 +61,7 @@ I built three small pieces, each replaceable:
 - **An AI summarizer.** For each newly-assigned case, generates a 4-sentence resolution starter and appends it to the internal notes field. The analyst reads it as a prompt, then does the real work.
 - **A Slack notifier.** Posts every morning to the team channel: who got what, with the AI summary inlined. Replaces the manual "I'm taking this one" round-robin we'd been doing in standup.
 
-The whole thing is a Python service on the Salesforce REST API, written in **Cursor with Claude CLI as the pair-programmer**. The AI-augmented workflow is what made the 2-week timeline real — same scope, an Apex/Flow build the year before would have been a quarter of work.
+The whole thing is a Python service on the Salesforce REST API, written in **Cursor with Claude CLI as the pair-programmer**. The AI-augmented workflow is what made the 2-week timeline real - same scope, an Apex/Flow build the year before would have been a quarter of work.
 
 <Aside label="/ What I chose not to do">
 
@@ -79,12 +79,12 @@ Two weeks of build, two weeks of supervised operation, then a cron job.
 
 - **Week 1: auto-assignment logic.** Pulled case data via the Salesforce REST API, wrote the routing rules, built the load-smoothing logic. Validated against a week of historical assignments to check the script would have made the same calls the team did manually.
 - **Week 2: AI summary + Slack notifier.** Wrote and iterated on the prompt that turns a raw case into a 4-sentence resolution starter. Wired the Slack webhook. Ran end-to-end against a day of cases.
-- **Weeks 3–4: supervised runs.** Manually triggered the script every morning, read everything it produced. Caught two prompt-shape issues in the first three days — quick fix, push, run again.
+- **Weeks 3–4: supervised runs.** Manually triggered the script every morning, read everything it produced. Caught two prompt-shape issues in the first three days - quick fix, push, run again.
 - **Week 5+: automated.** Scheduled the run as a daily cron job. Output to Slack, occasional spot-checks. It's been running unattended since.
 
-**Almost killed it.** The first auth flow used a Salesforce session ID — easy to set up, instantly broken. Session IDs expire on the order of hours and the script was harvesting them manually from a browser session. Fine for a prototype run; fatal for a daily automated job. The fix was a pivot to **OAuth 2.0 with a refresh token** — the script trades the long-lived refresh token for a fresh access token on every run, no manual step. That pivot is the difference between "neat script I demo'd once" and "cron job that's been running unattended for months."
+**Almost killed it.** The first auth flow used a Salesforce session ID - easy to set up, instantly broken. Session IDs expire on the order of hours and the script was harvesting them manually from a browser session. Fine for a prototype run; fatal for a daily automated job. The fix was a pivot to **OAuth 2.0 with a refresh token** - the script trades the long-lived refresh token for a fresh access token on every run, no manual step. That pivot is the difference between "neat script I demo'd once" and "cron job that's been running unattended for months."
 
-In hindsight, the SID-first approach was the right pragmatic call — get something working, *then* worry about scaling it. The mistake wasn't choosing SID; it was not budgeting for the auth rewrite upfront.
+In hindsight, the SID-first approach was the right pragmatic call - get something working, *then* worry about scaling it. The mistake wasn't choosing SID; it was not budgeting for the auth rewrite upfront.
 
 </CaseSection>
 
@@ -103,11 +103,11 @@ In hindsight, the SID-first approach was the right pragmatic call — get someth
 />
 
 <BeforeAfter
-  before={{ caption: "Before — weekly manual triage hrs", bars: [45, 41, 25, 38, 45, 52, 28, 27], summary: "~38 hrs/wk avg" }}
-  after={{ caption: "After — weekly manual triage hrs", bars: [8, 7, 4, 6, 7, 9, 5, 4], summary: "~6 hrs/wk avg" }}
+  before={{ caption: "Before - weekly manual triage hrs", bars: [45, 41, 25, 38, 45, 52, 28, 27], summary: "~38 hrs/wk avg" }}
+  after={{ caption: "After - weekly manual triage hrs", bars: [8, 7, 4, 6, 7, 9, 5, 4], summary: "~6 hrs/wk avg" }}
 />
 
-The chart on the work-index card shows the cumulative version of this — hours returned to the team, climbing from zero at launch to ~1,500 by the end of the first year.
+The chart on the work-index card shows the cumulative version of this - hours returned to the team, climbing from zero at launch to ~1,500 by the end of the first year.
 
 </CaseSection>
 
@@ -115,10 +115,10 @@ The chart on the work-index card shows the cumulative version of this — hours 
 
 <h2><span className="num">06</span>Tradeoffs &amp; what I'd do differently</h2>
 
-- **Would do again — AI summaries to internal notes, not to the customer.** The summaries are a tool for the human analyst, not a replacement for them. Pasting them into the internal notes field gave the team a starting point without ever risking a bad customer-facing message. Same call next time without question.
-- **Would revisit — the state-tracking layer.** The script needs a place to log per-run state. I built that on local files initially; in hindsight a shared Google Sheet (or a small DB) would have made the daily output reviewable by anyone on the team without me sending updates. Friction on visibility costs you adoption.
-- **Would do differently — skip n8n.** I'd initially scoped this as an n8n workflow because the visual-DAG framing seemed like the right shape. It wasn't. The logic was simple enough that pure Python was lower friction. I lost three days proving this to myself; should have been the first hour's reading.
-- **Open question — automated responses.** The AI summaries keep getting better. The honest question is whether they're good enough to auto-respond on the lowest-stakes case types. I'd want a quarter of confidence-bucket data and a peer review of the resolution model before I'd flip that switch.
+- **Would do again - AI summaries to internal notes, not to the customer.** The summaries are a tool for the human analyst, not a replacement for them. Pasting them into the internal notes field gave the team a starting point without ever risking a bad customer-facing message. Same call next time without question.
+- **Would revisit - the state-tracking layer.** The script needs a place to log per-run state. I built that on local files initially; in hindsight a shared Google Sheet (or a small DB) would have made the daily output reviewable by anyone on the team without me sending updates. Friction on visibility costs you adoption.
+- **Would do differently - n8n turned out to be unnecessary.** I lost 2 days figuring out what I needed and waiting on credentials, then realized I didn't need it for this iteration. Pure Python was lower friction for the scope. Definitely something to keep in mind for the future, just not the right tool for this build.
+- **Open question - automated responses.** The AI summaries keep getting better. The honest question is whether they're good enough to auto-respond on the lowest-stakes case types. I'd want a quarter of confidence-bucket data and a peer review of the resolution model before I'd flip that switch.
 
 </CaseSection>
 

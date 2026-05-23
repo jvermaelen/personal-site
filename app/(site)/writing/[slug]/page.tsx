@@ -30,7 +30,7 @@ export async function generateMetadata({
   const post = writing.find((p) => p.slug === slug);
   if (!post) return {};
   return {
-    title: `${post.title} — ${SITE.name}`,
+    title: `${post.title} - ${SITE.name}`,
     description: post.dek,
     openGraph: {
       title: post.title,
@@ -99,7 +99,7 @@ export default async function WritingPostPage({
 
       <ContactStrip
         headline="Want to write back?"
-        subline="Topic suggestions, push-back, or just a thread to pull — I read everything."
+        subline="Topic suggestions, push-back, or just a thread to pull - I read everything."
       />
     </>
   );

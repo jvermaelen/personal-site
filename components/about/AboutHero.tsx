@@ -11,7 +11,7 @@ export function AboutHero() {
         <p className="lead">
           I&apos;m a senior BI analyst at Indeed with a four-year stretch that&apos;s split between
           dashboarding and product strategy. I&apos;ve sat on the data side of the table and on the
-          GTM side of the table, which is where most of my best work has come from — when the person
+          GTM side of the table, which is where most of my best work has come from - when the person
           modeling the funnel is the same person deciding what to build next.
         </p>
         <p className="lead">
