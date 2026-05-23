@@ -1,10 +1,10 @@
 {
-  "updated": "May 19, 2026",
-  "updatedISO": "2026-05-19",
+  "updated": "May 22, 2026",
+  "updatedISO": "2026-05-22",
   "sections": [
     {
       "label": "/ work",
-      "body": "Senior BI Analyst at **Indeed**, on Salesforce CRM Analytics for Scaled Business Solutions. The big project this quarter is shipping a **v2 of the global dashboard** - same audience, faster queries, opinionated defaults. The \"right defaults\" debate has been more interesting than the rebuild."
+      "body": "Senior BI Analyst at **Indeed**, on Salesforce CRM Analytics. The seat is central analytics for global Sales, CS, SBS, and adjacent teams. The big project this quarter is **context engineering** - aligning our agentic models and semantic layers with correct, actionable data so the GTM teams can move on it."
     },
     {
       "label": "/ direction",
@@ -16,11 +16,11 @@
     },
     {
       "label": "/ training",
-      "body": "BJJ at **Paragon BJJ** in Austin, 3–4× a week. Black belt since 2020. Currently working on a half-guard sweep I keep messing up and a passing sequence my coach swore would \"just click.\" It mostly hasn't."
+      "body": "BJJ at **Paragon BJJ** in Austin, 3–4× a week. Black belt since 2020. Currently working on **headquarters and tripod passes** I keep messing up, and a **crab ride** sequence my coach swore would \"just click.\" It mostly hasn't."
     },
     {
       "label": "/ reading",
-      "body": "*The Hard Thing About Hard Things* (Horowitz) on the work side. *Children of Time* (Tchaikovsky) on the not-work side."
+      "body": "*Nudge* (Thaler & Sunstein) on the work side. *The Name of the Wind* (Rothfuss) on the not-work side."
     },
     {
       "label": "/ shipping",
@@ -49,19 +49,23 @@
   "changelog": [
     {
       "when": "May 2026",
-      "what": "Site launch. New /now page. MS Data Analytics at WGU started in March. Half-guard sweep still not working."
+      "what": "Site launch. New /work page. Crab ride still not working."
+    },
+    {
+      "when": "May 2026",
+      "what": "Wrapping a Salesforce automation project at Indeed (~2K hrs/yr returned). Listening to new podcast series."
     },
     {
       "when": "Apr 2026",
-      "what": "Wrapping a Salesforce automation project at Indeed (~2K hrs/yr returned). Open to good conversations; long-term thinking about the next chapter."
+      "what": "Open to good conversations; thinking about the next project."
     },
     {
       "when": "Mar 2026",
-      "what": "Drafting case studies. Restarting jiu-jitsu after a minor shoulder issue. Reading Children of Time."
+      "what": "Restarting jiu-jitsu after child started daycare. Reading Name of the Wind."
     },
     {
       "when": "Feb 2026",
-      "what": "Inherited the global CRM Analytics dashboard as primary owner. Adoption clearing 80% by end of month."
+      "what": "Coming back from parental leave. MS Data Analytics at WGU started in January. Learning, learning, learning."
     }
   ]
 }
