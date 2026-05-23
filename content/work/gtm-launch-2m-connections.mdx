@@ -1,0 +1,127 @@
+---
+title: "GTM strategy that drove 2M+ employer↔jobseeker connections on a new launch."
+slug: "gtm-launch-2m-connections"
+outcomeHeadline: "Analyzed pre-launch feedback on a new connection product, then made the call to hold back the largest client segment until a tailored MVP was ready. Result: 2M+ connections and 200K+ interviews driven."
+role: "Product Strategist"
+company: "Indeed"
+year: 2023
+duration: "3 months"
+tags: ["GTM", "Product"]
+collaborators: ["Product Management", "Sales", "Customer Success"]
+tools: ["SQL", "Jupyter Notebooks"]
+status: "Live"
+order: 3
+draft: false
+metrics:
+  - label: "Connections driven"
+    value: "2M+"
+    unit: "/year"
+  - label: "Interviews driven"
+    value: "200K+"
+    unit: "/year"
+  - label: "Time to launch"
+    value: "3"
+    unit: "months"
+  - label: "Held back for MVP"
+    value: "1"
+    unit: "segment"
+description: "How analyzing pre-launch feedback led to holding back the largest client segment on a new connection product launch - and why that conservative call protected the 2M+ connections that followed."
+---
+
+<CaseSection id="headline" views="all metrics process">
+
+<h2><span className="num">01</span>The headline</h2>
+
+A new connection product was scheduled to launch to all US employer clients. I partnered with the product team to test and ramp the rollout, running internal stakeholder POVs and external client analysis in parallel. The feedback pointed at one client segment - the largest - where the new product would degrade the day-one experience badly enough that the feature itself was at risk. I made the case to **hold back that segment** until a tailored MVP shipped, then ran Sales Specialist tests to define what that MVP looked like. The launch went forward to everyone else. Result: **2M+ connections** and **200K+ interviews** driven in the year that followed.
+
+</CaseSection>
+
+<CaseSection id="context" views="all process">
+
+<h2><span className="num">02</span>Context &amp; constraints</h2>
+
+Indeed was preparing a new connection product - the kind of thing that potentially changes client workflows. The default GTM motion was to launch broadly to all US employer clients on day one, for cleanest initial reach and the cleanest internal narrative.
+
+A few constraints shaped the call:
+
+- **A workflow-changing product means day-one experience IS the product.** For most clients, a subpar first impression isn't recoverable with a v2 - they'd have already pulled out by then.
+- **Limited pre-launch feedback window.** The analysis window was a few weeks, not a quarter. Whatever signal I could surface had to come from existing client data plus quick-turn stakeholder conversations.
+- **US-only scope.** Whatever I found applied to the US client base. International was deferred to a separate launch motion.
+- **The conservative call had real organizational cost.** Sales and CS depended on a clean GTM story. "We launched to everyone" was easier to sell internally than "we held a segment back." That was real friction, not a hypothetical.
+
+</CaseSection>
+
+<CaseSection id="decision" views="all process">
+
+<h2><span className="num">03</span>The decision</h2>
+
+I built the recommendation off two feedback streams in parallel: **internal stakeholder POVs** (Sales, CS, Product, GTM) and **external client signals** (existing usage patterns and the segments most affected by the workflow change). The analysis pointed clearly at one client segment - the largest - where the new product would degrade the experience enough that the feature itself was at risk.
+
+The recommendation was to **launch to everyone except that segment**, and use the same launch period to run Sales Specialist tests defining what MVP would work for the held-back clients.
+
+<Aside label="/ What I chose not to do">
+
+**Recommend a full US launch.** The obvious move - and the one with the cleanest GTM narrative - was to launch to all US clients on day one. The largest segment represented a meaningful share of expected day-one connections, so holding them back was a real, measurable loss at the top of the funnel. But the cost of a bad first impression on the largest clients wasn't a slower ramp - it was the feature getting pulled. The conservative recommendation was the one that protected the 2M+ connections that followed.
+
+</Aside>
+
+</CaseSection>
+
+<CaseSection id="process" views="all process">
+
+<h2><span className="num">04</span>Process</h2>
+
+Four phases:
+
+- **Phase 1: gathered the inputs.** Met with internal stakeholders (Sales, CS, Product) for their POVs on the rollout shape. Pulled data on external clients to understand which segments would feel the workflow change most.
+- **Phase 2: ran the analysis, built the POV.** SQL queries against client usage patterns, Jupyter notebooks for the rollout-impact modeling. Output: a recommendation document with a specific call - launch to everyone except the largest segment, run Sales Specialist tests in parallel to define their MVP.
+- **Phase 3: presented and defended.** Walked Product, Sales, and CS through the POV. The conservative call was friction - it meant a less clean GTM story and lower initial connection numbers. The data carried the recommendation; the discussion was about how to communicate the partial rollout, not whether to do it.
+- **Phase 4: launched, gathered feedback, iterated.** Shipped to all US clients except the held-back segment. Ran the Sales Specialist tests to define the MVP for the held-back segment. Iterated on rollout shape as actual usage signals came in.
+
+**Almost killed it: the temptation to soften the recommendation.** The pressure to launch to everyone was real. A full launch was a cleaner narrative externally and a cleaner number internally - and recommending against it was unintuitive without the analysis to back it up. The thing that almost killed the project was the option to hedge in the room: to say "maybe hold back" instead of "hold back." Hedging would have collapsed the recommendation back to a full launch in the discussion. Saying the conservative call plainly, with the data behind it, was the difference between a partial rollout and a launch that probably gets pulled.
+
+</CaseSection>
+
+<CaseSection id="results" views="all metrics">
+
+<h2><span className="num">05</span>Results</h2>
+
+<MetricCallout
+  primary={{ label: "Connections driven", value: "2M+ / year", caption: "employer ↔ jobseeker connections in the year post-launch" }}
+  secondary={[
+    { label: "Interviews driven", value: "200K+ / year" },
+    { label: "Held-back segment", value: "Shipped via tailored MVP" },
+    { label: "Time to launch", value: "3 months" },
+    { label: "Stakeholder teams aligned", value: "Product · Sales · CS · GTM" }
+  ]}
+/>
+
+The 2M+ connections wasn't the only thing the conservative call protected. The held-back segment got its tailored MVP shortly after the main rollout - the Sales Specialist tests defined what that MVP needed to look like, and the product team built and shipped it on a separate track. By the time the larger segment was on, the launch had a year of usage data, a working playbook, and zero stories about clients walking away from a bad first impression.
+
+</CaseSection>
+
+<CaseSection id="tradeoffs" views="all process">
+
+<h2><span className="num">06</span>Tradeoffs &amp; what I'd do differently</h2>
+
+- **Would do again - gather internal and external feedback before forming a POV.** The internal stakeholders had strong opinions; the external client data revealed which opinions were grounded. Neither stream alone would have been sufficient. Together they produced a recommendation I could actually defend in the room.
+
+- **Would revisit - the case for an even more conservative rollout.** I held back one segment. There's a version of this where I'd have pushed for waiting on the entire launch until the product was suitable for all clients - the safer call I didn't make. The result was good, but a more conservative read of the same data might have been better. Worth a second look.
+
+- **Would do differently - smaller carve-out.** I held back one segment whole. In hindsight, the segment had sub-segments - some less affected by the workflow change than others. A narrower carve-out would have meant a bigger initial rollout and a faster ramp, while still protecting the worst-impacted clients. Next time I'd parse the segment more finely before deciding what to hold back.
+
+</CaseSection>
+
+<CaseSection id="artifacts" views="all">
+
+<h2><span className="num">07</span>Artifacts</h2>
+
+<Stack>
+
+- Analysis deck (sanitized) · available on request
+- SQL queries · available on request
+- Decision POV doc · available on request
+
+</Stack>
+
+</CaseSection>

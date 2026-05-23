@@ -30,10 +30,10 @@
   {
     "slug": "gtm-launch-2m-connections",
     "title": "GTM strategy that drove 2M+ employer↔jobseeker connections on a new launch.",
-    "outcome": "Performance analysis & go-to-market optimization for a cross-functional product launch. **Influenced R&D resourcing** for the next planning cycle.",
+    "outcome": "Analyzed pre-launch feedback, then held back the largest client segment until a tailored MVP was ready. The conservative call protected **2M+ connections** and **200K+ interviews** driven in the year that followed.",
     "tags": ["product"],
-    "pills": ["Indeed", "2023", "Product Strategy"],
-    "status": "coming-soon",
+    "pills": ["Indeed", "2023", "3 mo"],
+    "status": "live",
     "cover": {
       "kind": "line",
       "label": "Fig 3 · Cumulative connections",
