@@ -4,7 +4,7 @@
     "title": "Salesforce case automation - a 2-week AI-augmented build that returned ~1,500 hours/year.",
     "outcome": "Python service on the Salesforce REST API. Auto-assignment, AI-summarized resolution notes, Slack notifications. Built in **Cursor + Claude CLI** in 2 weeks - what used to be a 6-month Apex/Flow build.",
     "tags": ["bi", "automation", "ai"],
-    "pills": ["Indeed", "2026", "2 wks"],
+    "pills": ["Indeed", "2026", "AI Automation"],
     "status": "live",
     "cover": {
       "kind": "line",
@@ -18,7 +18,7 @@
     "title": "Global SBS CRM Analytics dashboard - 400K opportunities tracked, hundreds of daily users.",
     "outcome": "Rebuilt the SBS CRM Analytics dashboard for a new opportunity-measurement model. **400K opportunities tracked per quarter**, daily-active by hundreds across SBS, GTM, and Support. **One quarter from spec to launch**.",
     "tags": ["bi", "operations"],
-    "pills": ["Indeed", "2025", "1 Q"],
+    "pills": ["Indeed", "2025", "Business Intelligence"],
     "status": "live",
     "cover": {
       "kind": "line",
@@ -32,7 +32,7 @@
     "title": "GTM strategy that drove 2M+ employer↔jobseeker connections on a new launch.",
     "outcome": "Analyzed pre-launch feedback, then held back the largest client segment until a tailored MVP was ready. The conservative call protected **2M+ connections** and **200K+ interviews** driven in the year that followed.",
     "tags": ["product"],
-    "pills": ["Indeed", "2023", "3 mo"],
+    "pills": ["Indeed", "2023", "GTM Product Strategy"],
     "status": "live",
     "cover": {
       "kind": "line",

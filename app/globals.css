@@ -3590,17 +3590,19 @@ h1.case-title em {
   padding-bottom: 0;
 }
 
+/* Both label and value can shrink + wrap at natural break points (spaces,
+   middle dots). Avoid `overflow-wrap: anywhere` here - it breaks mid-word
+   even when words could fit on the next line. */
 .mc-row .l {
   color: var(--muted);
   font-size: 11px;
-  flex-shrink: 0;
+  min-width: 0;
 }
 
 .mc-row .v {
   color: var(--ink);
   text-align: right;
   min-width: 0;
-  overflow-wrap: anywhere;
 }
 
 @media (max-width: 700px) {
