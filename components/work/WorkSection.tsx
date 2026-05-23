@@ -5,7 +5,7 @@ import workData from '@/data/work.json';
 import { SITE } from '@/lib/constants';
 import { WorkCard, type WorkEntry } from './WorkCard';
 
-type FilterValue = 'all' | 'bi' | 'automation' | 'product' | 'bizops';
+type FilterValue = 'all' | 'bi' | 'automation' | 'product' | 'bizops' | 'ai';
 
 const FILTERS: { value: FilterValue; label: string }[] = [
   { value: 'all', label: 'All' },
@@ -13,6 +13,7 @@ const FILTERS: { value: FilterValue; label: string }[] = [
   { value: 'automation', label: 'Automation' },
   { value: 'product', label: 'Product / GTM' },
   { value: 'bizops', label: 'BizOps' },
+  { value: 'ai', label: 'AI' },
 ];
 
 // Data + counts are stable at module init (workData is a frozen import).
@@ -25,6 +26,7 @@ const COUNTS: Record<FilterValue, number> = (() => {
     automation: 0,
     product: 0,
     bizops: 0,
+    ai: 0,
   };
   for (const w of WORKS) {
     for (const t of w.tags) {

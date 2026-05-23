@@ -1,16 +1,16 @@
 [
   {
     "slug": "salesforce-case-automation",
-    "title": "Salesforce case automation — returned ~2,000 hours/year to the team.",
-    "outcome": "Routing layer + auto-resolution for the common path. Replaced morning manual triage with **auditable, reversible automation** the team trusted by month two.",
-    "tags": ["bi", "automation"],
-    "pills": ["Indeed", "2024", "6 mo"],
-    "status": "coming-soon",
+    "title": "Salesforce case automation — a 2-week AI-augmented build that returned ~1,500 hours/year.",
+    "outcome": "Python service on the Salesforce REST API. Auto-assignment, AI-summarized resolution notes, Slack notifications. Built in **Cursor + Claude CLI** in 2 weeks — what used to be a 6-month Apex/Flow build.",
+    "tags": ["bi", "automation", "ai"],
+    "pills": ["Indeed", "2026", "2 wks"],
+    "status": "live",
     "cover": {
       "kind": "line",
       "label": "Fig 1 · Cumulative hrs returned to the team",
-      "kpi": { "value": "~2K", "small": "hrs/yr" },
-      "points": [[0, 44], [14, 43], [28, 38], [42, 28], [56, 18], [70, 13], [84, 9], [100, 6]]
+      "kpi": { "value": "~1.5K", "small": "hrs/yr" },
+      "points": [[0, 46], [14, 41], [28, 33], [42, 24], [56, 18], [70, 13], [84, 8], [100, 4]]
     }
   },
   {

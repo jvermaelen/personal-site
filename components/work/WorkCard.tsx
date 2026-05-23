@@ -21,8 +21,8 @@ export function WorkCard({ entry }: { entry: WorkEntry }) {
   const arrow = ARROW_BY_STATUS[entry.status];
   const isComingSoon = entry.status !== 'live';
 
-  return (
-    <article className={`card${isComingSoon ? ' coming-soon' : ''}`}>
+  const inner = (
+    <>
       <Cover {...entry.cover} />
       <div className="card-body">
         <h3>{entry.title}</h3>
@@ -38,6 +38,17 @@ export function WorkCard({ entry }: { entry: WorkEntry }) {
           <span className="arrow">{arrow}</span>
         </div>
       </div>
-    </article>
+    </>
   );
+
+  // Live cases link to the detail page; coming-soon and TBA cards are non-interactive.
+  if (!isComingSoon) {
+    return (
+      <a className="card" href={`/work/${entry.slug}`}>
+        {inner}
+      </a>
+    );
+  }
+
+  return <article className="card coming-soon">{inner}</article>;
 }

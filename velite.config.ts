@@ -8,6 +8,7 @@ const allowedWorkTags = [
   'BizOps',
   'Automation',
   'Operations',
+  'AI',
 ] as const;
 
 const allowedWritingTags = ['essay', 'build', 'note'] as const;
