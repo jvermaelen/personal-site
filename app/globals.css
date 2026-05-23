@@ -3721,46 +3721,68 @@ h1.case-title em {
 }
 
 /* ============ ARTIFACTS (Stack component) ============ */
+/* Stack renders <div class="artifacts"> with a markdown <ul> inside.
+   Each <li> contains a single text node like "Label · on request" - one row,
+   one line. Layout is a simple block with an absolutely-positioned arrow
+   bullet, NOT a grid (the markdown structure doesn't have separate icon /
+   label / meta nodes to drop into grid columns). */
 .artifacts {
-  display: flex;
-  flex-direction: column;
   max-width: 62ch;
+  margin-top: 8px;
 }
 
-/* Markdown list items rendered inside <Stack> */
 .artifacts ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.artifacts ul li,
-.artifacts .artifact {
-  display: grid;
-  grid-template-columns: 28px 1fr auto;
-  gap: 16px;
-  padding: 14px 0;
+.artifacts ul li {
+  display: block;
+  position: relative;
+  padding: 14px 0 14px 32px;
   border-top: 1px solid var(--line);
-  align-items: center;
-  transition: padding-left 200ms ease;
-}
-
-.artifacts ul li:last-child,
-.artifacts .artifact:last-child {
-  border-bottom: 1px solid var(--line);
-}
-
-.artifacts ul li:hover,
-.artifacts .artifact:hover {
-  padding-left: 8px;
-}
-
-.artifacts ul li a,
-.artifacts .artifact a {
   font-family: var(--sans);
   font-size: 16px;
   color: var(--ink);
-  grid-column: 1 / -1;
+  line-height: 1.5;
+  transition: padding-left 200ms ease;
+}
+
+.artifacts ul li:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.artifacts ul li:hover {
+  padding-left: 40px;
+}
+
+.artifacts ul li::before {
+  content: "↗";
+  position: absolute;
+  left: 0;
+  top: 14px;
+  font-family: var(--mono);
+  color: var(--accent);
+  font-size: 14px;
+}
+
+/* If MDX wraps single-line items in <p> (depends on remark config), unwrap
+   visually - p inside the artifact li should not add extra spacing. */
+.artifacts ul li p {
+  margin: 0;
+  max-width: none;
+}
+
+/* Hover-only color shift for any links inside an artifact row. */
+.artifacts ul li a {
+  color: var(--ink);
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+
+.artifacts ul li a:hover {
+  color: var(--accent);
 }
 
 /* ============ NEXT CASE NAV ============ */
