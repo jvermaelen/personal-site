@@ -16,6 +16,30 @@ For drafting any post that ships to `/writing/[slug]` on jasonvermaelen.com.
 3. **Confirm the seed.** If Jason gives you only a title, ask for a paragraph or two of "what's the idea" before drafting. Don't write from one-line briefs.
 4. **Check `data/writing.json`** to see if the post already exists in the index (often there's a placeholder row with status: drafting). If so, you're upgrading it to live.
 
+## Step 1 — Brainstorm before drafting
+
+**Per `docs/INSTRUCTIONS.md` §3: this step is non-skippable, even when the brief seems clear.** Skipping it produces posts where the angle drifts mid-draft or the takeaway never crystallizes. Push back hard if Jason wants to skip ahead to drafting before the brainstorm questions have clear answers.
+
+**If the `/superpowers:brainstorm` skill is installed, invoke it** - it's purpose-built for this kind of structured pre-work. Otherwise, work through these questions out loud with Jason before any drafting:
+
+1. **The seed.** What's the one observation, frustration, or pattern this post wants to communicate? In one sentence.
+
+2. **The audience.** Who reads this, and in what context? A recruiter screening a Senior BI candidate? A hiring manager who already met Jason once? A fellow analyst Googling "how to ship a portfolio"? The audience changes the voice and the evidence.
+
+3. **The one thing.** If the reader skims everything else, what's the single sentence they should remember? This is the post's center of gravity. If you can't state it before drafting, the post doesn't have one yet.
+
+4. **The angle.** What's the distinctive POV vs. the obvious take on the same topic? Three generic drafts about "how I built my portfolio" exist on every blog. What's Jason's version saying that nobody else's says?
+
+5. **The evidence.** What numbers, projects, or anecdotes will carry the post? List 3-5 concrete items before writing. If the answer is "I'll figure it out as I draft," that's a signal to keep brainstorming.
+
+6. **The honest tradeoff.** Per VOICE.md, every Jason piece acknowledges a tradeoff or limitation. Identify it up front so it doesn't read as a tacked-on afterthought.
+
+**Optional: research the topic landscape.** For essay-type posts on broad topics (AI in analytics, portfolio design, BI tooling), use WebSearch to skim what others have written. The goal is to find what's already been said so Jason can sharpen the angle that hasn't.
+
+**Optional: capture the brainstorm in a scratch file.** Drop the answers into `content/writing/_drafts/<slug>-brainstorm.md`. The `_` prefix and `.md` extension keep it out of the velite build, so it stays as a working artifact next to the eventual post without shipping.
+
+**Don't proceed to drafting until those six have clear, written-out answers.** "Let's nail down the angle before we draft" is the right move, even if it feels like friction. The friction is what saves you from rewriting a 1,200-word draft halfway through.
+
 ## Voice rules (compressed from docs/VOICE.md)
 
 **Three-word version:** Warm. Curious. Grounded.

@@ -17,7 +17,29 @@ If Jason hasn't filled in the intake yet, point him there first. Once you have b
 3. You write the full MDX
 4. Jason reviews on the live page (Vercel preview) and flags anything wrong
 
-## Step 0.5 — Voice rules
+## Step 1 — Brainstorm the framing before writing MDX
+
+The intake bullets give you the FACTS. They don't give you the FRAMING. Every case study has multiple credible leads:
+
+- The Salesforce automation case could lead with "2-week AI-augmented build" OR "~1,500 hours/year returned" OR "from 6-month Apex/Flow to 2-week Python." Each shapes a different first impression.
+- The SBS dashboard could lead with "400K opportunities tracked" OR "held the line on scope" OR "AWS-to-Salesforce data plumbing." All true; one of them is sharper for this audience at this moment.
+- The GTM case could lead with "2M+ connections" OR "the judgment call to hold back the largest segment." Both work; one of them is the actual signal.
+
+**Per `docs/INSTRUCTIONS.md` §3: brainstorm before writing.** If `/superpowers:brainstorm` is installed, use it. Otherwise, work through these questions out loud with Jason before drafting any MDX:
+
+1. **The interview moment.** Which conversation does this case study want to engineer? (Screening call, technical depth dive, exec/judgment round?) The framing should be tuned to the moment where it'll actually get read.
+
+2. **The audience.** Which type of hiring manager is the strongest fit for this case? BI hiring manager, product hiring manager, AI/ML-focused recruiter, BizOps lead? Each cares about different signals - and the same project supports different framings depending on which one you optimize for.
+
+3. **The single line.** What's the one sentence about this work that a hiring manager should remember after closing the tab? This becomes the `outcomeHeadline` and almost always the §01 lead sentence.
+
+4. **The judgment beat.** §03 Decision needs a "what I chose NOT to do" callout. Which rejected option, specifically, was the highest-signal? Don't draft until you can name it in one sentence. If you can't, the case isn't ready - go back to Jason for more bullets.
+
+5. **The tradeoff that lands hardest.** §06 Tradeoffs needs 3-4 beats. Which one is the strongest? The one where Jason owns a real limitation or non-obvious mistake is what hiring managers grade product judgment on. Identify that one up front so the section builds toward it instead of treating all tradeoffs as equal.
+
+**Don't proceed to MDX until those five have clear answers.** The intake template captures the facts; this step captures the framing. Skipping it produces case studies that read as "here is what I did" instead of "here is the judgment call I made." The latter is what gets recruiters to reply.
+
+## Step 2 — Voice rules
 
 Inherit everything from `.claude/skills/post-intake/SKILL.md` (or `docs/VOICE.md` if that skill isn't loaded). Three-word voice: **Warm. Curious. Grounded.** No em-dashes, no buzzwords, "I" not "we", plain language, quiet confidence.
 
