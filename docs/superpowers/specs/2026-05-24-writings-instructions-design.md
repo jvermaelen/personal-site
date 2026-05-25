@@ -46,9 +46,9 @@ One directory convention is added:
 
 - `content/writing/_linkedin/` - per-post LinkedIn drafts (`<slug>.md`) and rendered previews (`<slug>-preview.html`). Velite ignores the `_` prefix and the non-.mdx extensions, so nothing here ships to the site.
 
-Plus a deferred-but-acknowledged TODO:
+Plus one Phase 1 build:
 
-- `app/(site)/writing/[slug]/opengraph-image.tsx` - per-post dynamic OG image generator. Already on Jason's punch list. The workflow gains a step that references this file once it exists; the workflow falls back to the site default OG image until then.
+- `app/(site)/writing/[slug]/opengraph-image.tsx` - per-post dynamic OG image generator. Built as part of this implementation phase. Reuses the existing homepage OG template (`app/opengraph-image.tsx`) as the visual pattern, sub in the post's title, dek, and tag as dynamic content.
 
 ### File relationship diagram
 
@@ -102,6 +102,7 @@ Authoritative voice rules live in `docs/VOICE.md`. This section gives:
 - The three-word version ("Warm. Curious. Grounded.")
 - The AI-tell scrub list (5 items - see §5 below)
 - Pointer to `docs/VOICE.md` for the full guide
+- **Voice sample capture step.** When a paragraph in a draft captures Jason's voice particularly well, copy it into `docs/VOICE.md` §4 (Words & Phrases That Sound Like Jason) as a worked sample with a one-line context note ("from build-the-portfolio.mdx, 2026-05-24"). VOICE.md grows organically with real examples that match how Jason actually writes, rather than only the synthetic examples that seeded it. The skill prompts for this during the pre-commit checklist.
 
 ### §5. AI-tell scrub checklist  (Detailed)
 
@@ -271,9 +272,19 @@ For LinkedIn use: the workflow downloads (or references) the same image file and
 
 ### 7.2. Per-post OG image template
 
-The `app/(site)/writing/[slug]/opengraph-image.tsx` is a known TODO from Jason's existing punch list. Until built, the site falls back to the default OG image at `app/opengraph-image.tsx` (the homepage card). The publishing workflow flags the missing per-post image as a warning, not a blocker.
+**Built as part of this implementation phase (Phase 1).** Lives at `app/(site)/writing/[slug]/opengraph-image.tsx` and reuses the homepage OG template (`app/opengraph-image.tsx`) as the visual pattern, sub in the dynamic content per post.
 
-Template content (when built): post title + a one-line takeaway + the post's tag (essay/build/note) + the site brand mark. Visual style matches the homepage OG card.
+Dynamic content per post:
+
+- Post title (from frontmatter `title`)
+- Post type tag (essay / build log / note - from frontmatter `tags[0]`)
+- A one-line takeaway (from frontmatter `dek` truncated to ~120 chars)
+- Date (from frontmatter `date`)
+- Site brand mark (jv. + jasonvermaelen.com - same as homepage card)
+
+Edge runtime, dynamically cached by Vercel. First request renders, all subsequent shares pull the cached PNG.
+
+Acceptance test: visit the existing `building-the-portfolio` post URL, view the OG image at `<site>/writing/building-the-portfolio/opengraph-image.png`, confirm it renders with the post's actual title and dek, not the homepage default.
 
 ### 7.3. LinkedIn variant - deferred
 
@@ -318,11 +329,13 @@ Implementation is complete when:
 
 - [ ] `docs/WRITINGS.md` exists with all 11 sections from §3 above, reads cleanly start to finish.
 - [ ] `docs/INSTRUCTIONS.md` §5 is migrated and replaced with the cross-reference line.
-- [ ] `.claude/skills/post-intake/SKILL.md` has the new publishing + LinkedIn step, the updated description, and the trimmed inline sections.
+- [ ] `.claude/skills/post-intake/SKILL.md` has the new publishing + LinkedIn step, the updated description, the voice-sample-capture prompt, and the trimmed inline sections.
 - [ ] `docs/templates/linkedin-preview.html` exists, renders cleanly in a browser with placeholder content, all `{{PLACEHOLDER}}` slots documented.
 - [ ] `content/writing/_linkedin/` directory exists (with `.gitkeep` if empty) and has a comment in WRITINGS.md explaining the naming convention.
-- [ ] A test run end-to-end: pick an existing post (`building-the-portfolio.mdx`), generate a LinkedIn draft + rendered preview, verify the preview HTML looks faithful to LinkedIn's actual rendering.
+- [ ] `app/(site)/writing/[slug]/opengraph-image.tsx` exists, generates per-post OG images dynamically from frontmatter, renders correctly for `building-the-portfolio` (the only live writing post) with the post's title and dek - not the homepage default.
+- [ ] A test run end-to-end: pick `building-the-portfolio.mdx`, generate a LinkedIn draft + rendered preview, verify the preview HTML looks faithful to LinkedIn's actual rendering and uses the per-post OG image (not the homepage default).
 - [ ] Voice + AI-tell scrub: the new docs pass the same checks Jason's actual posts have to pass (no em-dashes, varied paragraph length, no buzzwords).
+- [ ] `pnpm typecheck && pnpm lint && pnpm build` all pass after the changes land.
 
 ---
 
@@ -341,14 +354,14 @@ Full source list in the brainstorming session transcript.
 
 ---
 
-## 12. Open questions for Jason's review
+## 12. Resolved questions (Jason's review, 2026-05-24)
 
-These are things I'm assuming but want explicit confirmation on:
+All four open questions have been answered:
 
-1. **Voice samples for VOICE.md.** Jason mentioned earlier he could add voice samples to VOICE.md. Should the WRITINGS.md workflow include "if you encounter a paragraph in your own draft that captures voice well, drop it as a sample in VOICE.md"? Or keep VOICE.md updates as a separate manual process?
+1. **Voice samples for VOICE.md** → YES. The workflow includes a step where paragraphs that capture Jason's voice well get copied into VOICE.md §4 as worked samples with a one-line context note. Folded into §3 §4 (Voice section of WRITINGS.md) and the post-intake skill's pre-commit checklist.
 
-2. **`_linkedin/` directory naming.** I've named it `_linkedin/` (underscore prefix for velite exclusion). Alternative: `linkedin-drafts/` outside `content/` entirely (e.g. `content/linkedin/` or top-level `linkedin/`). The underscore prefix matches existing patterns (`_drafts/`, `_intake.md`) which is why I chose it. Confirm this naming is fine.
+2. **`_linkedin/` directory naming** → CONFIRMED. Use `content/writing/_linkedin/` with the underscore prefix to match existing patterns (`_drafts/`, `_intake.md`).
 
-3. **Headshot for the LinkedIn preview template.** The preview template needs Jason's headshot. I'd use `public/headshot.png` (the file already on the site). Confirm there isn't a separate "professional LinkedIn-style headshot" Jason would rather use here.
+3. **Headshot for the LinkedIn preview template** → CONFIRMED `public/headshot.png`. Future-Jason can swap this when he has a higher-res or LinkedIn-specific headshot.
 
-4. **Per-post OG image priority.** This is an existing punch-list item, not technically blocking the writings workflow. But the LinkedIn cross-post benefits significantly from a real per-post image vs. the homepage default. Should the per-post OG image be built before this workflow ships, or can it follow as a Phase 2?
+4. **Per-post OG image priority** → PHASE 1. Built as part of this implementation, not deferred. Acceptance criteria (§10) and image-strategy section (§7.2) updated to reflect this.
