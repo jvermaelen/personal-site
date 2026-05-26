@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>LinkedIn Preview - {{POST_SLUG}}</title>
+<style>
+  /* LinkedIn-faithful styling.
+     Sources: LinkedIn web UI as of May 2026. */
+  :root {
+    --bg-page: #f4f2ee;
+    --bg-card: #ffffff;
+    --ink: rgba(0, 0, 0, 0.9);
+    --ink-soft: rgba(0, 0, 0, 0.6);
+    --ink-muted: rgba(0, 0, 0, 0.45);
+    --link: #0a66c2;
+    --border: #e0dfdc;
+    --shadow: 0 0 0 1px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.06);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg-page);
+    font-family: -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--ink);
+    padding: 24px;
+    line-height: 1.4;
+  }
+
+  .container {
+    max-width: 552px;
+    margin: 0 auto;
+  }
+
+  .toolbar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+  .toolbar button {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 6px 14px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 12px;
+    color: var(--ink);
+  }
+  .toolbar button.active {
+    background: var(--ink);
+    color: var(--bg-card);
+    border-color: var(--ink);
+  }
+  .toolbar .meta {
+    margin-left: auto;
+    color: var(--ink-muted);
+    align-self: center;
+  }
+
+  .post-card {
+    background: var(--bg-card);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+
+  .post-header {
+    padding: 12px 16px;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  .profile-img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--border);
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+  .profile-text { flex: 1; min-width: 0; }
+  .profile-name {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--ink);
+    line-height: 1.3;
+  }
+  .profile-headline {
+    font-size: 12px;
+    color: var(--ink-soft);
+    line-height: 1.3;
+    margin-top: 1px;
+  }
+  .post-time {
+    font-size: 12px;
+    color: var(--ink-muted);
+    margin-top: 2px;
+  }
+
+  .post-body {
+    padding: 0 16px 12px;
+    font-size: 14px;
+    color: var(--ink);
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+  .post-body .hashtag { color: var(--link); }
+  .post-body .see-more { color: var(--ink-soft); font-weight: 400; }
+
+  /* Mobile mode: hide content beyond 210 chars, show "...see more"
+     Desktop mode: hide content beyond 280 chars.
+     Default = desktop. Toggle via .mode-mobile on body. */
+  .post-body .truncated-mobile,
+  .post-body .truncated-desktop {
+    display: none;
+  }
+  body.mode-mobile .post-body .truncated-mobile { display: inline; }
+  body:not(.mode-mobile) .post-body .truncated-desktop { display: inline; }
+
+  body.mode-mobile .post-body .hidden-mobile { display: none; }
+  body:not(.mode-mobile) .post-body .hidden-desktop { display: none; }
+
+  .post-image-wrap {
+    width: 100%;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-page);
+  }
+  .post-image {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .engagement-counts {
+    padding: 8px 16px 4px;
+    display: flex;
+    gap: 4px;
+    font-size: 12px;
+    color: var(--ink-soft);
+    align-items: center;
+  }
+  .reaction-icons {
+    display: inline-flex;
+    margin-right: 4px;
+  }
+  .reaction-icons span {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: inline-block;
+    border: 2px solid var(--bg-card);
+    margin-left: -4px;
+  }
+  .reaction-icons span:first-child { margin-left: 0; background: var(--link); }
+  .reaction-icons span:nth-child(2) { background: #df704d; }
+  .reaction-icons span:nth-child(3) { background: #f5bb00; }
+
+  .engagement-bar {
+    padding: 4px 8px 8px;
+    display: flex;
+    gap: 4px;
+    border-top: 1px solid var(--border);
+    margin-top: 4px;
+  }
+  .engagement-bar button {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 13px;
+    color: var(--ink-soft);
+    font-family: inherit;
+    cursor: default;
+  }
+
+  .validation {
+    margin-top: 24px;
+    padding: 16px;
+    background: var(--bg-card);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 12px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .validation h2 {
+    margin: 0 0 12px;
+    font-size: 13px;
+    color: var(--ink);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .validation .pass { color: #0a8043; }
+  .validation .warn { color: #ce7000; }
+  .validation .fail { color: #b3261e; }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="toolbar">
+      <button class="active" onclick="document.body.classList.remove('mode-mobile')">Desktop</button>
+      <button onclick="document.body.classList.add('mode-mobile')">Mobile (210 char cutoff)</button>
+      <span class="meta">{{POST_SLUG}} - preview</span>
+    </div>
+
+    <div class="post-card">
+      <div class="post-header">
+        <img class="profile-img" src="{{PROFILE_IMAGE_PATH}}" alt="{{PROFILE_NAME}}" />
+        <div class="profile-text">
+          <div class="profile-name">{{PROFILE_NAME}}</div>
+          <div class="profile-headline">{{PROFILE_HEADLINE}}</div>
+          <div class="post-time">{{POST_TIME}} • 🌐</div>
+        </div>
+      </div>
+
+      <div class="post-body">{{POST_BODY_RENDERED}}</div>
+
+      <div class="post-image-wrap">
+        <img class="post-image" src="{{POST_IMAGE_PATH}}" alt="{{POST_IMAGE_ALT}}" />
+      </div>
+
+      <div class="engagement-counts">
+        <span class="reaction-icons"><span></span><span></span><span></span></span>
+        <span>0</span>
+      </div>
+
+      <div class="engagement-bar">
+        <button>👍 Like</button>
+        <button>💬 Comment</button>
+        <button>🔄 Repost</button>
+        <button>➤ Send</button>
+      </div>
+    </div>
+
+    <div class="validation">
+      <h2>Preview validation</h2>
+      <div>Character count: <span id="char-count">{{CHAR_COUNT}}</span> (sweet spot: 1,300-1,900)</div>
+      <div>Hook in first 210 chars: <span class="{{HOOK_PASS_CLASS}}">{{HOOK_PASS_TEXT}}</span></div>
+      <div>AI-tell scrub: <span class="{{AI_SCRUB_CLASS}}">{{AI_SCRUB_TEXT}}</span></div>
+      <div>Hashtag count: <span class="{{HASHTAG_PASS_CLASS}}">{{HASHTAG_COUNT}}</span> (target: 3-5)</div>
+      <div>Image attached: <span class="{{IMAGE_PASS_CLASS}}">{{IMAGE_PASS_TEXT}}</span></div>
+    </div>
+  </div>
+</body>
+</html>
