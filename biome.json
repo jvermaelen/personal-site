@@ -52,8 +52,7 @@
       "!**/pnpm-lock.yaml",
       "!**/public",
       "!**/*.mdx",
-      "!**/*.md",
-      "!**/docs/templates"
+      "!**/*.md"
     ]
   }
 }
