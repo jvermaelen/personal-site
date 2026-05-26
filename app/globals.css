@@ -257,7 +257,7 @@ a:hover {
 .contact-strip {
   background: var(--reverse-bg);
   color: var(--reverse-ink);
-  padding: 96px 0 80px;
+  padding: 56px 0 48px;
   /* Defense-in-depth: clip any horizontal overflow inside the strip so a long
      URL or chip can't push the page wider than the viewport. */
   overflow-x: clip;
@@ -3703,6 +3703,86 @@ h1.case-title em {
   color: var(--accent);
 }
 
+/* ============ HOME SECTIONS - Latest Writing + Selected Work (added 2026-05-26) ============ */
+
+/* Right-aligned CTA in section-head (replaces .meta when present) */
+.section-head .section-cta {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+  margin-left: auto;
+  transition: color 150ms ease, gap 150ms ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.section-head .section-cta:hover {
+  gap: 10px;
+}
+
+/* Home page posts (compressed for one or two rows max) */
+.home-posts .post {
+  padding: 24px 0;
+}
+
+/* Home sections sit between full-padded .section blocks (Highlights, NowBlock).
+   Cumulative padding would create huge gaps. Zero base padding here, with
+   adjacency overrides to control the gap between home-section and .section. */
+.home-section {
+  padding: 0;
+}
+
+/* Tighten the gap between a .home-section and an adjacent .section in either direction */
+.home-section + .section,
+.section + .home-section {
+  padding-top: 56px;
+}
+
+.home-section + .section {
+  padding-bottom: 56px;
+}
+
+/* The KPI section isn't a .section, so the adjacency rule above doesn't fire
+   for KPI → LatestWriting. Add explicit breathing room here. */
+.kpi-section + .home-section {
+  padding-top: 56px;
+}
+
+/* Selected work grid - 3 cols on desktop, 1 col on mobile.
+   Slightly tighter than /work index's 2-col grid since cards are smaller. */
+.selected-work-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 32px 0 0;
+}
+
+.selected-work-grid .card {
+  min-height: 340px;
+}
+
+.selected-work-grid .card-body h3 {
+  font-size: 17px;
+}
+
+.selected-work-grid .card-body .outcome {
+  font-size: 13px;
+}
+
+@media (max-width: 1000px) {
+  .selected-work-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .selected-work-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .tradeoff-row .v {
   font-family: var(--sans);
   font-size: 16px;
@@ -4203,4 +4283,80 @@ h1.post-h1 {
 
 .on-deck-empty p a:hover {
   text-decoration: underline;
+}
+
+/* ============ CASE BLUF (added 2026-05-26) ============ */
+.case-bluf {
+  padding: 32px 0 0;
+  background: var(--bg);
+}
+
+.case-bluf-inner {
+  padding: 28px 32px;
+  border: 1px solid var(--line);
+  background: color-mix(in oklab, var(--accent) 8%, var(--bg-elev));
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.case-bluf-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+}
+
+.case-bluf-value {
+  font-family: var(--mono);
+  font-size: clamp(40px, 5vw, 56px);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--accent);
+}
+
+.case-bluf-caption {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+/* ============ COVER LINE CHART VARIANTS (added 2026-05-26) ============ */
+/* Fig 1 (Salesforce, default line variant) - strip the area fill so it reads
+   as a thin line, visually distinct from Fig 3's filled area. */
+.cover-line-line .area {
+  fill: transparent;
+}
+
+/* Fig 3 (GTM, area variant) - strong fill, slightly darker line. Clearly
+   different visual treatment than Fig 1's bare line. */
+.cover-line-area .area {
+  fill: color-mix(in oklab, var(--accent) 55%, transparent);
+}
+
+.cover-line-area .line {
+  stroke-width: 1.5;
+  stroke: color-mix(in oklab, var(--accent) 88%, #000);
+}
+
+.cover-line-stepped .line {
+  stroke-width: 2;
+  stroke-linejoin: miter;
+}
+
+.cover-line-stepped .area {
+  fill: color-mix(in oklab, var(--accent) 14%, transparent);
+}
+
+.cover-line svg .axis-label {
+  font-family: var(--mono);
+  font-size: 5px;
+  fill: var(--muted-soft);
+  letter-spacing: 0.04em;
 }

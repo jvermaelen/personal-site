@@ -36,6 +36,13 @@ const work = defineCollection({
         )
         .min(2)
         .max(4),
+      headlineResult: s
+        .object({
+          value: s.string(),
+          label: s.string(),
+          caption: s.string().optional(),
+        })
+        .optional(),
       collaborators: s.array(s.string()).optional(),
       tools: s.array(s.string()).optional(),
       status: s.enum(['Live', 'Shipped', 'Sunset', 'Internal-only']).optional(),

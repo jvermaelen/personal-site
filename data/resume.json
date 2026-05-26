@@ -177,6 +177,20 @@
   ],
   "headlineMetrics": [
     {
+      "label": "hrs/yr returned via Salesforce automation",
+      "value": "1.5K",
+      "context": "Case assignment & resolution flows",
+      "company": "Indeed",
+      "year": 2024
+    },
+    {
+      "label": "daily global users of a dashboard I led",
+      "value": "100s",
+      "context": "Salesforce CRM Analytics, Scaled Business Solutions",
+      "company": "Indeed",
+      "year": 2024
+    },
+    {
       "label": "employer↔jobseeker connections driven",
       "value": "2M+",
       "context": "GTM optimization on new product launch",
@@ -189,20 +203,6 @@
       "context": "Sales/CS-led marketing promotion",
       "company": "Indeed",
       "year": 2023
-    },
-    {
-      "label": "daily global users of a dashboard I led",
-      "value": "100s",
-      "context": "Salesforce CRM Analytics, Scaled Business Solutions",
-      "company": "Indeed",
-      "year": 2024
-    },
-    {
-      "label": "hrs/yr returned via Salesforce automation",
-      "value": "1.5K",
-      "context": "Case assignment & resolution flows",
-      "company": "Indeed",
-      "year": 2024
     }
   ]
 }

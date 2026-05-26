@@ -10,7 +10,8 @@
       "kind": "line",
       "label": "Fig 1 · Cumulative hrs returned to the team",
       "kpi": { "value": "~1.5K", "small": "hrs/yr" },
-      "points": [[0, 46], [14, 41], [28, 33], [42, 24], [56, 18], [70, 13], [84, 8], [100, 4]]
+      "points": [[0, 46], [14, 41], [28, 33], [42, 24], [56, 18], [70, 13], [84, 8], [100, 4]],
+      "yLabel": "hrs returned"
     }
   },
   {
@@ -22,9 +23,11 @@
     "status": "live",
     "cover": {
       "kind": "line",
+      "variant": "stepped",
       "label": "Fig 2 · Daily active users",
       "kpi": { "value": "100s", "small": "DAU" },
-      "points": [[0, 42], [14, 38], [28, 30], [42, 22], [56, 14], [70, 10], [84, 8], [100, 6]]
+      "points": [[0, 42], [14, 38], [28, 30], [42, 22], [56, 14], [70, 10], [84, 8], [100, 6]],
+      "yLabel": "DAU"
     }
   },
   {
@@ -36,9 +39,11 @@
     "status": "live",
     "cover": {
       "kind": "line",
+      "variant": "area",
       "label": "Fig 3 · Cumulative connections",
       "kpi": { "value": "2M+", "small": "connections" },
-      "points": [[0, 46], [20, 42], [36, 34], [52, 22], [68, 12], [82, 7], [100, 4]]
+      "points": [[0, 46], [20, 42], [36, 34], [52, 22], [68, 12], [82, 7], [100, 4]],
+      "yLabel": "connections"
     }
   },
   {

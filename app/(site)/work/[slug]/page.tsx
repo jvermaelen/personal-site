@@ -144,6 +144,21 @@ export default async function CaseStudyPage({
         </div>
       </section>
 
+      {/* BLUF - headline result preview */}
+      {post.headlineResult && (
+        <section className="case-bluf" aria-label="Headline result">
+          <div className="container-narrow">
+            <div className="case-bluf-inner">
+              <span className="case-bluf-label">{post.headlineResult.label}</span>
+              <span className="case-bluf-value">{post.headlineResult.value}</span>
+              {post.headlineResult.caption && (
+                <span className="case-bluf-caption">{post.headlineResult.caption}</span>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* ── Body (view toggle + MDX) ──────────────────────────────────────── */}
       <CaseBody>
         <MDXContent components={MDX_COMPONENTS} />
