@@ -2,10 +2,13 @@ type Kpi = { value: string; small?: string };
 
 type CoverLine = {
   kind: 'line';
+  variant?: 'line' | 'stepped' | 'area';  // default 'line'
   label: string;
   kpi: Kpi;
   /** Series of [x, y] points on a 100×50 viewBox. */
   points: [number, number][];
+  /** Optional axis label shown top-left in monospace */
+  yLabel?: string;
 };
 
 type CoverBar = {
@@ -56,7 +59,24 @@ export function Cover(props: CoverProps) {
   }
 
   // Line variant
-  const linePath = props.points.map(([x, y], i) => `${i === 0 ? 'M' : 'L'}${x},${y}`).join(' ');
+  const variant = props.variant ?? 'line';
+
+  const buildLinePath = () => {
+    if (variant === 'stepped') {
+      // Stepped: horizontal then vertical at each point
+      let path = `M${props.points[0]?.[0] ?? 0},${props.points[0]?.[1] ?? 50}`;
+      for (let i = 1; i < props.points.length; i++) {
+        const [x, y] = props.points[i];
+        const prevY = props.points[i - 1][1];
+        path += ` L${x},${prevY} L${x},${y}`;
+      }
+      return path;
+    }
+    // 'line' and 'area' both use smooth line
+    return props.points.map(([x, y], i) => `${i === 0 ? 'M' : 'L'}${x},${y}`).join(' ');
+  };
+
+  const linePath = buildLinePath();
   const last = props.points[props.points.length - 1];
   const first = props.points[0];
   const areaPath = `${linePath} L${last?.[0] ?? 100},50 L${first?.[0] ?? 0},50 Z`;
@@ -64,7 +84,7 @@ export function Cover(props: CoverProps) {
   return (
     <div className="card-cover">
       <span className="cover-label">{props.label}</span>
-      <div className="cover-line" aria-hidden="true">
+      <div className={`cover-line cover-line-${variant}`} aria-hidden="true">
         <svg viewBox="0 0 100 50" preserveAspectRatio="none">
           <title>{props.label}</title>
           <line className="grid" x1="0" y1="12" x2="100" y2="12" />
@@ -72,8 +92,16 @@ export function Cover(props: CoverProps) {
           <line className="grid" x1="0" y1="38" x2="100" y2="38" />
           <path className="area" d={areaPath} />
           <path className="line" d={linePath} />
-          {first && <circle className="dot" cx={first[0]} cy={first[1]} r="1.6" />}
-          {last && <circle className="dot" cx={last[0]} cy={last[1]} r="1.6" />}
+          {variant !== 'area' && first && (
+            <circle className="dot" cx={first[0]} cy={first[1]} r="1.6" />
+          )}
+          {variant !== 'area' && last && (
+            <circle className="dot" cx={last[0]} cy={last[1]} r="1.6" />
+          )}
+          {props.yLabel && (
+            <text x="3" y="6" className="axis-label">{props.yLabel}</text>
+          )}
+          <text x="96" y="48" textAnchor="end" className="axis-label">t →</text>
         </svg>
       </div>
       <span className="cover-kpi">

@@ -4204,3 +4204,70 @@ h1.post-h1 {
 .on-deck-empty p a:hover {
   text-decoration: underline;
 }
+
+/* ============ CASE BLUF (added 2026-05-26) ============ */
+.case-bluf {
+  padding: 32px 0 0;
+  background: var(--bg);
+}
+
+.case-bluf-inner {
+  padding: 28px 32px;
+  border: 1px solid var(--line);
+  background: color-mix(in oklab, var(--accent) 8%, var(--bg-elev));
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.case-bluf-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+}
+
+.case-bluf-value {
+  font-family: var(--mono);
+  font-size: clamp(40px, 5vw, 56px);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--accent);
+}
+
+.case-bluf-caption {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+/* ============ COVER LINE CHART VARIANTS (added 2026-05-26) ============ */
+.cover-line-area .area {
+  fill: color-mix(in oklab, var(--accent) 28%, transparent);
+}
+
+.cover-line-area .line {
+  stroke-width: 1.5;
+}
+
+.cover-line-stepped .line {
+  stroke-width: 2;
+  stroke-linejoin: miter;
+}
+
+.cover-line-stepped .area {
+  fill: color-mix(in oklab, var(--accent) 14%, transparent);
+}
+
+.cover-line svg .axis-label {
+  font-family: var(--mono);
+  font-size: 5px;
+  fill: var(--muted-soft);
+  letter-spacing: 0.04em;
+}
