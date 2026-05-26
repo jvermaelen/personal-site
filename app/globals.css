@@ -257,7 +257,7 @@ a:hover {
 .contact-strip {
   background: var(--reverse-bg);
   color: var(--reverse-ink);
-  padding: 96px 0 80px;
+  padding: 56px 0 48px;
   /* Defense-in-depth: clip any horizontal overflow inside the strip so a long
      URL or chip can't push the page wider than the viewport. */
   overflow-x: clip;
@@ -3727,8 +3727,21 @@ h1.case-title em {
   padding: 24px 0;
 }
 
+/* Home sections sit between full-padded .section blocks (Highlights, NowBlock).
+   Cumulative padding would create huge gaps. Zero base padding here, with
+   adjacency overrides to control the gap between home-section and .section. */
 .home-section {
-  padding: 64px 0;
+  padding: 0;
+}
+
+/* Tighten the gap between a .home-section and an adjacent .section in either direction */
+.home-section + .section,
+.section + .home-section {
+  padding-top: 56px;
+}
+
+.home-section + .section {
+  padding-bottom: 56px;
 }
 
 /* Selected work grid - 3 cols on desktop, 1 col on mobile.
@@ -4309,12 +4322,21 @@ h1.post-h1 {
 }
 
 /* ============ COVER LINE CHART VARIANTS (added 2026-05-26) ============ */
+/* Fig 1 (Salesforce, default line variant) - strip the area fill so it reads
+   as a thin line, visually distinct from Fig 3's filled area. */
+.cover-line-line .area {
+  fill: transparent;
+}
+
+/* Fig 3 (GTM, area variant) - strong fill, slightly darker line. Clearly
+   different visual treatment than Fig 1's bare line. */
 .cover-line-area .area {
-  fill: color-mix(in oklab, var(--accent) 28%, transparent);
+  fill: color-mix(in oklab, var(--accent) 55%, transparent);
 }
 
 .cover-line-area .line {
   stroke-width: 1.5;
+  stroke: color-mix(in oklab, var(--accent) 88%, #000);
 }
 
 .cover-line-stepped .line {
