@@ -49,6 +49,7 @@
       "!**/dist",
       "!**/build",
       "!**/design-reference",
+      "!**/docs/templates",
       "!**/pnpm-lock.yaml",
       "!**/public",
       "!**/*.mdx",
