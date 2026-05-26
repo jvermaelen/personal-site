@@ -138,7 +138,7 @@ export default async function OpenGraphImage({
           letterSpacing: 1,
         }}
       >
-        <div style={{ display: 'flex' }}>{displayDate}</div>
+        <div style={{ display: 'flex' }}>Published on - {displayDate}</div>
         <div style={{ display: 'flex' }}>Jason Vermaelen</div>
       </div>
     </div>,
