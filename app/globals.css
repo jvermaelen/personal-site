@@ -3703,6 +3703,67 @@ h1.case-title em {
   color: var(--accent);
 }
 
+/* ============ HOME SECTIONS - Latest Writing + Selected Work (added 2026-05-26) ============ */
+
+/* Right-aligned CTA in section-head (replaces .meta when present) */
+.section-head .section-cta {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+  margin-left: auto;
+  transition: color 150ms ease, gap 150ms ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.section-head .section-cta:hover {
+  gap: 10px;
+}
+
+/* Home page posts (compressed for one or two rows max) */
+.home-posts .post {
+  padding: 24px 0;
+}
+
+.home-section {
+  padding: 64px 0;
+}
+
+/* Selected work grid - 3 cols on desktop, 1 col on mobile.
+   Slightly tighter than /work index's 2-col grid since cards are smaller. */
+.selected-work-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 32px 0 0;
+}
+
+.selected-work-grid .card {
+  min-height: 340px;
+}
+
+.selected-work-grid .card-body h3 {
+  font-size: 17px;
+}
+
+.selected-work-grid .card-body .outcome {
+  font-size: 13px;
+}
+
+@media (max-width: 1000px) {
+  .selected-work-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .selected-work-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .tradeoff-row .v {
   font-family: var(--sans);
   font-size: 16px;

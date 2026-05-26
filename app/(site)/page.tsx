@@ -1,7 +1,9 @@
 import { Hero } from '@/components/home/Hero';
 import { Highlights } from '@/components/home/Highlights';
 import { KPIStrip } from '@/components/home/KPIStrip';
+import { LatestWriting } from '@/components/home/LatestWriting';
 import { NowBlock } from '@/components/home/NowBlock';
+import { SelectedWork } from '@/components/home/SelectedWork';
 import { ContactStrip } from '@/components/ui/ContactStrip';
 
 export default function HomePage() {
@@ -9,7 +11,9 @@ export default function HomePage() {
     <>
       <Hero />
       <KPIStrip />
+      <LatestWriting />
       <Highlights />
+      <SelectedWork />
       <NowBlock />
 
       <ContactStrip
