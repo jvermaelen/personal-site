@@ -50,6 +50,7 @@
       "!**/build",
       "!**/design-reference",
       "!**/docs/templates",
+      "!**/_linkedin",
       "!**/pnpm-lock.yaml",
       "!**/public",
       "!**/*.mdx",
