@@ -17,7 +17,7 @@ export const SITE = {
   calDisplay: 'app.cal.com/jason-vermaelen',
   repo: 'https://github.com/jvermaelen/personal-site',
   resumePath: '/resume.pdf',
-  resumeFilename: 'Jason_Vermaelen_Resume.pdf',
+  resumeFilename: 'jason-vermaelen-senior-bi-analyst-resume.pdf',
   resumeMeta: '82 KB · updated May 2026',
   location: 'Austin, TX',
   copyright: '© Jason Vermaelen · Austin, TX · 2026',

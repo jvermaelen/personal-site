@@ -1,9 +1,18 @@
-import { SITE } from '@/lib/constants';
+import Link from 'next/link';
+import { NAV_LINKS, SITE } from '@/lib/constants';
 
 export function Footer() {
   return (
     <footer className="footer">
       <div className="container">
+        <nav className="footer-nav" aria-label="Footer">
+          <Link href="/">home</Link>
+          {NAV_LINKS.map((link) => (
+            <Link key={link.href} href={link.href}>
+              {link.label}
+            </Link>
+          ))}
+        </nav>
         <div className="footer-row">
           <div>{SITE.copyright}</div>
           <div className="mid">

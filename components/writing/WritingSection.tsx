@@ -65,10 +65,8 @@ export function WritingSection() {
               ✎
             </span>
             <p className="body">
-              <strong>Most posts are still being written.</strong> The first build log is at the top
-              of the list; the rest are scaffolded titles I&apos;m working through. Subscribing
-              isn&apos;t a thing here (yet) - bookmark the RSS once it&apos;s published, or just
-              email me what you&apos;d want to read first.
+              <strong>More posts coming soon.</strong> The first build log is live; the rest are in
+              the writing pile.
             </p>
             <a className="cta" href={`mailto:${SITE.email}?subject=Topic%20request`}>
               <span>Suggest a topic</span>

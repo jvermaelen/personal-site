@@ -272,7 +272,7 @@ a:hover {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.18em;
-  color: color-mix(in oklab, var(--reverse-ink) 55%, var(--reverse-bg));
+  color: color-mix(in oklab, var(--reverse-ink) 70%, var(--reverse-bg));
   margin-bottom: 28px;
   display: flex;
   align-items: center;
@@ -338,7 +338,7 @@ a:hover {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.16em;
-  color: color-mix(in oklab, var(--reverse-ink) 55%, var(--reverse-bg));
+  color: color-mix(in oklab, var(--reverse-ink) 70%, var(--reverse-bg));
 }
 
 .best-topics .list {
@@ -426,7 +426,7 @@ a:hover {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.18em;
-  color: color-mix(in oklab, var(--reverse-ink) 55%, var(--reverse-bg));
+  color: color-mix(in oklab, var(--reverse-ink) 70%, var(--reverse-bg));
   padding-bottom: 10px;
 }
 
@@ -464,7 +464,7 @@ a:hover {
 }
 
 .contact-item .k {
-  color: color-mix(in oklab, var(--reverse-ink) 55%, var(--reverse-bg));
+  color: color-mix(in oklab, var(--reverse-ink) 70%, var(--reverse-bg));
   text-transform: uppercase;
   letter-spacing: 0.12em;
   font-size: 11px;
@@ -484,7 +484,7 @@ a:hover {
 .contact-item .v .label-sub {
   font-family: var(--mono);
   font-size: 11px;
-  color: color-mix(in oklab, var(--reverse-ink) 55%, var(--reverse-bg));
+  color: color-mix(in oklab, var(--reverse-ink) 70%, var(--reverse-bg));
 }
 
 .contact-item .a {
@@ -4142,4 +4142,65 @@ h1.post-h1 {
   color: var(--muted);
   font-style: normal;
   letter-spacing: 0.04em;
+}
+
+/* ============ FOOTER NAV (added 2026-05-26) ============ */
+.footer-nav {
+  display: flex;
+  gap: 26px;
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted);
+  flex-wrap: wrap;
+  letter-spacing: 0.02em;
+}
+
+.footer-nav a {
+  color: var(--muted);
+  transition: color 150ms ease;
+}
+
+.footer-nav a:hover {
+  color: var(--ink);
+}
+
+@media (max-width: 640px) {
+  .footer-nav {
+    gap: 14px;
+    font-size: 11px;
+  }
+}
+
+/* ============ ON DECK EMPTY STATE (added 2026-05-26) ============ */
+.on-deck-empty {
+  padding: 32px 28px;
+  border: 1px dashed var(--line-strong);
+  border-radius: 12px;
+  background: color-mix(in oklab, var(--accent) 4%, var(--bg-elev));
+  text-align: center;
+}
+
+.on-deck-empty p {
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  margin: 0;
+  text-wrap: pretty;
+}
+
+.on-deck-empty p strong {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.on-deck-empty p a {
+  color: var(--accent);
+}
+
+.on-deck-empty p a:hover {
+  text-decoration: underline;
 }

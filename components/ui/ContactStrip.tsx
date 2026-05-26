@@ -112,7 +112,7 @@ export function ContactStrip({
           </a>
 
           {isHero && (
-            <a href={SITE.resumePath} className="contact-item" download>
+            <a href={SITE.resumePath} className="contact-item" download={SITE.resumeFilename}>
               <span className="k">Resume</span>
               <span className="v">
                 <span>{SITE.resumeFilename}</span>

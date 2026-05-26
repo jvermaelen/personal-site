@@ -9,9 +9,10 @@ import { getCurrentRole } from '@/lib/resume';
  *
  * If this copy ever changes, update PRD §4 to keep them aligned.
  */
-const HERO_PITCH_PREFIX =
-  "The data partner Product, Sales, and Marketing actually want in the room. I've owned feature prioritization, GTM strategy, and performance analysis - and ";
-const HERO_PITCH_ACCENT = 'I ship the right decisions, not just more features.';
+const HERO_PITCH_PREFIX = 'Most analysts get the meeting invite after the decision is made. ';
+const HERO_PITCH_ACCENT = 'I get pulled in before.';
+const HERO_PITCH_CONTINUATION =
+  ' Eight years at Indeed and Talroo, sitting with Product, Sales, and Marketing. Running the math on the call that actually matters.';
 
 export function Hero() {
   const role = getCurrentRole();
@@ -36,11 +37,11 @@ export function Hero() {
             <p className="pitch">
               {HERO_PITCH_PREFIX}
               <em>{HERO_PITCH_ACCENT}</em>
+              {HERO_PITCH_CONTINUATION}
             </p>
             <div className="ctas">
               <a href={SITE.cal} className="btn primary" target="_blank" rel="noopener noreferrer">
                 <span>Schedule a call</span>
-                <span className="arrow">→</span>
               </a>
               <a href={`mailto:${SITE.email}`} className="btn ghost email">
                 <span>Email</span>
