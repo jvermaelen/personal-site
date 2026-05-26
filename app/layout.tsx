@@ -10,15 +10,21 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 /**
- * metadataBase prefers the Vercel deploy URL while the custom domain isn't
- * pointing at the site yet. Once jasonvermaelen.com is wired up in Vercel,
- * VERCEL_URL on production deploys will resolve to the custom domain, so this
- * single line handles preview + production cleanly. Local dev falls back to
- * the canonical URL (OG previews aren't tested locally anyway).
+ * metadataBase resolution:
+ * - Production: always use the canonical custom domain. VERCEL_URL on production
+ *   resolves to the deployment-specific alias (e.g. personal-site-xxxxx.vercel.app)
+ *   which is 401-protected for non-bypassed callers. LinkedIn / Twitter / etc.
+ *   need the public custom domain to actually fetch the OG image.
+ * - Preview deploys: use VERCEL_URL (the preview deployment URL). Acceptable
+ *   here because preview shares are typically tested by Jason directly.
+ * - Local dev: fall back to the canonical URL (OG previews aren't tested locally).
  */
-const SITE_URL = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : 'https://jasonvermaelen.com';
+const SITE_URL =
+  process.env.VERCEL_ENV === 'production'
+    ? 'https://jasonvermaelen.com'
+    : process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : 'https://jasonvermaelen.com';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
