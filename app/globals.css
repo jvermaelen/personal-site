@@ -3728,17 +3728,17 @@ h1.case-title em {
 /* Tighten the gap between a .home-section and an adjacent .section in either direction */
 .home-section + .section,
 .section + .home-section {
-  padding-top: 56px;
+  padding-top: 88px;
 }
 
 .home-section + .section {
-  padding-bottom: 56px;
+  padding-bottom: 88px;
 }
 
 /* The KPI section isn't a .section, so the adjacency rule above doesn't fire
    for KPI → LatestWriting. Add explicit breathing room here. */
 .kpi-section + .home-section {
-  padding-top: 56px;
+  padding-top: 88px;
 }
 
 /* Selected work grid - 3 cols on desktop, 1 col on mobile.

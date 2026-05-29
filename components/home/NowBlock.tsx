@@ -15,7 +15,7 @@ import { SpotifyRecent } from '@/components/now/SpotifyRecent';
  */
 export function NowBlock() {
   return (
-    <section className="section" id="now" style={{ paddingTop: 0 }}>
+    <section className="section" id="now">
       <div className="container">
         <div className="section-head">
           <h2>§ Currently</h2>
