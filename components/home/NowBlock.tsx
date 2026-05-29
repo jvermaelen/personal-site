@@ -1,19 +1,18 @@
 import Link from 'next/link';
+import { ReadingCard } from '@/components/now/ReadingCard';
+import { SpotifyRecent } from '@/components/now/SpotifyRecent';
 
 /**
- * Now block - Homepage excerpt of /now. Content is hardcoded here for v1.
- * When /now ships (Day 7+), extract the paragraph + side items into
- * content/now.mdx and read from there.
+ * Now block - Homepage teaser for /now.
+ *
+ * Right column hosts two live cards (compact music card + currently-reading)
+ * so the homepage gets visual texture + a liveness signal ("synced Xm ago")
+ * without duplicating the full /now sidebar. The "read the full Now page →"
+ * link is still the primary CTA to send recruiters deeper.
+ *
+ * Stack details (SQL / Snowflake / etc.) are woven into the paragraph so the
+ * right column can be all-visual.
  */
-
-const SIDE_ITEMS = [
-  { k: 'Role', v: 'Sr. BI Analyst' },
-  { k: 'Location', v: 'Austin, TX' },
-  { k: 'Stack', v: 'SQL · Snowflake · Python · SFDC · Metabase' },
-  { k: 'Training', v: 'BJJ · black belt since 2020' },
-  { k: 'Listening', v: 'music discovery is a hobby - Spotify feed live on /now' },
-] as const;
-
 export function NowBlock() {
   return (
     <section className="section" id="now" style={{ paddingTop: 0 }}>
@@ -31,24 +30,19 @@ export function NowBlock() {
               <span>/now</span>
             </div>
             <p>
-              <strong>Senior BI Analyst at Indeed</strong>, working on Salesforce CRM Analytics.
-              Pursuing an <strong>MS in Data Analytics</strong> at WGU. Training jiu-jitsu at{' '}
-              <strong>Paragon BJJ</strong> in Austin. Reading more, shipping more, looking for
-              what&apos;s next.
+              <strong>Senior BI Analyst at Indeed</strong>, on Salesforce CRM Analytics. Day-to-day
+              in <strong>SQL · Snowflake · Python · SFDC · Metabase</strong>. Pursuing an{' '}
+              <strong>MS in Data Analytics</strong> at WGU. Training jiu-jitsu at{' '}
+              <strong>Paragon BJJ</strong>. Reading more, shipping more, looking for what&apos;s
+              next.
             </p>
             <Link href="/now" className="read-more">
               read the full Now page <span>→</span>
             </Link>
           </div>
           <div className="now-block-side">
-            <div className="stack">
-              {SIDE_ITEMS.map((item) => (
-                <div key={item.k} className="item">
-                  <span className="k">{item.k}</span>
-                  <span className="v">{item.v}</span>
-                </div>
-              ))}
-            </div>
+            <SpotifyRecent limit={2} />
+            <ReadingCard />
           </div>
         </div>
       </div>

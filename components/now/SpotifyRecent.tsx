@@ -35,10 +35,15 @@ function formatSyncedAgo(fetchedAtIso: string, nowMs = Date.now()): string {
   return `synced ${diffHr}h ago`;
 }
 
-export async function SpotifyRecent() {
+type SpotifyRecentProps = {
+  /** Max tracks to render. Defaults to 5 (the full /now card). Use 2 for the homepage teaser. */
+  limit?: number;
+};
+
+export async function SpotifyRecent({ limit = 5 }: SpotifyRecentProps = {}) {
   const data = await getRecentlyPlayed();
   const isLive = data.source === 'live' && data.tracks.length > 0;
-  const tracks = isLive ? data.tracks : FALLBACK_TRACKS;
+  const tracks = (isLive ? data.tracks : FALLBACK_TRACKS).slice(0, limit);
   const liveLabel = isLive ? formatSyncedAgo(data.fetchedAt) : 'from the playlist';
   const footLabel = isLive ? 'via Spotify Web API' : 'curated · live feed reconnecting';
 

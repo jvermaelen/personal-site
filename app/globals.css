@@ -1010,32 +1010,9 @@ a.hl:hover .hl-body {
 .now-block-side {
   border-left: 1px solid var(--line);
   padding-left: 32px;
-}
-
-.now-block-side .stack {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-}
-
-.now-block-side .item {
-  display: grid;
-  grid-template-columns: 90px 1fr;
   gap: 16px;
-  font-family: var(--mono);
-  font-size: 12px;
-}
-
-.now-block-side .item .k {
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 10px;
-  padding-top: 2px;
-}
-
-.now-block-side .item .v {
-  color: var(--ink-soft);
 }
 
 @media (max-width: 800px) {
