@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "stamp": "/ build log",
+    "what": "A live SQL playground for a public dataset.",
+    "why": "A queryable, embeddable demo running on BLS data. The case-study-shaped side project I'm building for the portfolio itself."
+  },
+  {
+    "stamp": "/ essay",
+    "what": "BI to PM, without dropping the SQL.",
+    "why": "Notes from a two-year stretch on the product strategy side. What transferred, what didn't, and what I'd tell a senior analyst eyeing the same move."
+  }
+]
