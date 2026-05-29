@@ -2562,6 +2562,13 @@ h1.page-title .accent {
   color: var(--muted-soft);
   text-transform: uppercase;
   letter-spacing: 0.04em;
+  flex-shrink: 0;
+}
+
+.track-art-img {
+  background-image: none;
+  object-fit: cover;
+  display: block;
 }
 
 .track-meta {
@@ -2634,6 +2641,13 @@ h1.page-title .accent {
   );
   border: 1px solid var(--line-strong);
   border-radius: 3px;
+}
+
+.reading-cover-img {
+  background-image: none;
+  object-fit: cover;
+  height: auto;
+  display: block;
 }
 
 .reading-card .label {

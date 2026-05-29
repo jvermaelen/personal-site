@@ -51,9 +51,21 @@ export async function SpotifyRecent() {
       <ol className="track-list">
         {tracks.map((track) => (
           <li key={track.id} className="track">
-            <div className="track-art" aria-hidden="true">
-              art
-            </div>
+            {track.artworkUrl ? (
+              // biome-ignore lint/performance/noImgElement: 44px Spotify CDN thumbnails, optimization not worth next/image remote-pattern config
+              <img
+                className="track-art track-art-img"
+                src={track.artworkUrl}
+                alt=""
+                width={44}
+                height={44}
+                loading="lazy"
+              />
+            ) : (
+              <div className="track-art" aria-hidden="true">
+                art
+              </div>
+            )}
             <div className="track-meta">
               <div className="track-title">{track.title}</div>
               <div className="track-artist">{track.artist}</div>
