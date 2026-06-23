@@ -43,7 +43,78 @@ And remember, that's the minimum. Because the pool is fixed, every stream I capt
 
 The cleanest way to understand "1.28% of all Spotify listening, every day" is to see how it compares to songs that actually do hit those numbers.
 
-{/* CHART GOES HERE */}
+<svg viewBox="0 0 800 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bar chart comparing estimated peak monthly Spotify royalties for top 2025 songs against the $1M target" style={{width: '100%', height: 'auto', maxWidth: '100%', margin: '1.5rem 0'}}>
+  <title>Estimated peak monthly Spotify royalties: top 2025 songs vs $1M target</title>
+
+  <g>
+    <text x="210" y="70" textAnchor="end" fontFamily="system-ui, sans-serif" fontSize="13" fill="var(--ink)" fontWeight="500">Die With A Smile</text>
+    <text x="210" y="85" textAnchor="end" fontFamily="system-ui, sans-serif" fontSize="11" fill="var(--ink-soft)">Lady Gaga & Bruno Mars</text>
+    <rect x="220" y="57" width="466" height="32" fill="var(--accent)" rx="2"/>
+    <text x="694" y="78" fontFamily="system-ui, sans-serif" fontSize="12" fill="var(--ink-soft)">$1.94M</text>
+  </g>
+
+  <g>
+    <text x="210" y="112" textAnchor="end" fontFamily="system-ui, sans-serif" fontSize="13" fill="var(--ink)" fontWeight="500">Ordinary</text>
+    <text x="210" y="127" textAnchor="end" fontFamily="system-ui, sans-serif" fontSize="11" fill="var(--ink-soft)">Alex Warren</text>
+    <rect x="220" y="99" width="324" height="32" fill="var(--accent)" rx="2"/>
+    <text x="552" y="120" fontFamily="system-ui, sans-serif" fontSize="12" fill="var(--ink-soft)">$1.35M</text>
+  </g>
+
+  <g>
+    <text x="210" y="154" textAnchor="end" fontFamily="system-ui, sans-serif" fontSize="13" fill="var(--ink)" fontWeight="500">DtMF</text>
+    <text x="210" y="169" textAnchor="end" fontFamily="system-ui, sans-serif" fontSize="11" fill="var(--ink-soft)">Bad Bunny</text>
+    <rect x="220" y="141" width="319" height="32" fill="var(--accent)" rx="2"/>
+    <text x="547" y="162" fontFamily="system-ui, sans-serif" fontSize="12" fill="var(--ink-soft)">$1.33M</text>
+  </g>
+
+  <g>
+    <text x="210" y="196" textAnchor="end" fontFamily="system-ui, sans-serif" fontSize="13" fill="var(--ink)" fontWeight="500">Golden</text>
+    <text x="210" y="211" textAnchor="end" fontFamily="system-ui, sans-serif" fontSize="11" fill="var(--ink-soft)">HUNTR/X (KPop Demon Hunters)</text>
+    <rect x="220" y="183" width="293" height="32" fill="var(--accent)" rx="2"/>
+    <text x="521" y="204" fontFamily="system-ui, sans-serif" fontSize="12" fill="var(--ink-soft)">$1.22M</text>
+  </g>
+
+  <g>
+    <text x="210" y="238" textAnchor="end" fontFamily="system-ui, sans-serif" fontSize="13" fill="var(--ink)" fontWeight="600">Your song (target)</text>
+    <text x="210" y="253" textAnchor="end" fontFamily="system-ui, sans-serif" fontSize="11" fill="var(--ink-soft)">the bar to clear</text>
+    <rect x="220" y="225" width="240" height="32" fill="none" stroke="var(--accent)" strokeWidth="2" strokeDasharray="4 3" rx="2"/>
+    <text x="468" y="246" fontFamily="system-ui, sans-serif" fontSize="12" fill="var(--ink-soft)">$1.00M</text>
+  </g>
+
+  <g>
+    <text x="210" y="280" textAnchor="end" fontFamily="system-ui, sans-serif" fontSize="13" fill="var(--ink)" fontWeight="500">Manchild</text>
+    <text x="210" y="295" textAnchor="end" fontFamily="system-ui, sans-serif" fontSize="11" fill="var(--ink-soft)">Sabrina Carpenter</text>
+    <rect x="220" y="267" width="165" height="32" fill="var(--accent)" rx="2"/>
+    <text x="393" y="288" fontFamily="system-ui, sans-serif" fontSize="12" fill="var(--ink-soft)">$687K</text>
+  </g>
+
+  <g>
+    <text x="210" y="322" textAnchor="end" fontFamily="system-ui, sans-serif" fontSize="13" fill="var(--ink)" fontWeight="500">undressed</text>
+    <text x="210" y="337" textAnchor="end" fontFamily="system-ui, sans-serif" fontSize="11" fill="var(--ink-soft)">sombr</text>
+    <rect x="220" y="309" width="157" height="32" fill="var(--accent)" rx="2"/>
+    <text x="385" y="330" fontFamily="system-ui, sans-serif" fontSize="12" fill="var(--ink-soft)">$656K</text>
+  </g>
+
+  <g>
+    <text x="210" y="364" textAnchor="end" fontFamily="system-ui, sans-serif" fontSize="13" fill="var(--ink)" fontWeight="500">Right Back to It</text>
+    <text x="210" y="379" textAnchor="end" fontFamily="system-ui, sans-serif" fontSize="11" fill="var(--ink-soft)">MJ Lenderman</text>
+    <rect x="220" y="351" width="2" height="32" fill="var(--accent)"/>
+    <text x="228" y="372" fontFamily="system-ui, sans-serif" fontSize="12" fill="var(--ink-soft)">~$8K</text>
+  </g>
+
+  <line x1="460" y1="40" x2="460" y2="400" stroke="#d97706" strokeWidth="2" strokeDasharray="6 4"/>
+  <text x="465" y="36" fontFamily="system-ui, sans-serif" fontSize="11" fill="#d97706" fontWeight="500">$1M / month target</text>
+
+  <line x1="220" y1="400" x2="700" y2="400" stroke="var(--ink-soft)" strokeWidth="1" opacity="0.5"/>
+
+  <text x="220" y="420" fontFamily="system-ui, sans-serif" fontSize="11" fill="var(--ink-soft)">$0</text>
+  <text x="340" y="420" textAnchor="middle" fontFamily="system-ui, sans-serif" fontSize="11" fill="var(--ink-soft)">$500K</text>
+  <text x="460" y="420" textAnchor="middle" fontFamily="system-ui, sans-serif" fontSize="11" fill="var(--ink-soft)">$1M</text>
+  <text x="580" y="420" textAnchor="middle" fontFamily="system-ui, sans-serif" fontSize="11" fill="var(--ink-soft)">$1.5M</text>
+  <text x="700" y="420" textAnchor="end" fontFamily="system-ui, sans-serif" fontSize="11" fill="var(--ink-soft)">$2M</text>
+
+  <text x="460" y="445" textAnchor="middle" fontFamily="system-ui, sans-serif" fontSize="11" fill="var(--ink-soft)" fontStyle="italic">Estimated peak monthly royalties</text>
+</svg>
 
 (Annual stream counts via kworb.net; monthly figures estimated as roughly 20% of annual streams, which approximates peak-month behavior for top tracks.)
 
